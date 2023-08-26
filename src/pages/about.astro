@@ -1,0 +1,116 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+import ContactCTA from '../components/ContactCTA.astro';
+import Hero from '../components/Hero.astro';
+---
+
+<BaseLayout title="Über mich | Paul Dresch" description="Über mich | Paul Dresch">
+	<div class="stack gap-20">
+		<main class="wrapper about">
+			<Hero
+				title="Über mich"
+				tagline="Erfahren Sie mehr über meine Fähigkeiten, Interessen und wie Sie mich kontaktieren können."
+			>
+				<img
+					width="1553"
+					height="873"
+					src="/assets/blog-placeholder-about.jpg"
+					alt="Über mich Platzhalter"
+				/>
+			</Hero>
+
+			<section>
+				<h2 class="section-title">Fähigkeiten 💼</h2>
+				<div class="content">
+					<p>
+						<ul>
+							<li><strong>Systemadministration:</strong> 💻 Ich habe Erfahrung im Verwalten und Warten von Servern in meinem Homelab, einschließlich eines Supermicro, eines Dell R320, eines Synology RS214 und eines Mikrotik-Smart-Switches.</li>
+							<li><strong>Homelab-Management:</strong> 🛠️ Ich probiere gerne neue Anwendungen aus und experimentiere mit verschiedenen Setups in meinem Homelab.</li>
+							<li><strong>Server-Wartung:</strong> 🖥️ Ich bin vertraut mit gängigen Server-Wartungsaufgaben wie Hardware- und Firmware-Upgrades, Backup-Management und Fehlerbehebung.</li>
+							<li><strong>Netzwerk-Management:</strong> 🌐 Ich habe Erfahrung in der Konfiguration und Verwaltung von Netzwerkgeräten wie Switches und Routern.</li>
+						</ul>
+				</div>
+			</section>
+			<section>
+				<h2 class="section-title">Interessen 🌟</h2>
+				<div class="content">
+					<p>
+						<ul>
+							<li><strong>Technologie:</strong> 🚀 Ich bin von allem fasziniert, was mit Technologie zu tun hat, und liebe es, auf dem neuesten Stand der Trends und Fortschritte zu bleiben.</li>
+							<li><strong>Cybersicherheit:</strong> 🔒 Ich interessiere mich für das Feld der Cybersicherheit und lerne gerne über neue Bedrohungen und Möglichkeiten, online sicher zu bleiben.</li>
+							<li><strong>Homelab-Experimente:</strong> 🔧 Ich liebe es, an meinem Homelab herumzubasteln und neue Anwendungen und Setups auszuprobieren.</li>
+							<li><strong>Neue Fähigkeiten lernen:</strong> 📚 Ich suche immer nach Möglichkeiten, neue Dinge zu lernen und mein Wissen zu erweitern.</li>
+						</ul>
+					</p>
+				</div>
+			</section>
+			<section>
+				<h2 class="section-title">Kontakt 📬</h2>
+				<div class="content">
+					<p>Vielen Dank, dass Sie sich die Zeit genommen haben, über mich zu lesen! Wenn Sie Fragen haben oder ein Projekt besprechen möchten, können Sie mich gerne unter <a href="mailto:hugo@cloud-tunnel.net">hugo@cloud-tunnel.net</a> kontaktieren. Sie können auch einige meiner Projekte auf <a href="https://github.com/Paul1404">GitHub</a> ansehen. 🌐</p>
+				</div>
+			</section>
+		</main>
+
+		<ContactCTA />
+	</div>
+</BaseLayout>
+
+<style>
+	.about {
+		display: flex;
+		flex-direction: column;
+		gap: 3.5rem;
+	}
+
+	img {
+		margin-top: 1.5rem;
+		border-radius: 1.5rem;
+		box-shadow: var(--shadow-md);
+	}
+
+	section {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		color: var(--gray-200);
+	}
+
+	.section-title {
+		grid-column-start: 1;
+		font-size: var(--text-xl);
+		color: var(--gray-0);
+	}
+
+	.content {
+		grid-column: 2 / 4;
+	}
+
+	.content :global(a) {
+		text-decoration: 1px solid underline transparent;
+		text-underline-offset: 0.25em;
+		transition: text-decoration-color var(--theme-transition);
+	}
+
+	.content :global(a:hover),
+	.content :global(a:focus) {
+		text-decoration-color: currentColor;
+	}
+
+	@media (min-width: 50em) {
+		.about {
+			display: grid;
+			grid-template-columns: 1fr 60% 1fr;
+		}
+
+		.about > :global(:first-child) {
+			grid-column-start: 2;
+		}
+
+		section {
+			display: contents;
+			font-size: var(--text-lg);
+		}
+	}
+</style>
