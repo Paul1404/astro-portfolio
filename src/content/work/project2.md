@@ -1,7 +1,7 @@
 ---
 title: "Projekt 2: Der eigene Mail-Server 📧"
 publishDate: 2020-03-02 00:00:00
-img: /assets/mailcow-banner.png
+img: /assets/mailcow-banner.webp
 img_alt: Mailcow Banner
 description: |
   Ich habe vor Kurzem eine spannende Reise in die Welt der selbst gehosteten E-Mail-Server unternommen.

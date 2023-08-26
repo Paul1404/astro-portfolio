@@ -1,7 +1,7 @@
 ---
 title: "Projekt 4: Sicherheit mit Bitwarden 🔐"
 publishDate: 2020-03-04 00:00:00
-img: /assets/bitwarden.png
+img: /assets/bitwarden.webp
 img_alt: Bitwarden Banner
 description: |
   Implementierung eines selbstgehosteten Passwordmanagers

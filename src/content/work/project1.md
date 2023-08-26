@@ -1,7 +1,7 @@
 ---
 title: "Projekt 1: Web-Apps sichern mit Authelia 🔒"
 publishDate: 2023-08-25 00:00:00
-img: /assets/stock-4.png
+img: /assets/authelia.webp
 img_alt: A visual representation of Authelia's two-factor authentication
 description: |
   Ich habe Authelia in einem Docker-Container bereitgestellt.

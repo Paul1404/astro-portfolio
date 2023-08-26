@@ -1,7 +1,7 @@
 ---
 title: "Projekt 3: Konfiguration der OPNsense Firewall 🔥"
 publishDate: 2019-10-02 00:00:00
-img: /assets/opnsense.png
+img: /assets/opnsense.webp
 img_alt: OPNSense Banner
 description: |
   Implementierung der OPNSense Firewall
