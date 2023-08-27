@@ -1,9 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-
 import ContactCTA from '../components/ContactCTA.astro';
 import Hero from '../components/Hero.astro';
 ---
+
+
+<script type="module" src="https://unpkg.com/@splinetool/viewer@0.9.429/build/spline-viewer.js"></script>
 
 <BaseLayout title="Über mich | Paul Dresch" description="Über mich | Paul Dresch">
 	<div class="stack gap-20">
@@ -12,12 +14,9 @@ import Hero from '../components/Hero.astro';
 				title="Über mich"
 				tagline="Erfahren Sie mehr über meine Fähigkeiten, Interessen und wie Sie mich kontaktieren können."
 			>
-				<img
-					width="1553"
-					height="873"
-					src="/assets/blog-placeholder-about.webp"
-					alt="Über mich Platzhalter"
-				/>
+			<div class="spline-wrapper">
+				<spline-viewer hint loading-anim url="https://prod.spline.design/XtevodxRN80psUHO/scene.splinecode"></spline-viewer>
+			</div>			
 			</Hero>
 
 			<section>
@@ -63,6 +62,14 @@ import Hero from '../components/Hero.astro';
 		flex-direction: column;
 		gap: 3.5rem;
 	}
+
+	.spline-wrapper {
+    border-radius: 10px; 
+    overflow: hidden; /* Ensures the content inside respects the rounded borders */
+    border: 2px solid #ccc;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+	}
+
 
 	img {
 		margin-top: 1.5rem;
