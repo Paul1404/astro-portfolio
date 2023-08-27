@@ -1,5 +1,5 @@
 ---
-title: "Projekt 4: Sicherheit mit Bitwarden 🔐"
+title: "Passwort-Sicherheit mit Bitwarden 🔐"
 publishDate: 2020-03-04 00:00:00
 img: /assets/bitwarden.webp
 img_alt: Bitwarden Banner
