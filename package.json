@@ -10,7 +10,6 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^7.0.1",
     "@splinetool/runtime": "^0.9.429",
     "astro": "^3.0.6",
     "install": "^0.13.0",
