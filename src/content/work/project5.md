@@ -3,7 +3,8 @@ title: "VMware ESXi und VCenter: Effiziente Virtualisierung und Netzwerkoptimier
 publishDate: 2024-01-11 00:00:00 
 img: /assets/VMware-vSphere.png 
 img_alt: VMware ESXi und VCenter Banner 
-description: | Umfassende Virtualisierungslösung mit VMware ESXi und VCenter: Von der Installation bis zur Netzwerkoptimierung. 
+description: | 
+ Umfassende Virtualisierungslösung mit VMware ESXi und VCenter: Von der Installation bis zur Netzwerkoptimierung. 
 tags:
   - VMWare
   - Virtualisierung
