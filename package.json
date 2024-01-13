@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@splinetool/runtime": "^0.9.429",
-    "astro": "^3.0.6",
+    "astro": "^4.1.2",
     "install": "^0.13.0",
     "npm": "^10.0.0"
   }
