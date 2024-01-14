@@ -10,6 +10,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.0.4",
     "astro": "^4.1.2",
     "install": "^0.13.0",
     "npm": "^10.0.0"
