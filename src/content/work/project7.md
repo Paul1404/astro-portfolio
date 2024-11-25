@@ -101,18 +101,4 @@ crontab -e
 0 2 * * * /path/to/backup-script.sh
 ```
 
-### **Für Tech-Enthusiasten und Entwickler**
-
-Für alle, die tiefer in die technische Seite eintauchen möchten oder darüber nachdenken, diese Backup-Lösung für ihre eigenen Projekte zu verwenden, ist der gesamte Code auf GitHub verfügbar.
-
-[**Zum GitHub-Repository**](https://github.com/proxmox/backup-scripts)
-
-Dort findet ihr detaillierte Informationen über:
-
-* **Skript-Setup**: Wie das Backup-Skript erstellt und konfiguriert wird.
-* **NFS-Integration**: Schritte zur Integration des NFS-Shares mit Proxmox VE.
-* **Sendgrid API**: Wie die E-Mail-Benachrichtigungen über die Sendgrid API konfiguriert werden.
-
-* * *
-
 Abschließend möchte ich betonen, wie wichtig es ist, regelmäßig Backups zu erstellen und deren Erfolg zu überwachen. Mit dieser automatisierten Lösung kann ich sicherstellen, dass meine Proxmox VE Container regelmäßig gesichert werden und ich sofort über den Status informiert werde. Wenn ihr Fragen oder Anregungen habt, hinterlasst gerne einen Kommentar im Repository oder kontaktiert mich direkt.
