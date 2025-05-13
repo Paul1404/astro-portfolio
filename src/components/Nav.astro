@@ -6,14 +6,14 @@ import type { iconPaths } from './IconPaths';
 /** Main menu items */
 const textLinks: { label: string; href: string }[] = [
 	{ label: 'Home', href: '/' },
-	{ label: 'Projekte', href: '/work/' },
-	{ label: 'Über mich', href: '/about/' },
-	{ label: 'Datenschutzerklärung', href: '/privacy-policy/'}
+	{ label: 'Projects', href: '/work/' },
+	{ label: 'About', href: '/about/' },
+	{ label: 'Privacy Policy', href: '/privacy-policy/'}
 ];
 
 /** Icon links to social media — edit these with links to your profiles! */
 const iconLinks: { label: string; href: string; icon: keyof typeof iconPaths }[] = [
-	{ label: 'E-Mail', href: 'mailto:contact@pd-portfolio.net', icon: 'envelope' },
+	{ label: 'Email', href: 'mailto:contact@pd-portfolio.net', icon: 'envelope' },
 	{ label: 'GitHub', href: 'https://github.com/Paul1404', icon: 'github-logo' },
 	{ label: 'Secure-Share', href: 'https://secure-share.cloud-tunnel.net/', icon: 'lock' },
 	{ label: 'Blog', href: 'https://blog.pd-portfolio.net/', icon: 'blog' },
@@ -24,7 +24,7 @@ const iconLinks: { label: string; href: string; icon: keyof typeof iconPaths }[]
 	<div class="menu-header">
 		<a href="/" class="site-title">
 			<img src="/logo.svg" alt="Logo" style="width: 4em; height: 4em;">
-			<span style="font-size: 2em; line-height: 1; background: linear-gradient(to right, #007CF0, #00DFD8); -webkit-background-clip: text; color: transparent;">Pauls Portfolio</span>
+			<span style="font-size: 2em; line-height: 1; background: linear-gradient(to right, #007CF0, #00DFD8); -webkit-background-clip: text; color: transparent;">Paul's Portfolio</span>
 		</a>
 		<menu-button>
 			<template>

@@ -115,4 +115,19 @@ export default defineConfig({
       },
     }),
   ],
+  markdown: {
+    // Use Shiki for syntax highlighting
+    syntaxHighlight: 'shiki',
+    // Shiki config
+    shikiConfig: {
+      wrap: true, // Enable word wrap in code blocks
+      langAlias: {
+        cjs: "javascript",
+        shell: "bash",
+      },
+      // No need for defaultColor or custom transformers unless you want them
+    },
+    gfm: true,
+    smartypants: true,
+  },
 });

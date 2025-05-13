@@ -4,5 +4,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout title="Not Found" description="404 Error — this page was not found">
-	<Hero title="Page Not Found" tagline="Not found" />
+	<Hero
+		title="404: Page Not Found"
+		tagline="Uh oh! Looks like you found a part of my site that doesn't exist. Maybe it's hiding in my homelab rack? 🦑🔌"
+	>
+		<div style="margin-top: 2rem;">
+			<a href="/" style="
+				display: inline-block;
+				padding: 0.75em 1.5em;
+				background: var(--accent-regular, #00dfd8);
+				color: var(--gray-900, #18181b);
+				border-radius: 999rem;
+				font-weight: 600;
+				text-decoration: none;
+				box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+				transition: background 0.2s;
+			">Back to Home</a>
+		</div>
+	</Hero>
 </BaseLayout>

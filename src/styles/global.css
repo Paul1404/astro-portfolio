@@ -253,3 +253,11 @@ h5 {
 		gap: 12rem;
 	}
 }
+
+.pill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75em;
+  justify-content: center;
+  margin: 1em 0;
+}

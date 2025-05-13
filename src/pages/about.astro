@@ -4,50 +4,49 @@ import ContactCTA from '../components/ContactCTA.astro';
 import Hero from '../components/Hero.astro';
 ---
 
-
 <script type="module" src="https://unpkg.com/@splinetool/viewer@0.9.436/build/spline-viewer.js"></script>
 
-<BaseLayout title="Über mich | Paul Dresch" description="Über mich | Paul Dresch">
+<BaseLayout title="About | Paul Dresch" description="About | Paul Dresch">
 	<div class="stack gap-20">
 		<main class="wrapper about">
 			<Hero
-				title="Über mich"
-				tagline="Erfahren Sie mehr über meine Fähigkeiten, Interessen und wie Sie mich kontaktieren können."
+				title="About Me"
+				tagline="Learn more about my skills, interests, and how to get in touch."
 			>
 			<div class="houston">
-				<img src="/assets/blog-about.jpg" alt="">
+				<img src="/assets/blog-about.jpg" alt="Paul's homelab rack" />
 			</div>			
 			</Hero>
 
 			<section>
-				<h2 class="section-title">Fähigkeiten 💼</h2>
+				<h2 class="section-title">Skills 💼</h2>
 				<div class="content">
-					<p>
-						<ul>
-							<li><strong>Systemadministration:</strong> 💻 Ich habe Erfahrung im Verwalten und Warten von Servern in meinem Homelab, einschließlich eines Supermicro, eines Dell R320, eines Synology RS214 und eines Mikrotik-Smart-Switches.</li>
-							<li><strong>Homelab-Management:</strong> 🛠️ Ich probiere gerne neue Anwendungen aus und experimentiere mit verschiedenen Setups in meinem Homelab.</li>
-							<li><strong>Server-Wartung:</strong> 🖥️ Ich bin vertraut mit gängigen Server-Wartungsaufgaben wie Hardware- und Firmware-Upgrades, Backup-Management und Fehlerbehebung.</li>
-							<li><strong>Netzwerk-Management:</strong> 🌐 Ich habe Erfahrung in der Konfiguration und Verwaltung von Netzwerkgeräten wie Switches und Routern.</li>
-						</ul>
+					<ul>
+						<li><strong>Systems Engineering:</strong> 🐧 I manage and maintain a full 42U homelab rack with Dell servers, Brocade and Arista switches, and enterprise virtualization. My homelab is my playground for professional infrastructure.</li>
+						<li><strong>Virtualization & Containers:</strong> 🖥️ I work with VMware vSphere (clustering, vSAN ESA), Proxmox, and run 30+ Docker containers (with Portainer EE) for app stacking and automation.</li>
+						<li><strong>Linux & Automation:</strong> 💻 I’m a Red Hat Certified System Administrator (EX200), manage RHEL with Satellite, and automate with Ansible, Bash, and Python.</li>
+						<li><strong>Networking:</strong> 🌐 I design and manage 10G+ networks with Brocade and Arista datacenter switches, and enjoy building reliable, high-performance setups.</li>
+					</ul>
 				</div>
 			</section>
 			<section>
-				<h2 class="section-title">Interessen 🌟</h2>
+				<h2 class="section-title">Interests 🌟</h2>
+				<div class="content">
+					<ul>
+						<li><strong>Enterprise Homelabbing:</strong> 🏠 My homelab is where I experiment with datacenter-grade tech, try new setups, and push the limits of what’s possible at home.</li>
+						<li><strong>Technology & Trends:</strong> 🚀 I love staying up to date with the latest in IT, infrastructure, and automation.</li>
+						<li><strong>Cybersecurity:</strong> 🔒 I’m passionate about security, learning about new threats, and building resilient systems.</li>
+						<li><strong>Continuous Learning:</strong> 📚 I’m always looking for new challenges and ways to expand my knowledge.</li>
+					</ul>
+				</div>
+			</section>
+			<section>
+				<h2 class="section-title">Contact 📬</h2>
 				<div class="content">
 					<p>
-						<ul>
-							<li><strong>Technologie:</strong> 🚀 Ich bin von allem fasziniert, was mit Technologie zu tun hat, und liebe es, auf dem neuesten Stand der Trends und Fortschritte zu bleiben.</li>
-							<li><strong>Cybersicherheit:</strong> 🔒 Ich interessiere mich für das Feld der Cybersicherheit und lerne gerne über neue Bedrohungen und Möglichkeiten, online sicher zu bleiben.</li>
-							<li><strong>Homelab-Experimente:</strong> 🔧 Ich liebe es, an meinem Homelab herumzubasteln und neue Anwendungen und Setups auszuprobieren.</li>
-							<li><strong>Neue Fähigkeiten lernen:</strong> 📚 Ich suche immer nach Möglichkeiten, neue Dinge zu lernen und mein Wissen zu erweitern.</li>
-						</ul>
+						Thanks for taking the time to learn about me! If you have any questions or want to discuss a project, feel free to reach out at <a href="mailto:contact@pd-portfolio.net">contact@pd-portfolio.net</a>.
+						You can also check out some of my work on <a href="https://github.com/Paul1404">GitHub</a>.
 					</p>
-				</div>
-			</section>
-			<section>
-				<h2 class="section-title">Kontakt 📬</h2>
-				<div class="content">
-					<p>Vielen Dank, dass Sie sich die Zeit genommen haben, über mich zu lesen! Wenn Sie Fragen haben oder ein Projekt besprechen möchten, können Sie mich gerne unter <a href="mailto:contact@pd-portfolio.net">contact@pd-portfolio.net</a> kontaktieren. Sie können auch einige meiner Projekte auf <a href="https://github.com/Paul1404">GitHub</a> ansehen. 🌐</p>
 				</div>
 			</section>
 		</main>
@@ -57,36 +56,29 @@ import Hero from '../components/Hero.astro';
 </BaseLayout>
 
 <style>
-
-
-	/* Ensure the content wrapper uses Flexbox and centers its children */
 	.wrapper.about {
 		display: flex;
 		flex-direction: column;
-		align-items: center; /* Center horizontally */
-		justify-content: center; /* Center vertically */
-		min-height: 100vh; /* Full viewport height */
+		align-items: center;
+		justify-content: center;
+		min-height: 100vh;
 		gap: 3.5rem;
 	}
 
-	/* Give .spline-wrapper a responsive size */
 	.spline-wrapper {
-		width: 80vw; /* 80% of viewport width */
-		max-width: 1200px; /* Limit to a max width for very wide screens */
-		height: 60vh; /* 60% of viewport height */
+		width: 80vw;
+		max-width: 1200px;
+		height: 60vh;
 		border-radius: 10px; 
-    	overflow: hidden; /* Ensures the content inside respects the rounded borders */
+    	overflow: hidden;
     	border: 2px solid #ccc;
     	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 	}
 
-	/* Since we're using viewport units for height, ensure the iframe also fills the container's height */
 	.spline-wrapper iframe {
 		height: 100%;
 		width: 100%;
 	}
-
-
 
 	img {
 		margin-top: 1.5rem;
