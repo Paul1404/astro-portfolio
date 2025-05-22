@@ -1,5 +1,5 @@
 {
-  "name": "astro-portfolio-v2",
+  "name": "astro-portfolio",
   "compatibility_date": "2025-05-22",
   "assets": {
     "directory": "./dist"
