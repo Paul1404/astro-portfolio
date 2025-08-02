@@ -10,12 +10,11 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.4.1",
+    "@astrojs/sitemap": "^3.4.2",
     "@jop-software/astro-cookieconsent": "^3.0.0",
-    "astro": "^5.12.3",
+    "astro": "^5.12.8",
     "astro-robots-txt": "^1.0.0",
     "install": "^0.13.0",
-    "npm": "^10.0.0",
     "vanilla-cookieconsent": "^3.0.1",
     "wrangler": "^4.16.1"
   }
