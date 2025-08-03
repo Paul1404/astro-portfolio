@@ -1,0 +1,23 @@
+{
+  "name": "Astro Portfolio Dev",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:dev-24-bookworm",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "24"
+    }
+  },
+  "postCreateCommand": "npm install",
+  "forwardPorts": [4321],
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash"
+      },
+      "extensions": [
+        "astro-build.astro-vscode",
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint"
+      ]
+    }
+  }
+}
