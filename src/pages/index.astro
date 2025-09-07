@@ -33,9 +33,7 @@ const projects = (await getCollection('work'))
         </Hero>
         <img
           alt="Logo"
-          width="620"
-          height="620"
-          src="/assets/avatar.svg"
+          src="/assets/ArcNet-Trans-Resized.png"
         />
       </header>
 
@@ -81,9 +79,9 @@ const projects = (await getCollection('work'))
   }
 
   .hero img {
-    aspect-ratio: 5 / 4;
-    object-fit: cover;
-    object-position: top;
+    height: auto;     /* keep aspect ratio */
+    object-fit: contain; /* show the whole image */
+    opacity: 0.85;      /* 0 = invisible, 1 = solid */
   }
 
   @media (min-width: 50em) {
@@ -101,9 +99,8 @@ const projects = (await getCollection('work'))
     }
 
     .hero img {
-      aspect-ratio: 3 / 4;
       border-radius: 4.5rem;
-      object-fit: cover;
+      object-fit: contain;
     }
   }
 
