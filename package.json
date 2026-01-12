@@ -10,7 +10,7 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.6.0",
+    "@astrojs/sitemap": "^3.6.1",
     "@jop-software/astro-cookieconsent": "^3.0.0",
     "astro": "^5.16.6",
     "astro-robots-txt": "^1.0.0",
