@@ -19,6 +19,7 @@
     "wrangler": "^4.71.0"
   },
   "overrides": {
-    "devalue": "5.3.2"
+    "devalue": "5.6.4",
+    "undici": "7.24.3"
   }
 }
