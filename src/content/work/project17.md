@@ -1,5 +1,5 @@
 ---
-title: "Serienbrief — Mail-Merge Letters with QR Codes for Sports Clubs 📬"
+title: "Serienbrief - Mail-Merge Letters with QR Codes for Sports Clubs"
 publishDate: 2026-04-12
 img: /assets/letter.jpg
 img_alt: Serienbrief app banner showing envelope and QR code icons with TypeScript, Hono, Postgres, and pdf-lib tech badges
@@ -15,31 +15,25 @@ tags:
   - Open Source
 ---
 
----
-
 ## The Problem
 
 If you run a sports club (Sportverein), you know the drill: member records are outdated. Wrong addresses, old phone numbers, missing email addresses. And when you can't reach people digitally, your only option is paper mail.
 
-Updating hundreds of member records manually? Nobody has time for that. So I built a tool that flips the process — instead of chasing members, let them fix their own data.
+Updating hundreds of member records manually? Nobody has time for that. So I built a tool that flips the process - instead of chasing members, let them fix their own data.
 
 **[View on GitHub](https://github.com/Paul1404/svu-serienbrief)**
-
----
 
 ## How It Works
 
 The workflow is straightforward:
 
-1. **Import** your MySQL dump from Linear Vereinsverwaltung (or similar) — upload the `.sql` file in the admin UI, the app handles conversion automatically.
+1. **Import** your MySQL dump from Linear Vereinsverwaltung (or similar) - upload the `.sql` file in the admin UI, the app handles conversion automatically.
 2. **Select members** in the dashboard, hit generate, get a ZIP full of DIN A4 PDFs. Each letter contains a personalized QR code.
-3. **Print & mail** the letters.
+3. **Print and mail** the letters.
 4. **Members scan** the QR code, see their current data pre-filled in a web form, and correct whatever is wrong (address, phone, email, IBAN, ...).
 5. **Check the dashboard** to see who responded, what changed, and who still hasn't opened their link.
 
-It's designed as a one-shot campaign tool: send letters out, collect corrections, get your data in order. Members don't need accounts or passwords — just a signed link that expires after 90 days.
-
----
+It's designed as a one-shot campaign tool: send letters out, collect corrections, get your data in order. Members don't need accounts or passwords - just a signed link that expires after 90 days.
 
 ## Tech Stack
 
@@ -53,8 +47,6 @@ It's designed as a one-shot campaign tool: send letters out, collect corrections
 | QR Codes | uqr |
 | ZIP Compression | fflate |
 
----
-
 ## Key Features
 
 ### Admin Dashboard
@@ -65,7 +57,7 @@ It's designed as a one-shot campaign tool: send letters out, collect corrections
 - Full change history with audit trail
 
 ### Member Self-Service Portal
-- No registration, no passwords — just scan the QR code
+- No registration, no passwords - just scan the QR code
 - Pre-filled form with current data on file
 - Server-side validation for email, IBAN checksum, PLZ format, and more
 - HMAC-SHA256 signed tokens, valid for 90 days
@@ -76,11 +68,9 @@ It's designed as a one-shot campaign tool: send letters out, collect corrections
 - All access and changes logged for GDPR compliance
 - Token-based member access with cryptographic signing
 
----
-
 ## Deployment
 
-The app runs anywhere Node.js and Postgres are available — Railway, Fly.io, Render, a VPS, or just your laptop.
+The app runs anywhere Node.js and Postgres are available - Railway, Fly.io, Render, a VPS, or just your laptop.
 
 ```bash
 npm install
@@ -100,24 +90,18 @@ Only two environment variables are required:
 
 Optional variables let you customize branding (club name, logo, address, legal footer) and configure S3-compatible storage for logo caching and ZIP archival.
 
----
-
-## Why This Might Be Useful for You
+## Who This Is For
 
 This isn't just for my club. Any German Verein (association) using Linear, SEWOBE, or similar management software faces the same problem: outdated member records with no efficient way to update them.
 
 The app is MIT-licensed and designed to be self-hosted. Fork it, customize the letter template, point it at your Postgres instance, and you're ready to go.
 
----
+## Development Notes
 
-## Lessons Learned
-
-- **pdf-lib** is excellent for programmatic PDF generation — no headless browser needed, pure JavaScript.
+- **pdf-lib** is excellent for programmatic PDF generation - no headless browser needed, pure JavaScript.
 - HMAC-signed tokens are a clean alternative to one-time passwords for low-friction member authentication.
 - Keeping the scope tight (one-shot campaign, not a full CRM) made the project actually shippable.
 - Hono proved to be a fast and lightweight alternative to Express for this kind of server-rendered app.
-
----
 
 ## Links
 

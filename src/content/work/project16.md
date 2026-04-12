@@ -13,18 +13,14 @@ tags:
   - Open Source
 ---
 
----
-
-## Why This Project?
+## Background
 
 Managing football match schedules across a club is surprisingly painful. Coaches want spreadsheets, players want calendar entries, and the club website needs a download page. Meanwhile, the official BFV portal only offers a web view - no easy way to get structured data out.
 
 This tool solves that by pulling match data directly from the BFV API and publishing it in every format people actually use.
 
-> **Source code:** [github.com/Paul1404/bfv-api](https://github.com/Paul1404/bfv-api)
-> **Live exports:** [sg-spielplan.untereuerheim.com](https://sg-spielplan.untereuerheim.com/)
-
----
+**Source code:** [github.com/Paul1404/bfv-api](https://github.com/Paul1404/bfv-api)
+**Live exports:** [sg-spielplan.untereuerheim.com](https://sg-spielplan.untereuerheim.com/)
 
 ## What It Does
 
@@ -36,8 +32,6 @@ The **BFV Team Match Exporter** is a TypeScript application that:
 - Creates a **Jira-compatible CSV** with hierarchical task structures (matches grouped under monthly parent tasks)
 - Produces a **combined export** across all configured teams
 - Generates a modern, responsive **index.html** download page with dark theme, club branding, and auto-refresh
-
----
 
 ## Tech Stack
 
@@ -53,8 +47,6 @@ The **BFV Team Match Exporter** is a TypeScript application that:
 | CSV Output | `json2csv` |
 | CI/CD | GitHub Actions |
 | Hosting | GitHub Pages |
-
----
 
 ## Automation Pipeline
 
@@ -79,8 +71,6 @@ on:
 
 No `gh-pages` branch needed - the Actions workflow handles deployment directly.
 
----
-
 ## Export Output
 
 Each run produces per-team and combined files:
@@ -93,8 +83,6 @@ Each run produces per-team and combined files:
 - `index.html` - Responsive download page with file sizes and last-update timestamps
 
 All files handle German special characters (umlauts) correctly and use proper locale-aware date formatting.
-
----
 
 ## Adding Your Own Teams
 
@@ -109,8 +97,6 @@ const TEAMS = [
 
 Team IDs can be found in the BFV portal URL when viewing a team's page.
 
----
-
 ## Key Design Decisions
 
 - **ExcelJS over SheetJS** - No vulnerable dependencies; `exceljs` is used exclusively for writing, avoiding the known security issues in older SheetJS/xlsx packages
@@ -118,16 +104,12 @@ Team IDs can be found in the BFV portal URL when viewing a team's page.
 - **Timestamp in filenames** - Every export is uniquely named, providing a full history of schedule snapshots
 - **No user input processing** - The tool only reads from the BFV API; no injection surface exists
 
----
-
 ## Who Is This For?
 
 - **Football clubs** in Bavaria who want automated schedule distribution
 - **Team managers** who need match data in spreadsheet format
 - **Developers** looking to build on BFV API data for their own tools
 - **Anyone** who wants a reference implementation of a GitHub Actions-powered data export pipeline
-
----
 
 ## Get Started
 
