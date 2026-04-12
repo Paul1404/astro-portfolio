@@ -1,7 +1,7 @@
 ---
 title: "BFV Team Match Exporter - Automated Football Schedule Publishing"
 publishDate: "2026-04-12 00:00:00"
-img: /assets/bfv-api-banner.png
+img: /assets/bfv.jpg
 img_alt: BFV Match Exporter banner showing football and data export concepts
 description: |
   An automated TypeScript tool that fetches match data from the Bayerischer Fussball-Verband (BFV) API and exports it as CSV, XLSX, and ICS calendar files. Fully automated via GitHub Actions with nightly exports published to GitHub Pages - useful for any football club that needs to share schedules with players, coaches, and supporters.

@@ -1,7 +1,7 @@
 ---
 title: "Serienbrief — Mail-Merge Letters with QR Codes for Sports Clubs 📬"
 publishDate: 2026-04-12
-img: /assets/svu-serienbrief.svg
+img: /assets/letter.jpg
 img_alt: Serienbrief app banner showing envelope and QR code icons with TypeScript, Hono, Postgres, and pdf-lib tech badges
 description: |
   Club member data is always a mess. This app generates personalized DIN A4 letters with QR codes, lets members correct their own data through a self-service portal, and gives admins a dashboard to track who responded. Built with Node.js, Hono, TypeScript, and Postgres.

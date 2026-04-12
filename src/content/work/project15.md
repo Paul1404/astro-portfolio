@@ -1,7 +1,7 @@
 ---
 title: "Sigil — Self-Hosted DMARC Report Viewer & Email Authentication Dashboard 🛡️"
 publishDate: 2025-12-15 00:00:00
-img: /assets/sigil-dmarc.svg
+img: /assets/dmarc.png
 img_alt: Sigil DMARC report viewer banner
 description: |
   A self-hosted dashboard that connects to your IMAP mailbox, automatically ingests DMARC aggregate and TLS-RPT reports, and gives you a clear picture of your domain's email authentication health — pass rates, timelines, top senders, and full DNS health checks.
