@@ -11,8 +11,8 @@ const projects = defineCollection({
 		tags: z.array(z.string()).default([]),
 		// Concrete tech the project is built with, shown as badges.
 		stack: z.array(z.string()).default([]),
-		repoUrl: z.string().url().optional(),
-		liveUrl: z.string().url().optional(),
+		repoUrl: z.url().optional(),
+		liveUrl: z.url().optional(),
 		featured: z.boolean().default(false),
 		status: z.enum(['shipped', 'wip', 'archived']).default('shipped'),
 		// lucide icon name used for the card accent and image-less placeholder.

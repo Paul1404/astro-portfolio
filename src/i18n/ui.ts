@@ -58,7 +58,7 @@ export const content = {
 			{
 				icon: 'lucide:network',
 				title: 'Netzwerke',
-				body: 'Zuhause von DNS und Mail-Security bis hin zu Datacenter-Switching, mit Fokus auf zuverlässige, gut verstandene Setups.',
+				body: 'Zu Hause von DNS und Mail-Security bis hin zu Datacenter-Switching, mit Fokus auf zuverlässige, gut verstandene Setups.',
 			},
 		],
 	},
@@ -76,6 +76,7 @@ export const ui = {
 		'a11y.menu': 'Menu',
 		'a11y.toggleTheme': 'Toggle dark theme',
 		'a11y.switchLang': 'Switch language',
+		'a11y.terminalInput': 'Terminal input',
 
 		// Footer
 		'footer.builtWith': 'Built in Untereuerheim with Astro and Tailwind.',
@@ -173,6 +174,7 @@ export const ui = {
 		'a11y.menu': 'Menü',
 		'a11y.toggleTheme': 'Dunkles Design umschalten',
 		'a11y.switchLang': 'Sprache wechseln',
+		'a11y.terminalInput': 'Terminal-Eingabe',
 
 		// Footer
 		'footer.builtWith': 'Gebaut in Untereuerheim mit Astro und Tailwind.',

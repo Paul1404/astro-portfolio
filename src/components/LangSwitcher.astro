@@ -1,8 +1,9 @@
 ---
-import { getLangFromUrl, localizePath, stripLangFromPath } from '../i18n/utils';
+import { getLangFromUrl, useTranslations, localizePath, stripLangFromPath } from '../i18n/utils';
 import { languages, type Lang } from '../i18n/ui';
 
 const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 const basePath = stripLangFromPath(Astro.url.pathname);
 
 const options = (Object.keys(languages) as Lang[]).map((code) => ({
@@ -15,6 +16,8 @@ const options = (Object.keys(languages) as Lang[]).map((code) => ({
 
 <lang-switcher
 	class="flex items-center rounded-full border border-line p-0.5 font-mono text-xs"
+	role="group"
+	aria-label={t('a11y.switchLang')}
 >
 	{
 		options.map(({ code, href, label, active }) => (

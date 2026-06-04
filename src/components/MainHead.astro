@@ -17,6 +17,15 @@ const lang = getLangFromUrl(Astro.url);
 const basePath = stripLangFromPath(Astro.url.pathname);
 const enPath = localizePath(basePath, 'en');
 const dePath = localizePath(basePath, 'de');
+
+// Absolute URLs for canonical, hreflang and Open Graph. Astro.site is set in
+// astro.config.mjs, so these resolve to https://pd-portfolio.net/...
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const enHref = new URL(enPath, Astro.site).href;
+const deHref = new URL(dePath, Astro.site).href;
+const ogImage = new URL('/icon-512.png', Astro.site).href;
+const ogLocale = lang === 'de' ? 'de_DE' : 'en_US';
+const ogLocaleAlt = lang === 'de' ? 'en_US' : 'de_DE';
 ---
 
 <meta charset="UTF-8" />
@@ -24,10 +33,11 @@ const dePath = localizePath(basePath, 'de');
 <meta name="viewport" content="width=device-width" />
 <meta name="generator" content={Astro.generator} />
 <title>{title}</title>
+<link rel="canonical" href={canonical} />
 
-<link rel="alternate" hreflang="en" href={enPath} />
-<link rel="alternate" hreflang="de" href={dePath} />
-<link rel="alternate" hreflang="x-default" href={enPath} />
+<link rel="alternate" hreflang="en" href={enHref} />
+<link rel="alternate" hreflang="de" href={deHref} />
+<link rel="alternate" hreflang="x-default" href={enHref} />
 
 <script is:inline define:vars={{ lang, enPath, dePath }}>
 	// Send visitors to their language on first load, then remember the choice.
@@ -56,7 +66,13 @@ const dePath = localizePath(basePath, 'de');
 <meta name="theme-color" content="#1f7ae0" />
 <meta property="og:title" content={title} />
 <meta property="og:type" content="website" />
-<meta name="twitter:card" content="summary_large_image" />
+<meta property="og:url" content={canonical} />
+<meta property="og:site_name" content="Paul Dresch" />
+<meta property="og:locale" content={ogLocale} />
+<meta property="og:locale:alternate" content={ogLocaleAlt} />
+<meta property="og:image" content={ogImage} />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content={ogImage} />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link
