@@ -57,24 +57,24 @@ export default defineConfig({
               footer: "<a href=\"https://pd-portfolio.net/privacy-policy/\">Datenschutz</a>\n<a href=\"https://pd-portfolio.net/privacy-policy/#impressum\">Impressum</a>",
             },
             preferencesModal: {
-              title: "Präferenzen für die Zustimmung",
-              closeIconLabel: "Modal schließen",
+              title: "Einstellungen zur Einwilligung",
+              closeIconLabel: "Dialog schließen",
               acceptAllBtn: "Alle akzeptieren",
               acceptNecessaryBtn: "Alle ablehnen",
               savePreferencesBtn: "Einstellungen speichern",
-              serviceCounterLabel: "Dienstleistungen",
+              serviceCounterLabel: "Dienst|Dienste",
               sections: [
                 {
                   title: "Verwendung von Cookies",
                   description: "Diese Seite wird über Cloudflare bereitgestellt, das Cookies für Performance und Sicherheit nutzen kann. Mit der Nutzung unserer Website stimmen Sie der Verwendung dieser Cookies zu. Details in unserer Datenschutzerklärung.",
                 },
                 {
-                  title: "Streng Notwendige Cookies <span class=\"pm__badge\">Immer Aktiviert</span>",
+                  title: "Streng notwendige Cookies <span class=\"pm__badge\">Immer aktiviert</span>",
                   description: "Zwingend notwendige Cookies sind unerlässlich für den Betrieb unserer Website. Ohne diese Cookies würde unsere Website nicht richtig funktionieren. Diese Cookies ermöglichen grundlegende Funktionen wie Seitennavigation und Zugriff auf sichere Bereiche der Website. Sie können in unseren Systemen nicht deaktiviert werden und werden in der Regel nur als Reaktion auf Aktionen gesetzt, die einer Anfrage nach Diensten entsprechen, wie z.B. das Festlegen Ihrer Datenschutzeinstellungen, das Einloggen oder das Ausfüllen von Formularen.",
                   linkedCategory: "necessary",
                 },
                 {
-                  title: "Funktionalitäts Cookies",
+                  title: "Funktionalitäts-Cookies",
                   description: "Funktionalitäts-Cookies ermöglichen es unserer Website, sich an Informationen zu erinnern, die die Art und Weise beeinflussen, wie sich die Website verhält oder aussieht, wie z.B. Ihre bevorzugte Sprache oder die Region, in der Sie sich befinden. Diese Cookies sorgen dafür, dass Ihre Präferenzen bei zukünftigen Besuchen beibehalten werden, um Ihnen eine personalisierte und verbesserte Benutzererfahrung zu bieten.",
                   linkedCategory: "functionality",
                 },
@@ -93,7 +93,7 @@ export default defineConfig({
               acceptAllBtn: "Accept all",
               acceptNecessaryBtn: "Reject all",
               showPreferencesBtn: "Manage preferences",
-              footer: "<a href=\"https://pd-portfolio.net/privacy-policy/\">Privacy Policy</a>\n<a href=\"https://pd-portfolio.net/privacy-policy/#impressum\">Terms and conditions</a>",
+              footer: "<a href=\"https://pd-portfolio.net/privacy-policy/\">Privacy Policy</a>\n<a href=\"https://pd-portfolio.net/privacy-policy/#impressum\">Legal Notice</a>",
             },
             preferencesModal: {
               title: "Consent Preferences Center",

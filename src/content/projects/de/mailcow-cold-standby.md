@@ -25,4 +25,4 @@ Ein Mailserver ist eines dieser Dinge, bei denen einem ein Backup erst einfällt
 
 ### Warum es wichtig ist
 
-Günstige, externe, automatisierte Backups für selbst gehostete E-Mail. Genau die Art von Dinge, die langweilig ist, bis zu dem Tag, an dem sie einen rettet.
+Günstige, externe, automatisierte Backups für selbst gehostete E-Mail. Genau die Art von Dingen, die langweilig ist, bis zu dem Tag, an dem sie einen rettet.

@@ -22,7 +22,7 @@ Menschen, die mit Diabetes leben, verwalten nebenbei immer auch eine Menge Hardw
 
 - Verfolgt den Lebenszyklus jedes Sensors und Katheters und berechnet, wann ein Wechsel fällig ist.
 - Sendet automatisch Ablauferinnerungen, damit nichts vergessen wird.
-- Wird als einzelner Container-Web-App ausgeliefert, die man selbst hosten kann.
+- Wird als einzelne Container-Web-App ausgeliefert, die man selbst hosten kann.
 
 ### Warum es wichtig ist
 
