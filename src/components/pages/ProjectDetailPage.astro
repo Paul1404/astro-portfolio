@@ -1,0 +1,97 @@
+---
+import { render } from 'astro:content';
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContactCTA from '../ContactCTA.astro';
+import TechBadge from '../TechBadge.astro';
+import CallToAction from '../CallToAction.astro';
+import type { Project } from '../../lib/projects';
+import { getLangFromUrl, useTranslations, localizePath } from '../../i18n/utils';
+
+interface Props {
+	entry: Project;
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { title, description, stack, repoUrl, liveUrl, status, icon } = entry.data;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const statusLabel: Record<string, string> = {
+	shipped: t('status.shipped'),
+	wip: t('status.wip'),
+	archived: t('status.archived'),
+};
+---
+
+<BaseLayout title={`${title} | Paul Dresch`} description={description}>
+	<article class="mx-auto max-w-3xl px-6 pt-12 sm:pt-16">
+		<a
+			href={localizePath('/projects/', lang)}
+			class="inline-flex items-center gap-1.5 text-sm text-subtle transition-colors hover:text-ink"
+		>
+			<Icon name="lucide:arrow-left" class="h-4 w-4" />
+			{t('project.allProjects')}
+		</a>
+
+		<header class="mt-8 border-b border-line pb-8">
+			<div class="flex flex-wrap items-center gap-3">
+				<h1 class="text-3xl font-semibold sm:text-4xl">{title}</h1>
+				<span
+					class="rounded-full border border-line bg-elevated px-2.5 py-1 font-mono text-xs text-muted"
+				>
+					{statusLabel[status]}
+				</span>
+			</div>
+			<p class="mt-4 text-lg text-muted">{description}</p>
+
+			{
+				stack.length > 0 && (
+					<div class="mt-5 flex flex-wrap gap-1.5">
+						{stack.map((s) => (
+							<TechBadge label={s} />
+						))}
+					</div>
+				)
+			}
+
+			{
+				(repoUrl || liveUrl) && (
+					<div class="mt-6 flex flex-wrap gap-3">
+						{liveUrl && (
+							<CallToAction href={liveUrl} external>
+								<Icon name="lucide:external-link" class="h-4 w-4" />
+								{t('project.liveDemo')}
+							</CallToAction>
+						)}
+						{repoUrl && (
+							<CallToAction href={repoUrl} variant="outline" external>
+								<Icon name="lucide:github" class="h-4 w-4" />
+								{t('project.viewCode')}
+							</CallToAction>
+						)}
+					</div>
+				)
+			}
+		</header>
+
+		<!-- Uniform branded hero, consistent across every project. -->
+		<div
+			class="mt-8 flex aspect-[2/1] w-full items-center justify-center overflow-hidden rounded-card border border-line bg-[linear-gradient(135deg,var(--color-brand-tint),transparent)]"
+		>
+			<Icon name={`lucide:${icon}`} class="h-20 w-20 text-brand" />
+		</div>
+
+		<div
+			class="prose prose-lg mt-10 max-w-none dark:prose-invert prose-headings:font-display prose-a:text-brand prose-pre:rounded-xl prose-pre:border prose-pre:border-line prose-img:rounded-card prose-img:border prose-img:border-line"
+		>
+			<Content />
+		</div>
+	</article>
+
+	<div class="mt-24">
+		<ContactCTA />
+	</div>
+</BaseLayout>

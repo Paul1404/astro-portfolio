@@ -1,10 +1,14 @@
 ---
 import { Icon } from 'astro-icon/components';
+import { getLangFromUrl, useTranslations, localizePath } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 const currentYear = new Date().getFullYear();
 
 const links = [
-	{ label: 'Email', href: 'mailto:contact@pd-portfolio.net', icon: 'lucide:mail' },
-	{ label: 'GitHub', href: 'https://github.com/Paul1404', icon: 'lucide:github' },
+	{ label: t('nav.email'), href: 'mailto:contact@pd-portfolio.net', icon: 'lucide:mail' },
+	{ label: t('nav.github'), href: 'https://github.com/Paul1404', icon: 'lucide:github' },
 ];
 ---
 
@@ -14,7 +18,7 @@ const links = [
 	>
 		<div class="flex flex-col items-center gap-1 sm:items-start">
 			<p>&copy; {currentYear} Paul Dresch</p>
-			<p>Built in Untereuerheim with Astro and Tailwind.</p>
+			<p>{t('footer.builtWith')}</p>
 		</div>
 		<div class="flex items-center gap-4">
 			{
@@ -30,8 +34,11 @@ const links = [
 					</a>
 				))
 			}
-			<a href="/privacy-policy/#impressum" class="transition-colors hover:text-ink">
-				Legal Notice
+			<a
+				href={`${localizePath('/privacy-policy/', lang)}#impressum`}
+				class="transition-colors hover:text-ink"
+			>
+				{t('footer.legal')}
 			</a>
 		</div>
 	</div>

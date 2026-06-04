@@ -11,8 +11,6 @@ const projects = defineCollection({
 		tags: z.array(z.string()).default([]),
 		// Concrete tech the project is built with, shown as badges.
 		stack: z.array(z.string()).default([]),
-		img: z.string().optional(),
-		img_alt: z.string().optional(),
 		repoUrl: z.string().url().optional(),
 		liveUrl: z.string().url().optional(),
 		featured: z.boolean().default(false),

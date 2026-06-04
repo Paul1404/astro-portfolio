@@ -1,0 +1,53 @@
+---
+import { getLangFromUrl, localizePath, stripLangFromPath } from '../i18n/utils';
+import { languages, type Lang } from '../i18n/ui';
+
+const lang = getLangFromUrl(Astro.url);
+const basePath = stripLangFromPath(Astro.url.pathname);
+
+const options = (Object.keys(languages) as Lang[]).map((code) => ({
+	code,
+	href: localizePath(basePath, code),
+	label: code.toUpperCase(),
+	active: code === lang,
+}));
+---
+
+<lang-switcher
+	class="flex items-center rounded-full border border-line p-0.5 font-mono text-xs"
+>
+	{
+		options.map(({ code, href, label, active }) => (
+			<a
+				href={href}
+				data-lang={code}
+				aria-current={active ? 'true' : undefined}
+				class:list={[
+					'rounded-full px-2.5 py-1 transition-colors',
+					active ? 'bg-brand-tint text-ink' : 'text-muted hover:text-ink',
+				]}
+			>
+				{label}
+			</a>
+		))
+	}
+</lang-switcher>
+
+<script>
+	class LangSwitcher extends HTMLElement {
+		constructor() {
+			super();
+			for (const link of this.querySelectorAll<HTMLAnchorElement>('a[data-lang]')) {
+				link.addEventListener('click', () => {
+					// Remember the explicit choice so auto-detect respects it next time.
+					try {
+						localStorage.setItem('lang', link.dataset.lang ?? 'en');
+					} catch (e) {
+						/* ignore storage failures */
+					}
+				});
+			}
+		}
+	}
+	customElements.define('lang-switcher', LangSwitcher);
+</script>

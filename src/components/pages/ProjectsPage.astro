@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../Hero.astro';
+import ProjectCard from '../ProjectCard.astro';
+import ContactCTA from '../ContactCTA.astro';
+import { getProjects } from '../../lib/projects';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const projects = await getProjects(lang);
+---
+
+<BaseLayout title={t('projects.meta.title')} description={t('projects.meta.desc')}>
+	<div class="mx-auto max-w-6xl px-6 pt-20 sm:pt-28">
+		<Hero
+			eyebrow={t('projects.hero.eyebrow')}
+			title={t('projects.hero.title')}
+			tagline={t('projects.hero.tagline')}
+			align="start"
+		/>
+	</div>
+
+	<div class="mx-auto mt-12 max-w-6xl px-6">
+		<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+			{projects.map((project) => <ProjectCard project={project} />)}
+		</div>
+	</div>
+
+	<div class="mt-24">
+		<ContactCTA />
+	</div>
+</BaseLayout>

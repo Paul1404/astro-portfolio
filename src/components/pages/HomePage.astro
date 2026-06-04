@@ -1,0 +1,72 @@
+---
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Section from '../Section.astro';
+import ProjectCard from '../ProjectCard.astro';
+import ContactCTA from '../ContactCTA.astro';
+import CallToAction from '../CallToAction.astro';
+import { getProjects } from '../../lib/projects';
+import { getLangFromUrl, useTranslations, getContent, localizePath } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const { focus } = getContent(lang);
+
+const allProjects = await getProjects(lang);
+const featured = allProjects.filter((p) => p.data.featured);
+const projects = (featured.length ? featured : allProjects).slice(0, 6);
+---
+
+<BaseLayout title={t('home.meta.title')} description={t('home.meta.desc')}>
+	<!-- Hero -->
+	<section class="mx-auto max-w-6xl px-6 pb-16 pt-20 sm:pt-28">
+		<p class="font-mono text-sm uppercase tracking-[0.2em] text-brand">
+			{t('home.hero.eyebrow')}
+		</p>
+		<h1 class="mt-4 max-w-4xl text-4xl font-semibold leading-[1.1] sm:text-6xl">
+			{t('home.hero.titleLead')}<span class="text-gradient">{t('home.hero.titleHighlight')}</span
+			>{t('home.hero.titleTail')}
+		</h1>
+		<p class="mt-6 max-w-2xl text-lg text-muted">{t('home.hero.subtitle')}</p>
+		<div class="mt-8 flex flex-wrap gap-3">
+			<CallToAction href={localizePath('/projects/', lang)}>
+				{t('cta.viewProjects')}
+				<Icon name="lucide:arrow-right" class="h-4 w-4" />
+			</CallToAction>
+			<CallToAction href="https://github.com/Paul1404" variant="outline" external>
+				<Icon name="lucide:github" class="h-4 w-4" />
+				{t('cta.github')}
+			</CallToAction>
+			<CallToAction href="mailto:contact@pd-portfolio.net" variant="ghost">
+				<Icon name="lucide:mail" class="h-4 w-4" />
+				{t('cta.contact')}
+			</CallToAction>
+		</div>
+		<div class="mt-10 flex flex-wrap gap-2">
+			{
+				focus.map((f) => (
+					<span class="rounded-full border border-line bg-surface px-3 py-1 font-mono text-xs text-muted">
+						{f}
+					</span>
+				))
+			}
+		</div>
+	</section>
+
+	<!-- Featured projects -->
+	<Section eyebrow={t('home.featured.eyebrow')} title={t('home.featured.title')} class="py-8">
+		<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+			{projects.map((project) => <ProjectCard project={project} />)}
+		</div>
+		<div class="mt-10 flex justify-center">
+			<CallToAction href={localizePath('/projects/', lang)} variant="outline">
+				{t('cta.seeAll')}
+				<Icon name="lucide:arrow-right" class="h-4 w-4" />
+			</CallToAction>
+		</div>
+	</Section>
+
+	<div class="mt-24">
+		<ContactCTA />
+	</div>
+</BaseLayout>

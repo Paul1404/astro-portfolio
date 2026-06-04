@@ -1,6 +1,10 @@
 ---
 import { Icon } from 'astro-icon/components';
 import CallToAction from './CallToAction.astro';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <section class="mx-auto w-full max-w-6xl px-6">
@@ -8,18 +12,16 @@ import CallToAction from './CallToAction.astro';
 		class="relative overflow-hidden rounded-card border border-line bg-elevated px-6 py-12 text-center sm:px-12 sm:py-16"
 	>
 		<div class="pointer-events-none absolute inset-0 -z-10 bg-grid opacity-40"></div>
-		<h2 class="text-2xl font-semibold sm:text-3xl">Have something to build?</h2>
-		<p class="mx-auto mt-3 max-w-md text-muted">
-			I am happy to talk about infrastructure, automation, or a project you have in mind.
-		</p>
+		<h2 class="text-2xl font-semibold sm:text-3xl">{t('contact.title')}</h2>
+		<p class="mx-auto mt-3 max-w-md text-muted">{t('contact.body')}</p>
 		<div class="mt-7 flex flex-wrap justify-center gap-3">
 			<CallToAction href="mailto:contact@pd-portfolio.net">
 				<Icon name="lucide:send" class="h-4 w-4" />
-				Send a message
+				{t('contact.send')}
 			</CallToAction>
 			<CallToAction href="https://github.com/Paul1404" variant="outline" external>
 				<Icon name="lucide:github" class="h-4 w-4" />
-				GitHub
+				{t('cta.github')}
 			</CallToAction>
 		</div>
 	</div>
