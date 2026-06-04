@@ -3,15 +3,17 @@ interface Props {
 	title?: string;
 	eyebrow?: string;
 	class?: string;
+	id?: string;
+	reveal?: boolean;
 }
 
-const { title, eyebrow, class: className } = Astro.props;
+const { title, eyebrow, class: className, id, reveal = false } = Astro.props;
 ---
 
-<section class:list={['mx-auto w-full max-w-6xl px-6', className]}>
+<section id={id} class:list={['mx-auto w-full max-w-6xl px-6', className]}>
 	{
 		(eyebrow || title) && (
-			<header class="mb-8 flex flex-col gap-2 sm:mb-10">
+			<header class="mb-8 flex flex-col gap-2 sm:mb-10" data-reveal={reveal ? '' : undefined}>
 				{eyebrow && (
 					<span class="font-mono text-sm uppercase tracking-[0.2em] text-brand">{eyebrow}</span>
 				)}

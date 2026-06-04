@@ -12,7 +12,7 @@ const projects = await getProjects(lang);
 ---
 
 <BaseLayout title={t('projects.meta.title')} description={t('projects.meta.desc')}>
-	<div class="mx-auto max-w-6xl px-6 pt-20 sm:pt-28">
+	<div data-reveal class="mx-auto max-w-6xl px-6 pt-20 sm:pt-28">
 		<Hero
 			eyebrow={t('projects.hero.eyebrow')}
 			title={t('projects.hero.title')}
@@ -23,7 +23,7 @@ const projects = await getProjects(lang);
 
 	<div class="mx-auto mt-12 max-w-6xl px-6">
 		<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-			{projects.map((project) => <ProjectCard project={project} />)}
+			{projects.map((project, i) => <ProjectCard project={project} index={i} />)}
 		</div>
 	</div>
 

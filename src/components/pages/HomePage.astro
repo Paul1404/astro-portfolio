@@ -5,6 +5,7 @@ import Section from '../Section.astro';
 import ProjectCard from '../ProjectCard.astro';
 import ContactCTA from '../ContactCTA.astro';
 import CallToAction from '../CallToAction.astro';
+import HeroBackground from '../HeroBackground.astro';
 import { getProjects } from '../../lib/projects';
 import { getLangFromUrl, useTranslations, getContent, localizePath } from '../../i18n/utils';
 
@@ -15,50 +16,124 @@ const { focus } = getContent(lang);
 const allProjects = await getProjects(lang);
 const featured = allProjects.filter((p) => p.data.featured);
 const projects = (featured.length ? featured : allProjects).slice(0, 6);
+
+// Honest, derived numbers for the hero stat strip. Nothing is hardcoded that
+// would drift out of sync with the actual project content.
+const shippedCount = allProjects.filter((p) => p.data.status === 'shipped').length;
+const stackCount = new Set(allProjects.flatMap((p) => p.data.stack)).size;
+const stats = [
+	{ value: allProjects.length, suffix: '', label: lang === 'de' ? 'Projekte' : 'Projects' },
+	{ value: shippedCount, suffix: '', label: lang === 'de' ? 'Ausgeliefert' : 'Shipped' },
+	{ value: stackCount, suffix: '', label: lang === 'de' ? 'Technologien' : 'Technologies' },
+];
+const availableLabel =
+	lang === 'de' ? 'Verfügbar für neue Projekte' : 'Available for new work';
 ---
 
 <BaseLayout title={t('home.meta.title')} description={t('home.meta.desc')}>
 	<!-- Hero -->
-	<section class="mx-auto max-w-6xl px-6 pb-16 pt-20 sm:pt-28">
-		<p class="font-mono text-sm uppercase tracking-[0.2em] text-brand">
-			{t('home.hero.eyebrow')}
-		</p>
-		<h1 class="mt-4 max-w-4xl text-4xl font-semibold leading-[1.1] sm:text-6xl">
-			{t('home.hero.titleLead')}<span class="text-gradient">{t('home.hero.titleHighlight')}</span
-			>{t('home.hero.titleTail')}
-		</h1>
-		<p class="mt-6 max-w-2xl text-lg text-muted">{t('home.hero.subtitle')}</p>
-		<div class="mt-8 flex flex-wrap gap-3">
-			<CallToAction href={localizePath('/projects/', lang)}>
-				{t('cta.viewProjects')}
-				<Icon name="lucide:arrow-right" class="h-4 w-4" />
-			</CallToAction>
-			<CallToAction href="https://github.com/Paul1404" variant="outline" external>
-				<Icon name="lucide:github" class="h-4 w-4" />
-				{t('cta.github')}
-			</CallToAction>
-			<CallToAction href="mailto:contact@pd-portfolio.net" variant="ghost">
-				<Icon name="lucide:mail" class="h-4 w-4" />
-				{t('cta.contact')}
-			</CallToAction>
+	<section class="relative isolate min-h-[88vh] overflow-hidden">
+		<HeroBackground />
+
+		<div class="mx-auto flex max-w-6xl flex-col px-6 pb-20 pt-24 sm:pt-32">
+			<p
+				data-reveal
+				class="inline-flex items-center gap-2 self-start rounded-full border border-line bg-surface/70 px-3 py-1 font-mono text-xs uppercase tracking-[0.2em] text-brand backdrop-blur"
+			>
+				<span class="live-dot inline-block h-1.5 w-1.5 rounded-full bg-emerald-500 text-emerald-500"></span>
+				{availableLabel}
+			</p>
+
+			<h1
+				data-reveal
+				style="--reveal-delay: 80ms"
+				class="mt-6 max-w-4xl text-4xl font-semibold leading-[1.08] sm:text-6xl"
+			>
+				{t('home.hero.titleLead')}<span class="text-gradient-flow"
+					>{t('home.hero.titleHighlight')}</span
+				>{t('home.hero.titleTail')}
+			</h1>
+
+			<p data-reveal style="--reveal-delay: 160ms" class="mt-6 max-w-2xl text-lg text-muted">
+				{t('home.hero.subtitle')}
+			</p>
+
+			<div
+				data-reveal
+				style="--reveal-delay: 240ms"
+				class="mt-8 flex flex-wrap gap-3"
+			>
+				<CallToAction href={localizePath('/projects/', lang)} class="btn-sheen">
+					<span class="sheen"></span>
+					{t('cta.viewProjects')}
+					<Icon name="lucide:arrow-right" class="h-4 w-4" />
+				</CallToAction>
+				<CallToAction href="https://github.com/Paul1404" variant="outline" external>
+					<Icon name="lucide:github" class="h-4 w-4" />
+					{t('cta.github')}
+				</CallToAction>
+				<CallToAction href="mailto:contact@pd-portfolio.net" variant="ghost">
+					<Icon name="lucide:mail" class="h-4 w-4" />
+					{t('cta.contact')}
+				</CallToAction>
+			</div>
+
+			<div data-reveal style="--reveal-delay: 320ms" class="mt-10 flex flex-wrap gap-2">
+				{
+					focus.map((f) => (
+						<span class="chip-float rounded-full border border-line bg-surface/70 px-3 py-1 font-mono text-xs text-muted backdrop-blur">
+							{f}
+						</span>
+					))
+				}
+			</div>
+
+			<!-- Live stat strip with count-up. All numbers derived from content. -->
+			<dl
+				data-reveal
+				style="--reveal-delay: 400ms"
+				class="mt-12 grid max-w-xl grid-cols-3 gap-px overflow-hidden rounded-card border border-line bg-line"
+			>
+				{
+					stats.map((s) => (
+						<div class="flex flex-col gap-1 bg-surface/80 px-5 py-4 backdrop-blur">
+							<dt class="sr-only">{s.label}</dt>
+							<dd
+								data-count={s.value}
+								data-suffix={s.suffix}
+								class="font-display text-3xl font-bold text-ink"
+							>
+								0{s.suffix}
+							</dd>
+							<span class="text-xs uppercase tracking-wider text-subtle">{s.label}</span>
+						</div>
+					))
+				}
+			</dl>
 		</div>
-		<div class="mt-10 flex flex-wrap gap-2">
-			{
-				focus.map((f) => (
-					<span class="rounded-full border border-line bg-surface px-3 py-1 font-mono text-xs text-muted">
-						{f}
-					</span>
-				))
-			}
-		</div>
+
+		<!-- Scroll cue. -->
+		<a
+			href="#work"
+			class="absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-1 text-subtle transition-colors hover:text-brand sm:flex"
+		>
+			<span class="text-[10px] uppercase tracking-[0.2em]">{t('home.featured.eyebrow')}</span>
+			<Icon name="lucide:chevron-down" class="scroll-cue h-5 w-5" />
+		</a>
 	</section>
 
 	<!-- Featured projects -->
-	<Section eyebrow={t('home.featured.eyebrow')} title={t('home.featured.title')} class="py-8">
+	<Section
+		id="work"
+		eyebrow={t('home.featured.eyebrow')}
+		title={t('home.featured.title')}
+		class="scroll-mt-24 py-8"
+		reveal
+	>
 		<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-			{projects.map((project) => <ProjectCard project={project} />)}
+			{projects.map((project, i) => <ProjectCard project={project} index={i} />)}
 		</div>
-		<div class="mt-10 flex justify-center">
+		<div data-reveal class="mt-10 flex justify-center">
 			<CallToAction href={localizePath('/projects/', lang)} variant="outline">
 				{t('cta.seeAll')}
 				<Icon name="lucide:arrow-right" class="h-4 w-4" />
