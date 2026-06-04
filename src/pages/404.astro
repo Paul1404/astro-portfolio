@@ -1,21 +1,5 @@
 ---
-import { Icon } from 'astro-icon/components';
-import BaseLayout from '../layouts/BaseLayout.astro';
-import CallToAction from '../components/CallToAction.astro';
+import NotFoundPage from '../components/pages/NotFoundPage.astro';
 ---
 
-<BaseLayout title="Not Found | Paul Dresch" description="404. This page was not found.">
-	<section class="mx-auto flex min-h-[60vh] max-w-2xl flex-col items-center justify-center px-6 text-center">
-		<p class="font-mono text-sm uppercase tracking-[0.2em] text-brand">Error 404</p>
-		<h1 class="mt-4 text-4xl font-semibold sm:text-5xl">This page does not exist</h1>
-		<p class="mt-4 text-lg text-muted">
-			The link is broken or the page has moved. Let us get you back on track.
-		</p>
-		<div class="mt-8">
-			<CallToAction href="/">
-				<Icon name="lucide:arrow-left" class="h-4 w-4" />
-				Back to home
-			</CallToAction>
-		</div>
-	</section>
-</BaseLayout>
+<NotFoundPage />

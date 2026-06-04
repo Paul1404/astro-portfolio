@@ -1,0 +1,350 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getProjects, slugOf } from '../../lib/projects';
+import { getLangFromUrl, useTranslations, localizePath } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const projects = await getProjects(lang);
+
+// Everything the client terminal needs, serialised into a JSON island.
+const terminalData = {
+	lang,
+	prompt: 'guest@pd-portfolio:~$',
+	about:
+		lang === 'de'
+			? 'Paul Dresch. Systems Engineer aus Untereuerheim. Ich baue und liefere echte Software, heute meist in der Cloud auf Railway und Hetzner.'
+			: 'Paul Dresch. Systems engineer from Untereuerheim. I build and ship real software, mostly in the cloud now on Railway and Hetzner.',
+	social: [
+		{ label: 'GitHub', value: 'https://github.com/Paul1404' },
+		{ label: 'Email', value: 'contact@pd-portfolio.net' },
+	],
+	links: {
+		projects: localizePath('/projects/', lang),
+		about: localizePath('/about/', lang),
+		home: localizePath('/', lang),
+	},
+	projects: projects.map((p) => ({
+		slug: slugOf(p),
+		title: p.data.title,
+		description: p.data.description,
+		repoUrl: p.data.repoUrl ?? null,
+		liveUrl: p.data.liveUrl ?? null,
+		url: localizePath(`/projects/${slugOf(p)}/`, lang),
+	})),
+	strings: {
+		welcome:
+			lang === 'de'
+				? "Willkommen im Web-Terminal. Tippe 'help' für die Befehlsliste."
+				: "Welcome to the web terminal. Type 'help' for the list of commands.",
+		help:
+			lang === 'de'
+				? 'Verfügbare Befehle:'
+				: 'Available commands:',
+		notFound:
+			lang === 'de'
+				? "Befehl nicht gefunden. Tippe 'help'."
+				: "command not found. Type 'help'.",
+		noProject: lang === 'de' ? 'Kein Projekt mit diesem Namen.' : 'No project by that name.',
+		opening: lang === 'de' ? 'Öffne' : 'Opening',
+		sudo:
+			lang === 'de'
+				? 'Schöner Versuch. Du hast hier keine sudo-Rechte. :)'
+				: 'Nice try. You do not have sudo privileges here. :)',
+		cleared: '',
+	},
+	commands: {
+		help: lang === 'de' ? 'diese Hilfe anzeigen' : 'show this help',
+		about: lang === 'de' ? 'kurz, wer ich bin' : 'a short bio',
+		projects: lang === 'de' ? 'alle Projekte auflisten' : 'list all projects',
+		open: lang === 'de' ? 'ein Projekt öffnen, z. B. open sigil' : 'open a project, e.g. open sigil',
+		social: lang === 'de' ? 'Links zu GitHub und E-Mail' : 'GitHub and email links',
+		ls: lang === 'de' ? 'Verzeichnisinhalt auflisten' : 'list directory contents',
+		cat: lang === 'de' ? 'eine Datei ausgeben, z. B. cat about' : 'print a file, e.g. cat about',
+		whoami: lang === 'de' ? 'aktueller Benutzer' : 'current user',
+		pwd: lang === 'de' ? 'aktuelles Verzeichnis' : 'current directory',
+		date: lang === 'de' ? 'Datum und Uhrzeit' : 'date and time',
+		echo: lang === 'de' ? 'Text ausgeben' : 'print text',
+		theme: lang === 'de' ? 'Design wechseln: theme dark|light' : 'switch theme: theme dark|light',
+		neofetch: lang === 'de' ? 'Systeminfo anzeigen' : 'show system info',
+		clear: lang === 'de' ? 'Bildschirm leeren' : 'clear the screen',
+		help_hint: '',
+	},
+};
+---
+
+<BaseLayout title={t('terminal.meta.title')} description={t('terminal.meta.desc')}>
+	<div class="mx-auto max-w-4xl px-6 pb-24 pt-20 sm:pt-28">
+		<p class="font-mono text-sm uppercase tracking-[0.2em] text-brand">{t('terminal.eyebrow')}</p>
+		<h1 class="mt-4 text-4xl font-semibold sm:text-5xl">{t('terminal.title')}</h1>
+		<p class="mt-4 max-w-2xl text-lg text-muted">{t('terminal.tagline')}</p>
+
+		<div
+			class="mt-10 overflow-hidden rounded-card border border-line bg-surface shadow-lg"
+		>
+			<!-- Fake titlebar -->
+			<div class="flex items-center gap-2 border-b border-line bg-elevated px-4 py-3">
+				<span class="h-3 w-3 rounded-full bg-red-400/80"></span>
+				<span class="h-3 w-3 rounded-full bg-yellow-400/80"></span>
+				<span class="h-3 w-3 rounded-full bg-green-400/80"></span>
+				<span class="ml-3 font-mono text-xs text-subtle">guest@pd-portfolio: ~</span>
+			</div>
+
+			<web-terminal
+				class="block cursor-text bg-canvas font-mono text-sm leading-relaxed"
+				data-terminal={JSON.stringify(terminalData)}
+			>
+				<div
+					data-output
+					class="max-h-[60vh] min-h-[320px] overflow-y-auto px-4 py-4 [scrollbar-width:thin]"
+				>
+				</div>
+				<div class="flex items-center gap-2 border-t border-line px-4 py-3">
+					<span data-prompt class="shrink-0 text-brand">guest@pd-portfolio:~$</span>
+					<input
+						data-input
+						type="text"
+						autocomplete="off"
+						autocapitalize="off"
+						autocorrect="off"
+						spellcheck="false"
+						aria-label="Terminal input"
+						class="w-full border-0 bg-transparent text-ink outline-none placeholder:text-subtle"
+					/>
+				</div>
+			</web-terminal>
+		</div>
+		<p class="mt-4 font-mono text-xs text-subtle">{t('terminal.hint')}</p>
+	</div>
+</BaseLayout>
+
+<script>
+	type Project = {
+		slug: string;
+		title: string;
+		description: string;
+		repoUrl: string | null;
+		liveUrl: string | null;
+		url: string;
+	};
+
+	type TerminalData = {
+		lang: string;
+		prompt: string;
+		about: string;
+		social: { label: string; value: string }[];
+		links: { projects: string; about: string; home: string };
+		projects: Project[];
+		strings: Record<string, string>;
+		commands: Record<string, string>;
+	};
+
+	class WebTerminal extends HTMLElement {
+		private data!: TerminalData;
+		private output!: HTMLElement;
+		private input!: HTMLInputElement;
+		private history: string[] = [];
+		private historyIndex = 0;
+
+		connectedCallback() {
+			this.data = JSON.parse(this.dataset.terminal || '{}');
+			this.output = this.querySelector('[data-output]')!;
+			this.input = this.querySelector('[data-input]')!;
+
+			const promptEl = this.querySelector('[data-prompt]')!;
+			promptEl.textContent = this.data.prompt;
+
+			this.print(this.data.strings.welcome, 'text-muted');
+
+			// Clicking anywhere in the terminal focuses the input.
+			this.addEventListener('click', () => this.input.focus());
+			this.input.addEventListener('keydown', (e) => this.onKey(e));
+			// Focus on load without yanking the page scroll position.
+			this.input.focus({ preventScroll: true });
+		}
+
+		private onKey(e: KeyboardEvent) {
+			if (e.key === 'Enter') {
+				const value = this.input.value;
+				this.input.value = '';
+				this.run(value);
+			} else if (e.key === 'ArrowUp') {
+				e.preventDefault();
+				this.recall(-1);
+			} else if (e.key === 'ArrowDown') {
+				e.preventDefault();
+				this.recall(1);
+			} else if (e.key === 'l' && e.ctrlKey) {
+				e.preventDefault();
+				this.output.innerHTML = '';
+			}
+		}
+
+		private recall(dir: number) {
+			if (!this.history.length) return;
+			this.historyIndex = Math.max(0, Math.min(this.history.length, this.historyIndex + dir));
+			this.input.value = this.history[this.historyIndex] ?? '';
+		}
+
+		private run(raw: string) {
+			const line = raw.trim();
+			// Echo the entered command with its prompt.
+			this.printLine(`${this.data.prompt} ${this.escape(raw)}`, 'text-ink');
+			if (line) {
+				this.history.push(line);
+				this.historyIndex = this.history.length;
+			}
+			if (!line) return this.scrollToBottom();
+
+			const [cmd, ...args] = line.split(/\s+/);
+			const handler = this.dispatch(cmd.toLowerCase());
+			if (handler) {
+				handler(args);
+			} else {
+				this.print(`${this.escape(cmd)}: ${this.data.strings.notFound}`, 'text-muted');
+			}
+			this.scrollToBottom();
+		}
+
+		private dispatch(cmd: string): ((args: string[]) => void) | null {
+			const c = this.data.commands;
+			const s = this.data.strings;
+			const map: Record<string, (args: string[]) => void> = {
+				help: () => {
+					this.print(s.help, 'text-muted');
+					const rows: [string, string][] = [
+						['help', c.help],
+						['about', c.about],
+						['projects', c.projects],
+						['open <name>', c.open],
+						['social', c.social],
+						['ls', c.ls],
+						['cat <file>', c.cat],
+						['whoami', c.whoami],
+						['pwd', c.pwd],
+						['date', c.date],
+						['echo <text>', c.echo],
+						['theme <mode>', c.theme],
+						['neofetch', c.neofetch],
+						['clear', c.clear],
+					];
+					for (const [name, desc] of rows) {
+						this.printLine(
+							`  <span class="text-brand">${name.padEnd(14)}</span><span class="text-muted">${this.escape(desc)}</span>`,
+						);
+					}
+				},
+				about: () => this.print(this.data.about, 'text-ink'),
+				whoami: () => this.print('guest', 'text-ink'),
+				pwd: () => this.print('/home/paul', 'text-ink'),
+				date: () => this.print(new Date().toString(), 'text-ink'),
+				echo: (args) => this.print(this.escape(args.join(' ')), 'text-ink'),
+				clear: () => {
+					this.output.innerHTML = '';
+				},
+				ls: () => {
+					const files = ['about', 'projects', 'social', 'skills.txt', 'resume.pdf'];
+					this.printLine(
+						files.map((f) => `<span class="text-brand">${f}</span>`).join('   '),
+					);
+				},
+				projects: () => {
+					for (const p of this.data.projects) {
+						this.printLine(
+							`  <a class="text-brand underline-offset-2 hover:underline" href="${p.url}">${this.escape(p.slug)}</a><span class="text-muted"> - ${this.escape(p.title)}</span>`,
+						);
+					}
+				},
+				open: (args) => {
+					const name = (args[0] || '').toLowerCase();
+					const p = this.data.projects.find((x) => x.slug.toLowerCase() === name);
+					if (!p) return this.print(s.noProject, 'text-muted');
+					this.print(`${s.opening} ${p.title}...`, 'text-muted');
+					setTimeout(() => {
+						window.location.href = p.url;
+					}, 400);
+				},
+				cat: (args) => {
+					const file = (args[0] || '').toLowerCase().replace(/\.txt$|\.pdf$/, '');
+					if (file === 'about') return this.print(this.data.about, 'text-ink');
+					if (file === 'social' || file === 'links') return map.social([]);
+					if (file === 'skills') {
+						this.printLine(
+							'<span class="text-ink">Cloud, Linux, Containers, Networking, Automation, RHCSA</span>',
+						);
+						return;
+					}
+					if (file === 'projects') return map.projects([]);
+					this.print(`cat: ${this.escape(args[0] || '')}: No such file`, 'text-muted');
+				},
+				social: () => {
+					for (const link of this.data.social) {
+						const isUrl = link.value.startsWith('http');
+						const href = isUrl ? link.value : `mailto:${link.value}`;
+						this.printLine(
+							`  <span class="text-muted">${link.label.padEnd(8)}</span><a class="text-brand hover:underline" href="${href}" target="${isUrl ? '_blank' : '_self'}" rel="noopener noreferrer">${this.escape(link.value)}</a>`,
+						);
+					}
+				},
+				theme: (args) => {
+					const mode = (args[0] || '').toLowerCase();
+					const root = document.documentElement;
+					if (mode === 'dark') root.classList.add('theme-dark');
+					else if (mode === 'light') root.classList.remove('theme-dark');
+					else root.classList.toggle('theme-dark');
+					this.print(
+						`theme -> ${root.classList.contains('theme-dark') ? 'dark' : 'light'}`,
+						'text-muted',
+					);
+				},
+				neofetch: () => {
+					const lines = [
+						'      <span class="text-brand">/\\</span>      guest@pd-portfolio',
+						'     <span class="text-brand">/  \\</span>     -----------------',
+						'    <span class="text-brand">/    \\</span>    OS:     Browser Linux',
+						'   <span class="text-brand">/  ()  \\</span>   Host:   pd-portfolio.net',
+						'  <span class="text-brand">/________\\</span>  Shell:  pdsh 1.0',
+						'              Stack:  Astro + Tailwind',
+						'              Uptime: since you got here',
+					];
+					for (const l of lines) this.printLine(l);
+				},
+				// Easter eggs
+				sudo: () => this.print(s.sudo, 'text-muted'),
+				exit: () => this.print(":)", 'text-muted'),
+				coffee: () => this.print('☕  brewing...', 'text-ink'),
+			};
+			map['rm'] = (args) => {
+				if (args.join(' ').includes('-rf')) return this.print('I would not do that.', 'text-muted');
+				this.print('rm: missing operand', 'text-muted');
+			};
+			map['cd'] = () => this.print('', 'text-ink');
+			return map[cmd] ?? null;
+		}
+
+		private print(text: string, cls = '') {
+			this.printLine(`<span class="${cls}">${this.escape(text)}</span>`);
+		}
+
+		// Appends a row of pre-built HTML. Callers are responsible for escaping
+		// any user-derived substrings via this.escape().
+		private printLine(html: string, cls = '') {
+			const div = document.createElement('div');
+			if (cls) div.className = cls;
+			div.innerHTML = html || '&nbsp;';
+			this.output.appendChild(div);
+		}
+
+		private escape(text: string): string {
+			const div = document.createElement('div');
+			div.textContent = text;
+			return div.innerHTML;
+		}
+
+		private scrollToBottom() {
+			this.output.scrollTop = this.output.scrollHeight;
+		}
+	}
+
+	customElements.define('web-terminal', WebTerminal);
+</script>

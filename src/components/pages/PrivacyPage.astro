@@ -1,0 +1,249 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../Hero.astro';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<BaseLayout title={t('privacy.meta.title')} description={t('privacy.meta.desc')}>
+	<div class="mx-auto max-w-3xl px-6 pt-20 sm:pt-28">
+		<Hero eyebrow={t('privacy.eyebrow')} title={t('privacy.title')} align="start" />
+
+		<div
+			class="prose mt-10 max-w-none dark:prose-invert prose-headings:font-display prose-a:text-brand"
+		>
+			{
+				lang === 'de' ? (
+					<>
+						<h2>Allgemeine Hinweise</h2>
+						<p>
+							Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren
+							personenbezogenen Daten passiert, wenn Sie diese Website besuchen.
+							Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert
+							werden können.
+						</p>
+
+						<h3>Wer ist für die Datenerfassung verantwortlich?</h3>
+						<p>
+							Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber. Dessen
+							Kontaktdaten finden Sie im <a href="#impressum">Impressum</a> weiter unten.
+						</p>
+
+						<h3>Wie erfassen wir Ihre Daten?</h3>
+						<p>
+							Einige Daten werden erhoben, indem Sie uns diese mitteilen, zum Beispiel beim
+							Ausfüllen eines Kontaktformulars. Andere Daten werden automatisch von unseren
+							IT-Systemen erfasst, wenn Sie die Website besuchen. Das sind vor allem technische
+							Daten (zum Beispiel Browser, Betriebssystem oder Uhrzeit des Seitenaufrufs). Die
+							Erfassung erfolgt automatisch, sobald Sie unsere Website betreten.
+						</p>
+
+						<h3>Wofür nutzen wir Ihre Daten?</h3>
+						<p>
+							Ein Teil der Daten wird erhoben, um eine fehlerfreie Bereitstellung der Website zu
+							gewährleisten. Andere Daten können zur Analyse Ihres Nutzerverhaltens verwendet
+							werden.
+						</p>
+
+						<h3>Welche Rechte haben Sie bezüglich Ihrer Daten?</h3>
+						<p>
+							Sie haben jederzeit das Recht, unentgeltlich Auskunft über Herkunft, Empfänger und
+							Zweck Ihrer gespeicherten personenbezogenen Daten zu erhalten. Sie haben außerdem ein
+							Recht, die Berichtigung, Sperrung oder Löschung dieser Daten zu verlangen.
+						</p>
+
+						<h2>Cloudflare</h2>
+						<p>
+							Wir nutzen das Content Delivery Network (CDN) der <strong>Cloudflare Germany GmbH</strong>,
+							Rosental 7, c/o Mindspace, 80331 München, Deutschland (Cloudflare), um die Sicherheit
+							und Auslieferungsgeschwindigkeit unserer Website zu erhöhen. Dies entspricht unserem
+							berechtigten Interesse (Art. 6 Abs. 1 lit. f DSGVO).
+						</p>
+						<h3>Was ist ein CDN?</h3>
+						<p>
+							Ein CDN ist ein Netzwerk weltweit verteilter Server, das Inhalte an Nutzer der
+							Website optimiert ausliefern kann. Dabei können personenbezogene Daten in den
+							Server-Logfiles von Cloudflare verarbeitet werden. Bitte beachten Sie auch den
+							Abschnitt „Hosting".
+						</p>
+						<h3>Datenverarbeitung durch Cloudflare</h3>
+						<ul>
+							<li>
+								Cloudflare ist Empfänger Ihrer personenbezogenen Daten und handelt als
+								Auftragsverarbeiter in unserem Auftrag. Dies liegt in unserem berechtigten
+								Interesse nach Art. 6 Abs. 1 lit. f DSGVO, da wir kein eigenes CDN betreiben.
+							</li>
+							<li>
+								Sie haben das Recht, dieser Verarbeitung zu widersprechen. Ob der Widerspruch
+								erfolgreich ist, ist im Rahmen einer Interessenabwägung zu ermitteln.
+							</li>
+							<li>
+								Die Verarbeitung der in diesem Abschnitt genannten Daten ist weder gesetzlich noch
+								vertraglich vorgeschrieben. Die Funktionsfähigkeit der Website kann ohne diese
+								Verarbeitung nicht gewährleistet werden.
+							</li>
+							<li>
+								Ihre personenbezogenen Daten werden von Cloudflare so lange gespeichert, wie es für
+								die beschriebenen Zwecke erforderlich ist.
+							</li>
+						</ul>
+						<h3>Weitere Informationen</h3>
+						<p>
+							Weitere Informationen zu Widerspruchs- und Beseitigungsmöglichkeiten gegenüber
+							Cloudflare finden Sie unter:{' '}
+							<a
+								href="https://www.cloudflare.com/cloudflare_customer_SCCs-German.pdf"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								Cloudflare DPA
+							</a>
+						</p>
+						<p>
+							Cloudflare hat Compliance-Maßnahmen für internationale Datenübermittlungen
+							umgesetzt. Diese gelten für alle weltweiten Tätigkeiten, bei denen Cloudflare
+							personenbezogene Daten von Personen in der EU verarbeitet. Diese Maßnahmen beruhen
+							auf den EU-Standardvertragsklauseln (SCCs). Weitere Informationen finden Sie unter:{' '}
+							<a
+								href="https://www.cloudflare.com/cloudflare_customer_SCCs-German.pdf"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								Cloudflare Customer SCCs (German)
+							</a>
+						</p>
+
+						<h2 id="impressum">Impressum</h2>
+						<h4>Angaben gemäß § 5 TMG</h4>
+						<p>
+							Paul Dresch<br />
+							Schweinfurter Weg 6<br />
+							97508 Untereuerheim
+						</p>
+						<h4>Kontakt</h4>
+						<p>
+							Telefon: <a href="tel:+4915203274369">+49 1520 3274369</a>
+							<br />
+							Fax: <a href="tel:+4915203274369">+49 1520 3274369</a>
+							<br />
+							E-Mail: <a href="mailto:contact@pd-portfolio.net">contact@pd-portfolio.net</a>
+						</p>
+					</>
+				) : (
+					<>
+						<h2>General Information</h2>
+						<p>
+							The following information provides a simple overview of what happens to your personal
+							data when you visit this website. Personal data is any data with which you could be
+							personally identified.
+						</p>
+
+						<h3>Who is responsible for data collection?</h3>
+						<p>
+							Data processing on this website is carried out by the website operator. You can find
+							the operator's contact details in the <a href="#impressum">Legal Notice</a> below.
+						</p>
+
+						<h3>How do we collect your data?</h3>
+						<p>
+							Some data is collected when you provide it to us, for example by filling out a
+							contact form. Other data is collected automatically by our IT systems when you visit
+							the website. This data is primarily technical (e.g., browser, operating system, or
+							time of page access) and is collected automatically as soon as you enter our website.
+						</p>
+
+						<h3>What do we use your data for?</h3>
+						<p>
+							Part of the data is collected to ensure the proper functioning of the website. Other
+							data may be used to analyze how visitors use the site.
+						</p>
+
+						<h3>What rights do you have regarding your data?</h3>
+						<p>
+							You have the right at any time to obtain information free of charge about the origin,
+							recipient, and purpose of your stored personal data. You also have the right to
+							request correction, blocking, or deletion of this data.
+						</p>
+
+						<h2>Cloudflare</h2>
+						<p>
+							We use the Content Delivery Network (CDN) from{' '}
+							<strong>Cloudflare Germany GmbH</strong>, Rosental 7, c/o Mindspace, 80331 Munich,
+							Germany (Cloudflare) to increase the security and delivery speed of our website. This
+							is in our legitimate interest (Art. 6(1)(f) GDPR).
+						</p>
+						<h3>What is a CDN?</h3>
+						<p>
+							A CDN is a network of servers distributed worldwide that can deliver content to
+							website users in an optimized way. For this purpose, personal data may be processed in
+							Cloudflare's server log files. Please also see the section "Hosting."
+						</p>
+						<h3>Data processing by Cloudflare</h3>
+						<ul>
+							<li>
+								Cloudflare is the recipient of your personal data and acts as a processor on our
+								behalf. This is in our legitimate interest under Art. 6(1)(f) GDPR, as we do not
+								operate our own CDN.
+							</li>
+							<li>
+								You have the right to object to this processing. Whether the objection is
+								successful must be determined in the context of a balancing of interests.
+							</li>
+							<li>
+								The processing of the data specified in this section is neither legally nor
+								contractually required. The functionality of the website cannot be guaranteed
+								without this processing.
+							</li>
+							<li>
+								Your personal data will be stored by Cloudflare for as long as necessary for the
+								purposes described.
+							</li>
+						</ul>
+						<h3>Further information</h3>
+						<p>
+							For more information about objection and removal options regarding Cloudflare, see:{' '}
+							<a
+								href="https://www.cloudflare.com/cloudflare_customer_SCCs-German.pdf"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								Cloudflare DPA
+							</a>
+						</p>
+						<p>
+							Cloudflare has implemented compliance measures for international data transfers. These
+							apply to all global activities where Cloudflare processes personal data of individuals
+							in the EU. These measures are based on the EU Standard Contractual Clauses (SCCs). For
+							more information, see:{' '}
+							<a
+								href="https://www.cloudflare.com/cloudflare_customer_SCCs-German.pdf"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								Cloudflare Customer SCCs (German)
+							</a>
+						</p>
+
+						<h2 id="impressum">Legal Notice (Impressum)</h2>
+						<h4>Information according to § 5 TMG</h4>
+						<p>
+							Paul Dresch<br />
+							Schweinfurter Weg 6<br />
+							97508 Untereuerheim
+						</p>
+						<h4>Contact</h4>
+						<p>
+							Phone: <a href="tel:+4915203274369">+49 1520 3274369</a>
+							<br />
+							Fax: <a href="tel:+4915203274369">+49 1520 3274369</a>
+							<br />
+							Email: <a href="mailto:contact@pd-portfolio.net">contact@pd-portfolio.net</a>
+						</p>
+					</>
+				)
+			}
+		</div>
+	</div>
+</BaseLayout>

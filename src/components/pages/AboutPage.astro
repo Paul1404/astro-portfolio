@@ -1,0 +1,60 @@
+---
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContactCTA from '../ContactCTA.astro';
+import Hero from '../Hero.astro';
+import { getLangFromUrl, useTranslations, getContent } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const { skills } = getContent(lang);
+---
+
+<BaseLayout title={t('about.meta.title')} description={t('about.meta.desc')}>
+	<div class="mx-auto max-w-6xl px-6 pt-20 sm:pt-28">
+		<Hero
+			eyebrow={t('about.hero.eyebrow')}
+			title={t('about.hero.title')}
+			tagline={t('about.hero.tagline')}
+			align="start"
+		/>
+	</div>
+
+	<div class="mx-auto mt-12 grid max-w-6xl gap-10 px-6 lg:grid-cols-[1.4fr_1fr]">
+		<div
+			class="prose prose-lg max-w-none dark:prose-invert prose-headings:font-display prose-a:text-brand"
+		>
+			<p>{t('about.bodyP1')}</p>
+			<p>{t('about.bodyP2')}</p>
+		</div>
+		<!-- Branded panel, consistent with the project cards' icon treatment. -->
+		<div
+			class="relative flex min-h-56 flex-col justify-end overflow-hidden rounded-card border border-line bg-[linear-gradient(135deg,var(--color-brand-tint),transparent)] p-6"
+		>
+			<div class="pointer-events-none absolute inset-0 -z-0 bg-grid opacity-30"></div>
+			<Icon name="lucide:server" class="relative h-14 w-14 text-brand" />
+			<p class="relative mt-4 font-mono text-sm text-muted">{t('about.imageLabel')}</p>
+		</div>
+	</div>
+
+	<div class="mx-auto mt-16 max-w-6xl px-6">
+		<h2 class="text-2xl font-semibold sm:text-3xl">{t('about.skillsTitle')}</h2>
+		<div class="mt-8 grid gap-5 sm:grid-cols-2">
+			{
+				skills.map((s) => (
+					<div class="rounded-card border border-line bg-surface p-6">
+						<div class="flex h-11 w-11 items-center justify-center rounded-lg bg-brand-tint text-brand">
+							<Icon name={s.icon} class="h-5 w-5" />
+						</div>
+						<h3 class="mt-4 text-lg font-semibold text-ink">{s.title}</h3>
+						<p class="mt-2 text-sm text-muted">{s.body}</p>
+					</div>
+				))
+			}
+		</div>
+	</div>
+
+	<div class="mt-24">
+		<ContactCTA />
+	</div>
+</BaseLayout>

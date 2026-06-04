@@ -7,6 +7,13 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   site: 'https://pd-portfolio.net/',
+  i18n: {
+    locales: ['en', 'de'],
+    defaultLocale: 'en',
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
   vite: {
     plugins: [tailwindcss()],
   },

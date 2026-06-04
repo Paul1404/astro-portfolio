@@ -1,0 +1,25 @@
+---
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CallToAction from '../CallToAction.astro';
+import { getLangFromUrl, useTranslations, localizePath } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<BaseLayout title={t('notfound.meta.title')} description={t('notfound.meta.desc')}>
+	<section
+		class="mx-auto flex min-h-[60vh] max-w-2xl flex-col items-center justify-center px-6 text-center"
+	>
+		<p class="font-mono text-sm uppercase tracking-[0.2em] text-brand">{t('notfound.eyebrow')}</p>
+		<h1 class="mt-4 text-4xl font-semibold sm:text-5xl">{t('notfound.title')}</h1>
+		<p class="mt-4 text-lg text-muted">{t('notfound.body')}</p>
+		<div class="mt-8">
+			<CallToAction href={localizePath('/', lang)}>
+				<Icon name="lucide:arrow-left" class="h-4 w-4" />
+				{t('notfound.back')}
+			</CallToAction>
+		</div>
+	</section>
+</BaseLayout>
