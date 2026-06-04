@@ -1,0 +1,35 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import ContactCTA from '../components/ContactCTA.astro';
+
+const projects = (await getCollection('projects')).sort(
+	(a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
+---
+
+<BaseLayout
+	title="Projects | Paul Dresch"
+	description="Software I have designed and shipped: self-hosted tools, automation, and infrastructure projects."
+>
+	<div class="mx-auto max-w-6xl px-6 pt-20 sm:pt-28">
+		<Hero
+			eyebrow="Projects"
+			title="Software I have shipped"
+			tagline="Self-hosted apps, command line tools, and automation. Most of it is open source and a lot of it solves a problem I actually had."
+			align="start"
+		/>
+	</div>
+
+	<div class="mx-auto mt-12 max-w-6xl px-6">
+		<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+			{projects.map((project) => <ProjectCard project={project} />)}
+		</div>
+	</div>
+
+	<div class="mt-24">
+		<ContactCTA />
+	</div>
+</BaseLayout>

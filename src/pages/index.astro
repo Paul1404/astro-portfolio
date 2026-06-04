@@ -1,222 +1,77 @@
 ---
 import { getCollection } from 'astro:content';
+import { Icon } from 'astro-icon/components';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import CallToAction from '../components/CallToAction.astro';
-import Grid from '../components/Grid.astro';
-import Hero from '../components/Hero.astro';
-import Pill from '../components/Pill.astro';
-import PortfolioPreview from '../components/PortfolioPreview.astro';
+import Section from '../components/Section.astro';
+import ProjectCard from '../components/ProjectCard.astro';
 import ContactCTA from '../components/ContactCTA.astro';
+import CallToAction from '../components/CallToAction.astro';
 
-// Fetch the latest 4 projects for preview
-const projects = (await getCollection('work'))
-  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
-  .slice(0, 4);
+const allProjects = (await getCollection('projects')).sort(
+	(a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
+const featured = allProjects.filter((p) => p.data.featured);
+const projects = (featured.length ? featured : allProjects).slice(0, 6);
+
+const focus = ['Linux', 'Virtualization', 'Networking', 'Containers', 'Automation'];
 ---
 
-<BaseLayout>
-  <div class="stack gap-20 lg:gap-48">
-    <div class="wrapper stack gap-8 lg:gap-20">
-      <header class="hero">
-        <Hero
-          title="Hi, I'm Paul."
-          tagline="I'm a Systems Engineer (Linux) and passionate homelabber. My 'homelab' is a full 42U rack with Dell servers, Brocade and Arista switches, and enterprise virtualization—because why not bring datacenter vibes home? I love building robust, scalable solutions and experimenting with modern infrastructure."
-          align="start"
-        >
-          <div class="roles">
-            <Pill>🐧 Linux</Pill>
-            <Pill>🖥️ Virtualization</Pill>
-            <Pill>🌐 Networking</Pill>
-            <Pill>🐳 Containers</Pill>
-            <Pill>⚙️ Automation</Pill>
-          </div>
-        </Hero>
-        <img
-          alt="Logo"
-          src="/assets/ArcNet-Trans-Resized.png"
-        />
-      </header>
+<BaseLayout
+	title="Paul Dresch | Systems engineer and software builder"
+	description="Systems engineer who builds and ships real software. Self-hosted tools, automation, and infrastructure projects."
+>
+	<!-- Hero -->
+	<section class="mx-auto max-w-6xl px-6 pb-16 pt-20 sm:pt-28">
+		<p class="font-mono text-sm uppercase tracking-[0.2em] text-brand">
+			Systems engineer
+		</p>
+		<h1 class="mt-4 max-w-4xl text-4xl font-semibold leading-[1.1] sm:text-6xl">
+			I build and ship <span class="text-gradient">real software</span>, not just slide decks.
+		</h1>
+		<p class="mt-6 max-w-2xl text-lg text-muted">
+			I run a 42U homelab and turn that hands-on infrastructure work into tools people
+			actually use: self-hosted apps, automation, and the boring plumbing that keeps
+			systems running.
+		</p>
+		<div class="mt-8 flex flex-wrap gap-3">
+			<CallToAction href="/projects/">
+				View projects
+				<Icon name="lucide:arrow-right" class="h-4 w-4" />
+			</CallToAction>
+			<CallToAction href="https://github.com/Paul1404" variant="outline" external>
+				<Icon name="lucide:github" class="h-4 w-4" />
+				GitHub
+			</CallToAction>
+			<CallToAction href="mailto:contact@pd-portfolio.net" variant="ghost">
+				<Icon name="lucide:mail" class="h-4 w-4" />
+				Contact
+			</CallToAction>
+		</div>
+		<div class="mt-10 flex flex-wrap gap-2">
+			{
+				focus.map((f) => (
+					<span class="rounded-full border border-line bg-surface px-3 py-1 font-mono text-xs text-muted">
+						{f}
+					</span>
+				))
+			}
+		</div>
+	</section>
 
-    <main class="wrapper stack gap-20 lg:gap-48">
-      <section class="section with-background with-cta">
-        <header class="section-header stack gap-2 lg:gap-4">
-          <h3>Selected Work</h3>
-        </header>
+	<!-- Featured projects -->
+	<Section eyebrow="Selected work" title="Things I have built" class="py-8">
+		<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+			{projects.map((project) => <ProjectCard project={project} />)}
+		</div>
+		<div class="mt-10 flex justify-center">
+			<CallToAction href="/projects/" variant="outline">
+				See all projects
+				<Icon name="lucide:arrow-right" class="h-4 w-4" />
+			</CallToAction>
+		</div>
+	</Section>
 
-        <div class="gallery">
-          <Grid variant="offset">
-            {
-              projects.map((project) => (
-                <li>
-                  <PortfolioPreview project={project} />
-                </li>
-              ))
-            }
-          </Grid>
-        </div>
-
-        <div class="cta">
-          <CallToAction href="/work/">
-            See all work
-          </CallToAction>
-        </div>
-      </section>
-    </main>
-
-<style>
-  .hero {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
-  }
-
-  .roles {
-    margin-top: 1rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  .hero img {
-    height: auto;     /* keep aspect ratio */
-    object-fit: contain; /* show the whole image */
-    opacity: 0.85;      /* 0 = invisible, 1 = solid */
-  }
-
-  @media (min-width: 50em) {
-    .hero {
-      display: grid;
-      grid-template-columns: 6fr 4fr;
-      padding-inline: 2.5rem;
-      gap: 3.75rem;
-    }
-
-    .roles {
-      margin-top: 0.5rem;
-      display: flex;
-      gap: 0.5rem;
-    }
-
-    .hero img {
-      border-radius: 4.5rem;
-      object-fit: contain;
-    }
-  }
-
-  .about-section {
-    max-width: 40em;
-    margin: 0 auto;
-    text-align: center;
-    margin-top: 2rem;
-  }
-  .about-section h3 {
-    font-size: 1.25rem;
-    margin-bottom: 0.5em;
-    color: var(--gray-100);
-  }
-  .about-section p {
-    color: var(--gray-300);
-    margin-bottom: 1.5em;
-    font-size: 1.1rem;
-  }
-  .about-section a {
-    color: var(--accent, #4f8cff);
-    text-decoration: underline;
-    font-weight: 500;
-  }
-
-  .section {
-    display: grid;
-    gap: 2rem;
-  }
-
-  .with-background {
-    position: relative;
-  }
-
-  .with-background::before {
-    --hero-bg: var(--bg-image-subtle-2);
-
-    content: '';
-    position: absolute;
-    pointer-events: none;
-    left: 50%;
-    width: 100vw;
-    aspect-ratio: calc(2.25 / var(--bg-scale));
-    top: 0;
-    transform: translateY(-75%) translateX(-50%);
-    background: url('/assets/backgrounds/noise.png') top center/220px repeat,
-      var(--hero-bg) center center / var(--bg-gradient-size) no-repeat, var(--gray-999);
-    background-blend-mode: overlay, normal, normal, normal;
-    mix-blend-mode: var(--bg-blend-mode);
-    z-index: -1;
-  }
-
-  .with-background.bg-variant::before {
-    --hero-bg: var(--bg-image-subtle-1);
-  }
-
-  .section-header {
-    justify-self: center;
-    text-align: center;
-    max-width: 50ch;
-    font-size: var(--text-md);
-    color: var(--gray-300);
-  }
-
-  .section-header h3 {
-    font-size: var(--text-2xl);
-  }
-
-  @media (min-width: 50em) {
-    .section {
-      grid-template-columns: repeat(4, 1fr);
-      grid-template-areas: 'header header header header' 'gallery gallery gallery gallery';
-      gap: 5rem;
-    }
-
-    .section.with-cta {
-      grid-template-areas: 'header header header cta' 'gallery gallery gallery gallery';
-    }
-
-    .section-header {
-      grid-area: header;
-      font-size: var(--text-lg);
-    }
-
-    .section-header h3 {
-      font-size: var(--text-4xl);
-    }
-
-    .with-cta .section-header {
-      justify-self: flex-start;
-      text-align: left;
-    }
-
-    .gallery {
-      grid-area: gallery;
-    }
-
-    .cta {
-      grid-area: cta;
-    }
-  }
-
-  .contact-section {
-    display: flex;
-    justify-content: center;
-    gap: 1.5em;
-    margin-top: 3em;
-    color: var(--gray-400);
-    font-size: 1.1rem;
-  }
-  .contact-section a {
-    color: var(--gray-200);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .contact-section a:hover {
-    color: var(--accent);
-  }
-</style>
+	<div class="mt-24">
+		<ContactCTA />
+	</div>
+</BaseLayout>

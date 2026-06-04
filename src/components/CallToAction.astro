@@ -1,56 +1,28 @@
 ---
 interface Props {
 	href: string;
+	variant?: 'primary' | 'outline' | 'ghost';
+	external?: boolean;
+	class?: string;
 }
 
-const { href } = Astro.props;
+const { href, variant = 'primary', external = false, class: className } = Astro.props;
+
+const base =
+	'inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2';
+
+const variants = {
+	primary:
+		'bg-brand text-on-brand hover:bg-brand-strong shadow-sm shadow-brand/20',
+	outline:
+		'border border-line-strong text-ink hover:border-brand hover:text-brand',
+	ghost: 'text-muted hover:text-ink hover:bg-elevated',
+};
+
+const rel = external ? 'noopener noreferrer' : undefined;
+const target = external ? '_blank' : undefined;
 ---
 
-<a href={href}><slot /></a>
-
-<style>
-	a {
-		position: relative;
-		display: flex;
-		place-content: center;
-		text-align: center;
-		padding: 0.56em 2em;
-		gap: 0.8em;
-		color: var(--accent-text-over);
-		text-decoration: none;
-		line-height: 1.1;
-		border-radius: 999rem;
-		overflow: hidden;
-		background: var(--gradient-accent-orange);
-		box-shadow: var(--shadow-md);
-		white-space: nowrap;
-	}
-
-	@media (min-width: 20em) {
-		a {
-			font-size: var(--text-lg);
-		}
-	}
-
-	/* Overlay for hover effects. */
-	a::after {
-		content: '';
-		position: absolute;
-		inset: 0;
-		pointer-events: none;
-		transition: background-color var(--theme-transition);
-		mix-blend-mode: overlay;
-	}
-
-	a:focus::after,
-	a:hover::after {
-		background-color: hsla(var(--gray-999-basis), 0.3);
-	}
-
-	@media (min-width: 50em) {
-		a {
-			padding: 1.125rem 2.5rem;
-			font-size: var(--text-xl);
-		}
-	}
-</style>
+<a href={href} rel={rel} target={target} class:list={[base, variants[variant], className]}>
+	<slot />
+</a>

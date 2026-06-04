@@ -1,0 +1,98 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* Bind the dark variant to the existing .theme-dark class (set by the inline
+   theme script and the <theme-toggle> custom element), not OS preference. */
+@custom-variant dark (&:where(.theme-dark, .theme-dark *));
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-display: "Space Grotesk", var(--font-sans);
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Semantic surface + text tokens (light values; flipped under .theme-dark). */
+  --color-canvas: #fbfcfe;
+  --color-surface: #ffffff;
+  --color-elevated: #f3f6fc;
+  --color-line: #e3e8f1;
+  --color-line-strong: #ccd4e3;
+  --color-ink: #0f1726;
+  --color-muted: #49546c;
+  --color-subtle: #6b7589;
+
+  /* Brand: blue to cyan. */
+  --color-brand: #1f7ae0;
+  --color-brand-strong: #1763bd;
+  --color-brand-soft: #16c0e0;
+  --color-on-brand: #ffffff;
+  --color-brand-tint: color-mix(in oklab, var(--color-brand) 12%, transparent);
+
+  --radius-card: 1rem;
+}
+
+/* Dark theme: redefine the emitted custom properties so every bg-canvas / text-ink /
+   border-line utility flips automatically. */
+:root.theme-dark {
+  --color-canvas: #080b12;
+  --color-surface: #0e131d;
+  --color-elevated: #151c2a;
+  --color-line: #222b3c;
+  --color-line-strong: #2f3a50;
+  --color-ink: #f2f5fb;
+  --color-muted: #a7b1c6;
+  --color-subtle: #7b8599;
+
+  --color-brand: #3f9bff;
+  --color-brand-strong: #5fb0ff;
+  --color-brand-soft: #34d2ee;
+  --color-brand-tint: color-mix(in oklab, var(--color-brand) 16%, transparent);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-muted);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    color: var(--color-ink);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background-color: var(--color-brand);
+    color: var(--color-on-brand);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+/* The brand gradient, reused across hero text, buttons and accents. */
+@utility text-gradient {
+  background-image: linear-gradient(100deg, var(--color-brand), var(--color-brand-soft));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, var(--color-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-line) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
