@@ -1,74 +1,38 @@
 ---
-import Icon from './Icon.astro';
+import { Icon } from 'astro-icon/components';
 const currentYear = new Date().getFullYear();
+
+const links = [
+	{ label: 'Email', href: 'mailto:contact@pd-portfolio.net', icon: 'lucide:mail' },
+	{ label: 'GitHub', href: 'https://github.com/Paul1404', icon: 'lucide:github' },
+];
 ---
 
-<footer>
-	<div class="group">
-		<p>
-			Built and designed in Untereuerheim with <a href="https://astro.build/">Astro</a>
-			<Icon icon="rocket-launch" size="1.2em" />
-		</p>
-		<p>&copy; {currentYear} Paul Dresch</p>
+<footer class="mt-24 border-t border-line">
+	<div
+		class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 px-6 py-10 text-sm text-subtle sm:flex-row"
+	>
+		<div class="flex flex-col items-center gap-1 sm:items-start">
+			<p>&copy; {currentYear} Paul Dresch</p>
+			<p>Built in Untereuerheim with Astro and Tailwind.</p>
+		</div>
+		<div class="flex items-center gap-4">
+			{
+				links.map(({ label, href, icon }) => (
+					<a
+						href={href}
+						target={href.startsWith('http') ? '_blank' : undefined}
+						rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+						class="inline-flex items-center gap-1.5 transition-colors hover:text-ink"
+					>
+						<Icon name={icon} class="h-4 w-4" />
+						{label}
+					</a>
+				))
+			}
+			<a href="/privacy-policy/#impressum" class="transition-colors hover:text-ink">
+				Legal Notice
+			</a>
+		</div>
 	</div>
-	<p class="socials">
-		<a href="mailto:contact@pd-portfolio.net"> Email</a>
-		<a href="https://github.com/Paul1404"> GitHub</a>
-		<a href="https://pd-portfolio.net/privacy-policy/#impressum"> Legal Notice</a>
-	</p>
 </footer>
-<style>
-	footer {
-		display: flex;
-		flex-direction: column;
-		gap: 3rem;
-		margin-top: auto;
-		padding: 3rem 2rem 3rem;
-		text-align: center;
-		color: var(--gray-400);
-		font-size: var(--text-sm);
-	}
-
-	footer a {
-		color: var(--gray-400);
-		text-decoration: 1px solid underline transparent;
-		text-underline-offset: 0.25em;
-		transition: text-decoration-color var(--theme-transition);
-	}
-
-	footer a:hover,
-	footer a:focus {
-		text-decoration-color: currentColor;
-	}
-
-	.group {
-		display: flex;
-		flex-direction: column;
-		gap: 0.5rem;
-	}
-
-	.socials {
-		display: flex;
-		justify-content: center;
-		gap: 1rem;
-		flex-wrap: wrap;
-	}
-
-	@media (min-width: 50em) {
-		footer {
-			flex-direction: row;
-			justify-content: space-between;
-			padding: 2.5rem 5rem;
-		}
-
-		.group {
-			flex-direction: row;
-			gap: 1rem;
-			flex-wrap: wrap;
-		}
-
-		.socials {
-			justify-content: flex-end;
-		}
-	}
-</style>

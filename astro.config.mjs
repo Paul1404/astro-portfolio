@@ -2,10 +2,16 @@ import { defineConfig } from 'astro/config';
 import sitemap from "@astrojs/sitemap";
 import robotsTxt from "astro-robots-txt";
 import cookieconsent from "@jop-software/astro-cookieconsent";
+import icon from "astro-icon";
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   site: 'https://pd-portfolio.net/',
+  vite: {
+    plugins: [tailwindcss()],
+  },
   integrations: [
+    icon(),
     sitemap(),
     robotsTxt(),
     cookieconsent({

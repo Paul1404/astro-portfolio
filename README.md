@@ -1,103 +1,57 @@
-# Astro Portfolio
+# astro-portfolio
 
-A modern, fast, and customizable portfolio site built with [Astro](https://astro.build/).
+Paul Dresch's personal portfolio. A static site that showcases shipped software:
+self-hosted tools, automation, and infrastructure projects.
 
-[View on GitHub](https://github.com/Paul1404/astro-portfolio)
+Live at [pd-portfolio.net](https://pd-portfolio.net).
 
----
+## Stack
 
-## Features
+- [Astro](https://astro.build/) static site, TypeScript
+- [Tailwind CSS v4](https://tailwindcss.com/) via the `@tailwindcss/vite` plugin
+- [astro-icon](https://www.astroicon.dev/) with the Lucide icon set
+- Projects authored as Markdown in a `projects` content collection
+- Deployed to Cloudflare Pages
 
-- ⚡️ Lightning-fast static site generation
-- 🛠️ Built with Astro, TypeScript, and modern tooling
-- 📱 Responsive design
-- 📝 Easy content management with Markdown or MDX
-- 🧩 Modular components for easy customization
-- 🔒 Secure dependencies (see [Security](#security))
-
----
-
-## Getting Started
-
-### Prerequisites
-
-- [Node.js](https://nodejs.org/) (v18+ recommended)
-- [npm](https://www.npmjs.com/) (v9+ recommended)
-
-### Installation
-
-Clone the repository and install dependencies:
+## Run locally
 
 ```bash
-git clone https://github.com/Paul1404/astro-portfolio.git
-cd astro-portfolio
 npm install
-```
-
-### Development
-
-Start the local development server:
-
-```bash
 npm run dev
 ```
 
-Open [http://localhost:4321](http://localhost:4321) in your browser to view the site.
+Open http://localhost:4321.
 
-### Building for Production
-
-```bash
-npm run build
-```
-
-The static site will be generated in the `dist/` directory.
-
-### Preview Production Build
+## Build
 
 ```bash
-npm run preview
+npm run build      # outputs static site to dist/
+npm run preview    # serve the production build locally
 ```
 
----
+## Project content
 
-## Project Structure
+Each project lives in `src/content/projects/<slug>.md`. The frontmatter schema is
+defined in `src/content.config.ts` and supports `title`, `description`,
+`publishDate`, `stack`, `tags`, `img`, `repoUrl`, `liveUrl`, `featured`, `status`,
+and an `icon` (a Lucide name used for the card placeholder). Set `featured: true` to
+surface a project on the home page.
 
-```
-.
-├── public/           # Static assets (images, favicon, etc.)
-├── src/
-│   ├── components/   # Reusable UI components
-│   ├── content/      # Content files (Markdown, MDX, etc.)
-│   ├── layouts/      # Layout components
-│   ├── pages/        # Site pages (routes)
-│   └── styles/       # CSS/SCSS files
-├── astro.config.mjs  # Astro configuration
-├── package.json      # Project metadata and scripts
-├── tsconfig.json     # TypeScript configuration
-└── ...
+## Favicons
+
+The favicon set is generated from `public/favicon.svg`:
+
+```bash
+npm run favicons
 ```
 
----
+This writes the PNG variants and `manifest.webmanifest` into `public/`.
 
-## Security
+## Deployment
 
-- **No vulnerable dependencies:**  
-  The project previously included `npm` as a dependency, which introduced a transitive vulnerability in `brace-expansion`.  
-  This has been fixed by removing `npm` from the project dependencies.  
-  Please ensure you use a secure, up-to-date version of `npm` globally.
-
-- **Keep dependencies updated:**  
-  Run `npm audit` regularly and update as needed.
-
----
+Cloudflare Pages serves the `dist/` directory (see `wrangler.jsonc`). Old `/work/*`
+URLs redirect to `/projects/*` via `public/_redirects`.
 
 ## License
 
 [MIT](LICENSE)
-
----
-
-## Acknowledgements
-
-- [Astro](https://astro.build/)
-- [TypeScript](https://www.typescriptlang.org/)

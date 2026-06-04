@@ -1,0 +1,101 @@
+---
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContactCTA from '../../components/ContactCTA.astro';
+import TechBadge from '../../components/TechBadge.astro';
+import CallToAction from '../../components/CallToAction.astro';
+
+interface Props {
+	entry: CollectionEntry<'projects'>;
+}
+
+export async function getStaticPaths() {
+	const projects = await getCollection('projects');
+	return projects.map((entry) => ({
+		params: { slug: entry.id },
+		props: { entry },
+	}));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { title, description, img, img_alt, stack, repoUrl, liveUrl, status } = entry.data;
+
+const statusLabel: Record<string, string> = {
+	shipped: 'Shipped',
+	wip: 'In progress',
+	archived: 'Archived',
+};
+---
+
+<BaseLayout title={`${title} | Paul Dresch`} description={description}>
+	<article class="mx-auto max-w-3xl px-6 pt-12 sm:pt-16">
+		<a
+			href="/projects/"
+			class="inline-flex items-center gap-1.5 text-sm text-subtle transition-colors hover:text-ink"
+		>
+			<Icon name="lucide:arrow-left" class="h-4 w-4" />
+			All projects
+		</a>
+
+		<header class="mt-8 border-b border-line pb-8">
+			<div class="flex flex-wrap items-center gap-3">
+				<h1 class="text-3xl font-semibold sm:text-4xl">{title}</h1>
+				<span class="rounded-full border border-line bg-elevated px-2.5 py-1 font-mono text-xs text-muted">
+					{statusLabel[status]}
+				</span>
+			</div>
+			<p class="mt-4 text-lg text-muted">{description}</p>
+
+			{
+				stack.length > 0 && (
+					<div class="mt-5 flex flex-wrap gap-1.5">
+						{stack.map((s) => (
+							<TechBadge label={s} />
+						))}
+					</div>
+				)
+			}
+
+			{
+				(repoUrl || liveUrl) && (
+					<div class="mt-6 flex flex-wrap gap-3">
+						{liveUrl && (
+							<CallToAction href={liveUrl} external>
+								<Icon name="lucide:external-link" class="h-4 w-4" />
+								Live demo
+							</CallToAction>
+						)}
+						{repoUrl && (
+							<CallToAction href={repoUrl} variant="outline" external>
+								<Icon name="lucide:github" class="h-4 w-4" />
+								View code
+							</CallToAction>
+						)}
+					</div>
+				)
+			}
+		</header>
+
+		{
+			img && (
+				<img
+					src={img}
+					alt={img_alt || title}
+					class="mt-8 w-full rounded-card border border-line"
+				/>
+			)
+		}
+
+		<div
+			class="prose prose-lg mt-10 max-w-none dark:prose-invert prose-headings:font-display prose-a:text-brand prose-pre:rounded-xl prose-pre:border prose-pre:border-line prose-img:rounded-card prose-img:border prose-img:border-line"
+		>
+			<Content />
+		</div>
+	</article>
+
+	<div class="mt-24">
+		<ContactCTA />
+	</div>
+</BaseLayout>

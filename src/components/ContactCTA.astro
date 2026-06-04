@@ -1,46 +1,26 @@
 ---
+import { Icon } from 'astro-icon/components';
 import CallToAction from './CallToAction.astro';
-import Icon from './Icon.astro';
 ---
 
-<aside>
-	<h2>Feel free to send me a message</h2>
-	<CallToAction href="mailto:contact@pd-portfolio.net">
-		Right Here!
-		<Icon icon="paper-plane-tilt" size="1.2em" />
-	</CallToAction>
-</aside>
-
-<style>
-	aside {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 3rem;
-		border-top: 1px solid var(--gray-800);
-		border-bottom: 1px solid var(--gray-800);
-		padding: 5rem 1.5rem;
-		background-color: var(--gray-999_40);
-		box-shadow: var(--shadow-sm);
-	}
-
-	h2 {
-		font-size: var(--text-xl);
-		text-align: center;
-		max-width: 15ch;
-	}
-
-	@media (min-width: 50em) {
-		aside {
-			padding: 7.5rem;
-			flex-direction: row;
-			flex-wrap: wrap;
-			justify-content: space-between;
-		}
-
-		h2 {
-			font-size: var(--text-3xl);
-			text-align: left;
-		}
-	}
-</style>
+<section class="mx-auto w-full max-w-6xl px-6">
+	<div
+		class="relative overflow-hidden rounded-card border border-line bg-elevated px-6 py-12 text-center sm:px-12 sm:py-16"
+	>
+		<div class="pointer-events-none absolute inset-0 -z-10 bg-grid opacity-40"></div>
+		<h2 class="text-2xl font-semibold sm:text-3xl">Have something to build?</h2>
+		<p class="mx-auto mt-3 max-w-md text-muted">
+			I am happy to talk about infrastructure, automation, or a project you have in mind.
+		</p>
+		<div class="mt-7 flex flex-wrap justify-center gap-3">
+			<CallToAction href="mailto:contact@pd-portfolio.net">
+				<Icon name="lucide:send" class="h-4 w-4" />
+				Send a message
+			</CallToAction>
+			<CallToAction href="https://github.com/Paul1404" variant="outline" external>
+				<Icon name="lucide:github" class="h-4 w-4" />
+				GitHub
+			</CallToAction>
+		</div>
+	</div>
+</section>
