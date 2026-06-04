@@ -13,8 +13,8 @@ const terminalData = {
 	prompt: 'guest@pd-portfolio:~$',
 	about:
 		lang === 'de'
-			? 'Paul Dresch. Systems Engineer aus Untereuerheim. Ich baue und liefere echte Software, heute meist in der Cloud auf Railway und Hetzner.'
-			: 'Paul Dresch. Systems engineer from Untereuerheim. I build and ship real software, mostly in the cloud now on Railway and Hetzner.',
+			? 'Paul Dresch. Systems Engineer aus Untereuerheim. Ich arbeite mit Cloud-Infrastruktur, Linux und Automatisierung, meist auf Railway und Hetzner.'
+			: 'Paul Dresch. Systems engineer from Untereuerheim. I work with cloud infrastructure, Linux, and automation, mostly on Railway and Hetzner.',
 	social: [
 		{ label: 'GitHub', value: 'https://github.com/Paul1404' },
 		{ label: 'Email', value: 'contact@pd-portfolio.net' },
@@ -96,7 +96,7 @@ const terminalData = {
 			>
 				<div
 					data-output
-					class="max-h-[60vh] min-h-[320px] overflow-y-auto px-4 py-4 [scrollbar-width:thin]"
+					class="max-h-[60vh] min-h-[320px] overflow-y-auto whitespace-pre-wrap break-words px-4 py-4 [scrollbar-width:thin]"
 				>
 				</div>
 				<div class="flex items-center gap-2 border-t border-line px-4 py-3">
@@ -298,16 +298,59 @@ const terminalData = {
 					);
 				},
 				neofetch: () => {
-					const lines = [
-						'      <span class="text-brand">/\\</span>      guest@pd-portfolio',
-						'     <span class="text-brand">/  \\</span>     -----------------',
-						'    <span class="text-brand">/    \\</span>    OS:     Browser Linux',
-						'   <span class="text-brand">/  ()  \\</span>   Host:   pd-portfolio.net',
-						'  <span class="text-brand">/________\\</span>  Shell:  pdsh 1.0',
-						'              Stack:  Astro + Tailwind',
-						'              Uptime: since you got here',
+					const theme = document.documentElement.classList.contains('theme-dark')
+						? 'dark'
+						: 'light';
+					// Left column: a small terminal-window glyph, padded to a fixed width so
+					// the info column lines up. Box-drawing characters are monospace-safe.
+					const logo = [
+						'   ╭───────────╮',
+						'   │ ›_        │',
+						'   │           │',
+						'   │           │',
+						'   ╰───────────╯',
+						'',
+						'',
+						'',
 					];
-					for (const l of lines) this.printLine(l);
+					const rows: [string, string][] = [
+						['OS', 'Browser Linux'],
+						['Host', 'pd-portfolio.net'],
+						['Shell', 'pdsh 1.0'],
+						['Stack', 'Astro + Tailwind CSS'],
+						['Theme', theme],
+						['Uptime', 'since you arrived'],
+					];
+					const info: string[] = [
+						'<span class="text-ink">guest</span><span class="text-subtle">@</span><span class="text-ink">pd-portfolio</span>',
+						'<span class="text-subtle">-------------------</span>',
+						...rows.map(([label, value]) => {
+							const pad = ' '.repeat(Math.max(1, 9 - label.length));
+							return `<span class="text-brand">${label}</span><span class="text-muted">${pad}${this.escape(value)}</span>`;
+						}),
+					];
+					const body: string[] = [];
+					const height = Math.max(logo.length, info.length);
+					for (let i = 0; i < height; i++) {
+						const left = (logo[i] ?? '').padEnd(17, ' ');
+						const right = info[i] ?? '';
+						body.push(`<span class="text-brand">${left}</span>${right}`);
+					}
+					// A row of colour swatches, the way the real neofetch signs off.
+					// Class names are spelled out in full so Tailwind keeps them in the build.
+					const swatch = [
+						'text-red-400',
+						'text-yellow-400',
+						'text-green-400',
+						'text-cyan-400',
+						'text-blue-400',
+						'text-fuchsia-400',
+					]
+						.map((c) => `<span class="${c}">███</span>`)
+						.join('');
+					body.push('');
+					body.push(`                 ${swatch}`);
+					this.printLine(body.join('\n'), 'whitespace-pre overflow-x-auto leading-snug');
 				},
 				// Easter eggs
 				sudo: () => this.print(s.sudo, 'text-muted'),

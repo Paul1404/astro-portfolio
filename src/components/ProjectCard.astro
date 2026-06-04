@@ -22,13 +22,22 @@ const statusLabel: Record<string, string> = {
 ---
 
 <article
-	class="group relative flex flex-col overflow-hidden rounded-card border border-line bg-surface transition-all duration-200 hover:-translate-y-1 hover:border-line-strong hover:shadow-lg"
+	class="group relative flex flex-col overflow-hidden rounded-card border border-line bg-surface transition-all duration-200 hover:-translate-y-1 hover:border-line-strong hover:shadow-xl hover:ring-1 hover:ring-brand/15"
 >
 	<div class="relative aspect-[16/9] overflow-hidden border-b border-line bg-elevated">
 		<div
 			class="flex h-full w-full items-center justify-center bg-[linear-gradient(135deg,var(--color-brand-tint),transparent)]"
 		>
-			<Icon name={`lucide:${icon}`} class="h-12 w-12 text-brand" />
+			<div class="pointer-events-none absolute inset-0 bg-grid opacity-30"></div>
+			<div
+				class="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_70%_at_50%_120%,var(--color-brand-tint),transparent)]"
+			>
+			</div>
+			<div
+				class="relative flex h-16 w-16 items-center justify-center rounded-2xl border border-line bg-surface/70 shadow-sm backdrop-blur-sm transition-transform duration-200 group-hover:scale-105"
+			>
+				<Icon name={`lucide:${icon}`} class="h-8 w-8 text-brand" />
+			</div>
 		</div>
 		{
 			status !== 'shipped' && (
