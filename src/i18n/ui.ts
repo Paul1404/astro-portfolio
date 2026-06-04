@@ -89,26 +89,26 @@ export const ui = {
 		'cta.seeAll': 'See all projects',
 
 		// Home
-		'home.meta.title': 'Paul Dresch | Systems engineer and software builder',
+		'home.meta.title': 'Paul Dresch | Systems engineer',
 		'home.meta.desc':
-			'Systems engineer who builds and ships real software. Cloud apps, self-hosted tools, automation, and infrastructure projects.',
+			'Systems engineer working with cloud infrastructure, Linux, and automation. A selection of projects and tools I have built.',
 		'home.hero.eyebrow': 'Systems engineer',
-		'home.hero.titleLead': 'I build and ship ',
-		'home.hero.titleHighlight': 'real software',
-		'home.hero.titleTail': ', not just slide decks.',
+		'home.hero.titleLead': 'I build and run ',
+		'home.hero.titleHighlight': 'infrastructure',
+		'home.hero.titleTail': ', and the tools around it.',
 		'home.hero.subtitle':
-			'I work close to real infrastructure, mostly in the cloud now on Railway and Hetzner, and turn it into tools people actually use: self-hosted apps, automation, and the plumbing that keeps systems running.',
+			'Mostly cloud now, on Railway and Hetzner, with a background in Linux, networking, and virtualization. Most of what I make started as a problem I needed to solve.',
 		'home.featured.eyebrow': 'Selected work',
-		'home.featured.title': 'Things I have built',
+		'home.featured.title': 'Projects',
 
 		// Projects
 		'projects.meta.title': 'Projects | Paul Dresch',
 		'projects.meta.desc':
 			'Software I have designed and shipped: cloud apps, self-hosted tools, automation, and infrastructure projects.',
 		'projects.hero.eyebrow': 'Projects',
-		'projects.hero.title': 'Software I have shipped',
+		'projects.hero.title': 'A selection of my work',
 		'projects.hero.tagline':
-			'Cloud apps, self-hosted services, command line tools, and automation. Most of it is open source and a lot of it solves a problem I actually had.',
+			'Cloud apps, self-hosted services, command line tools, and automation. Most of it is open source, and most of it started as a problem I had.',
 
 		// Project card / detail
 		'project.code': 'Code',
@@ -124,20 +124,20 @@ export const ui = {
 		'about.meta.title': 'About | Paul Dresch',
 		'about.meta.desc': 'Systems engineer who builds and ships real software.',
 		'about.hero.eyebrow': 'About',
-		'about.hero.title': 'Systems engineer who ships software',
+		'about.hero.title': 'Systems engineer, mostly in the cloud',
 		'about.hero.tagline':
-			'I spend my time close to real infrastructure and turn it into tools that solve actual problems. Here is the short version.',
+			'I work close to infrastructure and turn it into tools that solve a specific problem. Here is the short version.',
 		'about.bodyP1':
-			'I am a systems engineer with a deep interest in Linux, infrastructure, and networking. These days most of what I run lives in the cloud, on Railway and Hetzner, but it grew out of years of hands-on work with real hardware. That background is where I learned how systems actually behave, and I lean on it to build software that holds up.',
+			'I am a systems engineer with a long-standing interest in Linux, infrastructure, and networking. These days most of what I run lives in the cloud, on Railway and Hetzner, but it grew out of years of hands-on work with real hardware. That is where I learned how systems actually behave, and it still shapes how I build.',
 		'about.bodyP2':
-			'Most of what I make comes straight out of a real need: a club that needed its member letters automated, a mail server that needed proper monitoring, a pile of Dependabot pull requests that needed taming. I like the unglamorous problems, and I like solving them in a way that other people can use.',
+			'Most of what I make comes from a real need: a club that wanted its member letters automated, a mail server that needed proper monitoring, a pile of Dependabot pull requests that needed taming. I tend to work on the unglamorous problems, and I try to solve them in a way other people can reuse.',
 		'about.skillsTitle': 'What I work with',
 		'about.imageLabel': 'Cloud and Linux infrastructure',
 
 		// Contact CTA
-		'contact.title': 'Have something to build?',
+		'contact.title': 'Get in touch',
 		'contact.body':
-			'I am happy to talk about cloud infrastructure, automation, or a project you have in mind.',
+			'Happy to talk about cloud infrastructure, automation, or a project you have in mind.',
 		'contact.send': 'Send a message',
 
 		// 404
@@ -150,11 +150,11 @@ export const ui = {
 
 		// Terminal
 		'terminal.meta.title': 'Terminal | Paul Dresch',
-		'terminal.meta.desc': 'A small but surprisingly functional web terminal. Type help to start.',
+		'terminal.meta.desc': 'A small web terminal that runs in your browser. Type help to start.',
 		'terminal.eyebrow': 'Gimmick',
 		'terminal.title': 'Web terminal',
 		'terminal.tagline':
-			'A tiny shell that runs entirely in your browser. Type a command and press enter. Start with help.',
+			'A small shell that runs entirely in your browser. Type a command and press enter. Start with help.',
 		'terminal.hint': 'Tip: try help, ls, about, or whoami.',
 
 		// Privacy
@@ -187,26 +187,26 @@ export const ui = {
 		'cta.seeAll': 'Alle Projekte ansehen',
 
 		// Home
-		'home.meta.title': 'Paul Dresch | Systems Engineer und Software-Entwickler',
+		'home.meta.title': 'Paul Dresch | Systems Engineer',
 		'home.meta.desc':
-			'Systems Engineer, der echte Software baut und ausliefert. Cloud-Anwendungen, selbst gehostete Tools, Automatisierung und Infrastruktur-Projekte.',
+			'Systems Engineer mit Fokus auf Cloud-Infrastruktur, Linux und Automatisierung. Eine Auswahl an Projekten und Tools, die ich gebaut habe.',
 		'home.hero.eyebrow': 'Systems Engineer',
-		'home.hero.titleLead': 'Ich baue und liefere ',
-		'home.hero.titleHighlight': 'echte Software',
-		'home.hero.titleTail': ', keine bloßen Folien.',
+		'home.hero.titleLead': 'Ich baue und betreibe ',
+		'home.hero.titleHighlight': 'Infrastruktur',
+		'home.hero.titleTail': ', und die Tools drumherum.',
 		'home.hero.subtitle':
-			'Ich arbeite nah an echter Infrastruktur, heute meist in der Cloud auf Railway und Hetzner, und mache daraus Tools, die Menschen wirklich nutzen: selbst gehostete Apps, Automatisierung und die Technik im Hintergrund, die Systeme am Laufen hält.',
+			'Heute meist in der Cloud, auf Railway und Hetzner, mit einem Hintergrund in Linux, Netzwerken und Virtualisierung. Das meiste, was ich baue, begann als ein Problem, das ich lösen musste.',
 		'home.featured.eyebrow': 'Ausgewählte Arbeiten',
-		'home.featured.title': 'Was ich gebaut habe',
+		'home.featured.title': 'Projekte',
 
 		// Projects
 		'projects.meta.title': 'Projekte | Paul Dresch',
 		'projects.meta.desc':
 			'Software, die ich entworfen und ausgeliefert habe: Cloud-Anwendungen, selbst gehostete Tools, Automatisierung und Infrastruktur-Projekte.',
 		'projects.hero.eyebrow': 'Projekte',
-		'projects.hero.title': 'Software, die ich ausgeliefert habe',
+		'projects.hero.title': 'Eine Auswahl meiner Arbeit',
 		'projects.hero.tagline':
-			'Cloud-Anwendungen, selbst gehostete Dienste, Kommandozeilen-Tools und Automatisierung. Das meiste ist Open Source und vieles davon löst ein Problem, das ich selbst hatte.',
+			'Cloud-Anwendungen, selbst gehostete Dienste, Kommandozeilen-Tools und Automatisierung. Das meiste ist Open Source und begann als ein Problem, das ich selbst hatte.',
 
 		// Project card / detail
 		'project.code': 'Code',
@@ -222,18 +222,18 @@ export const ui = {
 		'about.meta.title': 'Über mich | Paul Dresch',
 		'about.meta.desc': 'Systems Engineer, der echte Software baut und ausliefert.',
 		'about.hero.eyebrow': 'Über mich',
-		'about.hero.title': 'Systems Engineer, der Software ausliefert',
+		'about.hero.title': 'Systems Engineer, heute meist in der Cloud',
 		'about.hero.tagline':
-			'Ich verbringe meine Zeit nah an echter Infrastruktur und mache daraus Tools, die echte Probleme lösen. Hier ist die kurze Version.',
+			'Ich arbeite nah an Infrastruktur und mache daraus Tools, die ein konkretes Problem lösen. Hier ist die kurze Version.',
 		'about.bodyP1':
-			'Ich bin Systems Engineer mit einem tiefen Interesse an Linux, Infrastruktur und Netzwerken. Heute läuft das meiste, was ich betreibe, in der Cloud auf Railway und Hetzner, doch das ist aus Jahren praktischer Arbeit mit echter Hardware gewachsen. Dort habe ich gelernt, wie Systeme sich wirklich verhalten, und darauf baue ich, um Software zu entwickeln, die hält.',
+			'Ich bin Systems Engineer mit einem langjährigen Interesse an Linux, Infrastruktur und Netzwerken. Heute läuft das meiste, was ich betreibe, in der Cloud auf Railway und Hetzner, doch das ist aus Jahren praktischer Arbeit mit echter Hardware gewachsen. Dort habe ich gelernt, wie Systeme sich wirklich verhalten, und das prägt bis heute, wie ich baue.',
 		'about.bodyP2':
-			'Das meiste, was ich baue, entsteht aus einem echten Bedarf: ein Verein, der seine Mitglieder-Serienbriefe automatisieren musste, ein Mailserver, der ordentliches Monitoring brauchte, ein Berg an Dependabot-Pull-Requests, der gebändigt werden wollte. Ich mag die unspektakulären Probleme und löse sie gerne so, dass andere die Lösung nutzen können.',
+			'Das meiste, was ich baue, entsteht aus einem echten Bedarf: ein Verein, der seine Mitglieder-Serienbriefe automatisieren wollte, ein Mailserver, der ordentliches Monitoring brauchte, ein Berg an Dependabot-Pull-Requests, der gebändigt werden wollte. Ich arbeite eher an den unspektakulären Problemen und versuche, sie so zu lösen, dass andere die Lösung weiterverwenden können.',
 		'about.skillsTitle': 'Womit ich arbeite',
 		'about.imageLabel': 'Cloud- und Linux-Infrastruktur',
 
 		// Contact CTA
-		'contact.title': 'Sie möchten etwas bauen?',
+		'contact.title': 'Kontakt aufnehmen',
 		'contact.body':
 			'Ich spreche gerne über Cloud-Infrastruktur, Automatisierung oder ein Projekt, das Sie im Kopf haben.',
 		'contact.send': 'Nachricht senden',
@@ -250,11 +250,11 @@ export const ui = {
 		// Terminal
 		'terminal.meta.title': 'Terminal | Paul Dresch',
 		'terminal.meta.desc':
-			'Ein kleines, aber überraschend funktionales Web-Terminal. Tippe help, um zu starten.',
+			'Ein kleines Web-Terminal, das in deinem Browser läuft. Tippe help, um zu starten.',
 		'terminal.eyebrow': 'Spielerei',
 		'terminal.title': 'Web-Terminal',
 		'terminal.tagline':
-			'Eine winzige Shell, die komplett in deinem Browser läuft. Tippe einen Befehl und drücke Enter. Starte mit help.',
+			'Eine kleine Shell, die komplett in deinem Browser läuft. Tippe einen Befehl und drücke Enter. Starte mit help.',
 		'terminal.hint': 'Tipp: probiere help, ls, about oder whoami.',
 
 		// Privacy
