@@ -13,10 +13,20 @@ export function langOf(entry: Project): string {
 	return entry.id.split('/')[0];
 }
 
-/** All projects for a locale, newest first. */
+/**
+ * All projects for a locale, most mature and impressive first.
+ *
+ * Featured projects lead the list, then everything else. Within each tier the
+ * newest projects come first, so the ordering still reflects recency.
+ */
 export async function getProjects(lang: Lang): Promise<Project[]> {
 	const all = await getCollection('projects');
 	return all
 		.filter((entry) => langOf(entry) === lang)
-		.sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+		.sort((a, b) => {
+			if (a.data.featured !== b.data.featured) {
+				return a.data.featured ? -1 : 1;
+			}
+			return b.data.publishDate.valueOf() - a.data.publishDate.valueOf();
+		});
 }
