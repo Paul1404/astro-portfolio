@@ -75,6 +75,31 @@ const ogLocaleAlt = lang === 'de' ? 'en_US' : 'de_DE';
 <meta name="twitter:image" content={ogImage} />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+{
+	/* Umami analytics. Only loaded in production builds so local dev and
+	   previews don't pollute the stats. The recorder enables privacy-masked
+	   session replay (15% sample, moderate masking, 5 min max). */
+	import.meta.env.PROD && (
+		<>
+			<script
+				is:inline
+				defer
+				src="https://umami.pdcd.net/script.js"
+				data-website-id="26620834-5f2e-4d5f-a4c1-3ad51d7a0f2a"
+			/>
+			<script
+				is:inline
+				defer
+				src="https://umami.pdcd.net/recorder.js"
+				data-website-id="26620834-5f2e-4d5f-a4c1-3ad51d7a0f2a"
+				data-sample-rate="0.15"
+				data-mask-level="moderate"
+				data-max-duration="300000"
+			/>
+		</>
+	)
+}
 <link
 	href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap"
 	rel="stylesheet"
