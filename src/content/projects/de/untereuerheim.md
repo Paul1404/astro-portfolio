@@ -13,7 +13,6 @@ tags:
   - Static Site
 repoUrl: https://github.com/Paul1404/untereuerheim.com
 liveUrl: https://untereuerheim.com
-status: shipped
 icon: landmark
 ---
 

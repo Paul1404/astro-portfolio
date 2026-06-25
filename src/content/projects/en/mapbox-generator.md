@@ -10,7 +10,6 @@ tags:
   - Tooling
   - Open Source
 repoUrl: https://github.com/Paul1404/mapbox-generator
-status: shipped
 icon: map
 ---
 

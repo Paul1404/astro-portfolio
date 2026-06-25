@@ -104,7 +104,7 @@ export const ui = {
 		// Projects
 		'projects.meta.title': 'Projects | Paul Dresch',
 		'projects.meta.desc':
-			'Software I have designed and shipped: cloud apps, self-hosted tools, automation, and infrastructure projects.',
+			'Software I have designed and built: cloud apps, self-hosted tools, automation, and infrastructure projects.',
 		'projects.hero.eyebrow': 'Projects',
 		'projects.hero.title': 'A selection of my work',
 		'projects.hero.tagline':
@@ -116,7 +116,6 @@ export const ui = {
 		'project.allProjects': 'All projects',
 		'project.liveDemo': 'Live demo',
 		'project.viewCode': 'View code',
-		'status.shipped': 'Shipped',
 		'status.wip': 'In progress',
 		'status.archived': 'Archived',
 
@@ -202,7 +201,7 @@ export const ui = {
 		// Projects
 		'projects.meta.title': 'Projekte | Paul Dresch',
 		'projects.meta.desc':
-			'Software, die ich entworfen und ausgeliefert habe: Cloud-Anwendungen, selbst gehostete Tools, Automatisierung und Infrastruktur-Projekte.',
+			'Software, die ich entworfen und gebaut habe: Cloud-Anwendungen, selbst gehostete Tools, Automatisierung und Infrastruktur-Projekte.',
 		'projects.hero.eyebrow': 'Projekte',
 		'projects.hero.title': 'Eine Auswahl meiner Arbeit',
 		'projects.hero.tagline':
@@ -214,7 +213,6 @@ export const ui = {
 		'project.allProjects': 'Alle Projekte',
 		'project.liveDemo': 'Live-Demo',
 		'project.viewCode': 'Code ansehen',
-		'status.shipped': 'Ausgeliefert',
 		'status.wip': 'In Arbeit',
 		'status.archived': 'Archiviert',
 

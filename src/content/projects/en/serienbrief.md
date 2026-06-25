@@ -12,7 +12,6 @@ tags:
   - QR Codes
   - Open Source
 repoUrl: https://github.com/Paul1404/svu-serienbrief
-status: shipped
 icon: qr-code
 ---
 

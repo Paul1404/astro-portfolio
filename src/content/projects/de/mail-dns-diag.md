@@ -10,7 +10,6 @@ tags:
   - Sicherheit
   - CLI
 repoUrl: https://github.com/Paul1404/mail_dns_diag.sh
-status: shipped
 icon: search-check
 ---
 

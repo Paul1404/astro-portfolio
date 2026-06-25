@@ -11,7 +11,6 @@ tags:
   - NSX-T
   - Automation
 repoUrl: https://github.com/Paul1404/nsx-api.sh
-status: shipped
 icon: network
 ---
 

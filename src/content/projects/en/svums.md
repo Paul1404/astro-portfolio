@@ -10,7 +10,6 @@ tags:
   - Forms
   - Open Source
 repoUrl: https://github.com/Paul1404/svums
-status: shipped
 icon: user-plus
 ---
 

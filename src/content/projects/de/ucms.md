@@ -12,7 +12,6 @@ tags:
   - Self-Hosted
   - Open Source
 repoUrl: https://github.com/Paul1404/ucms
-status: shipped
 icon: layout-template
 ---
 

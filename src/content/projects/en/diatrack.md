@@ -12,7 +12,6 @@ tags:
   - Open Source
 repoUrl: https://github.com/Paul1404/diatrack
 featured: true
-status: shipped
 icon: activity
 ---
 

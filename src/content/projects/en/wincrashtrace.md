@@ -9,7 +9,6 @@ tags:
   - Diagnostics
   - Open Source
 repoUrl: https://github.com/Paul1404/WinCrashTrace
-status: shipped
 icon: monitor-x
 ---
 

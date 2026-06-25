@@ -11,7 +11,6 @@ tags:
   - Automatisierung
   - Open Source
 repoUrl: https://github.com/Paul1404/mwa
-status: shipped
 icon: terminal
 ---
 

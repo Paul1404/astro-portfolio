@@ -10,7 +10,6 @@ tags:
   - Monitoring
   - Open Source
 repoUrl: https://github.com/Paul1404/mailcow-dashboard
-status: shipped
 icon: gauge
 ---
 

@@ -10,7 +10,6 @@ tags:
   - CLI
   - Open Source
 repoUrl: https://github.com/Paul1404/gh-batch-archive
-status: shipped
 icon: archive
 ---
 

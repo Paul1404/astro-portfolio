@@ -14,7 +14,6 @@ tags:
 repoUrl: https://github.com/Paul1404/svutt
 liveUrl: https://svutt.sv-untereuerheim.de
 featured: true
-status: shipped
 icon: trophy
 ---
 

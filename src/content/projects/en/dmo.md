@@ -10,9 +10,9 @@ tags:
   - GitHub
   - Automation
   - Open Source
+repoUrl: https://github.com/Paul1404/dmo
 liveUrl: https://dmo.pdcd.net
 featured: true
-status: shipped
 icon: git-merge
 ---
 

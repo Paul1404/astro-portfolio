@@ -13,7 +13,6 @@ tags:
   - Open Source
 repoUrl: https://github.com/Paul1404/svufo
 liveUrl: https://svufo.sv-untereuerheim.de
-status: shipped
 icon: banknote
 ---
 

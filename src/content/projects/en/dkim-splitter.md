@@ -10,7 +10,6 @@ tags:
   - DNS
   - CLI
 repoUrl: https://github.com/Paul1404/dkim-splitter
-status: shipped
 icon: scissors
 ---
 

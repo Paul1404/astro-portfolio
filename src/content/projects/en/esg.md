@@ -13,7 +13,6 @@ tags:
 repoUrl: https://github.com/Paul1404/esg
 liveUrl: https://esg.pdcd.net
 featured: true
-status: shipped
 icon: mail
 ---
 

@@ -10,7 +10,6 @@ tags:
   - AI Tooling
   - Open Source
 repoUrl: https://github.com/Paul1404/claude-mailcow
-status: shipped
 icon: bot
 ---
 

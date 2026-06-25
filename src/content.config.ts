@@ -14,7 +14,8 @@ const projects = defineCollection({
 		repoUrl: z.url().optional(),
 		liveUrl: z.url().optional(),
 		featured: z.boolean().default(false),
-		status: z.enum(['shipped', 'wip', 'archived']).default('shipped'),
+		// Optional badge for projects that aren't simply live; omit for the default case.
+		status: z.enum(['wip', 'archived']).optional(),
 		// lucide icon name used for the card accent and image-less placeholder.
 		icon: z.string().default('package'),
 	}),

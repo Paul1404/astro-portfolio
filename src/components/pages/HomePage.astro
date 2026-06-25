@@ -19,11 +19,11 @@ const projects = (featured.length ? featured : allProjects).slice(0, 6);
 
 // Honest, derived numbers for the hero stat strip. Nothing is hardcoded that
 // would drift out of sync with the actual project content.
-const shippedCount = allProjects.filter((p) => p.data.status === 'shipped').length;
+const openSourceCount = allProjects.filter((p) => p.data.repoUrl).length;
 const stackCount = new Set(allProjects.flatMap((p) => p.data.stack)).size;
 const stats = [
 	{ value: allProjects.length, suffix: '', label: lang === 'de' ? 'Projekte' : 'Projects' },
-	{ value: shippedCount, suffix: '', label: lang === 'de' ? 'Ausgeliefert' : 'Shipped' },
+	{ value: openSourceCount, suffix: '', label: 'Open Source' },
 	{ value: stackCount, suffix: '', label: lang === 'de' ? 'Technologien' : 'Technologies' },
 ];
 const availableLabel =

@@ -1,6 +1,6 @@
 # astro-portfolio
 
-Paul Dresch's personal portfolio. A static site that showcases shipped software:
+Paul Dresch's personal portfolio. A static site that showcases software:
 cloud apps, self-hosted tools, automation, and infrastructure projects. Available
 in English and German.
 

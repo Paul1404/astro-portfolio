@@ -20,7 +20,6 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const statusLabel: Record<string, string> = {
-	shipped: t('status.shipped'),
 	wip: t('status.wip'),
 	archived: t('status.archived'),
 };
@@ -39,11 +38,13 @@ const statusLabel: Record<string, string> = {
 		<header class="mt-8 border-b border-line pb-8">
 			<div class="flex flex-wrap items-center gap-3">
 				<h1 class="text-3xl font-semibold sm:text-4xl">{title}</h1>
-				<span
-					class="rounded-full border border-line bg-elevated px-2.5 py-1 font-mono text-xs text-muted"
-				>
-					{statusLabel[status]}
-				</span>
+				{
+					status && (
+						<span class="rounded-full border border-line bg-elevated px-2.5 py-1 font-mono text-xs text-muted">
+							{statusLabel[status]}
+						</span>
+					)
+				}
 			</div>
 			<p class="mt-4 text-lg text-muted">{description}</p>
 

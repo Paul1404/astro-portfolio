@@ -11,7 +11,6 @@ tags:
   - Open Source
 repoUrl: https://github.com/Paul1404/astro-portfolio
 liveUrl: https://pd-portfolio.net
-status: shipped
 icon: globe
 ---
 

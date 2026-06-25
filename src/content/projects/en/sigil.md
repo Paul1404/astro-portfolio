@@ -12,7 +12,6 @@ tags:
   - Self-Hosted
 repoUrl: https://github.com/Paul1404/Sigil
 featured: true
-status: shipped
 icon: shield-check
 ---
 

@@ -46,7 +46,7 @@ const revealDelay = `${(index % 3) * 90}ms`;
 			</div>
 		</div>
 		{
-			status !== 'shipped' && (
+			status && (
 				<span class="absolute right-3 top-3 rounded-full border border-line bg-surface/90 px-2.5 py-1 font-mono text-xs text-muted backdrop-blur">
 					{statusLabel[status]}
 				</span>
