@@ -12,7 +12,6 @@ tags:
   - Open Source
 repoUrl: https://github.com/Paul1404/esg
 liveUrl: https://esg.pdcd.net
-featured: true
 icon: mail
 ---
 

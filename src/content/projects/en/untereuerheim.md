@@ -1,7 +1,7 @@
 ---
 title: "untereuerheim.com"
 publishDate: 2026-06-03 00:00:00
-description: "A static website for Untereuerheim, a village in Lower Franconia: its history from the Middle Ages to today, told like a printed chronicle on the web."
+description: "An editorial village portrait of Untereuerheim, combining its chronicle, aerial photography, listed monuments, and local institutions in a durable digital archive."
 stack:
   - Astro
   - Tailwind CSS
@@ -10,20 +10,21 @@ stack:
 tags:
   - Website
   - Local History
-  - Static Site
+  - Digital Archive
 repoUrl: https://github.com/Paul1404/untereuerheim.com
 liveUrl: https://untereuerheim.com
+featured: true
 icon: landmark
 ---
 
-Untereuerheim is the place I am from. This gathers its history and its landmarks into one site, built to read like a printed chronicle rather than a typical web page.
+Untereuerheim is the place I am from. The site gathers its history, aerial views, listed monuments, and local institutions into an editorial experience designed to read like a printed chronicle.
 
 ### What it does
 
-- Presents the village history from the early Middle Ages onward, with archival photos and documents.
-- Lists the local buildings and institutions: churches, mills, bridges, and clubs.
-- Ships as pre-rendered static HTML with no database, no API, and almost no client-side JavaScript.
+- Tells the village history through a sourced chronology, archival material, and contemporary aerial photography.
+- Documents monuments and institutions with structured content that remains easy to maintain.
+- Serves pre-rendered HTML through a hardened Bun server, with responsive images and almost no client-side JavaScript.
 
 ### Why it matters
 
-It is local history made durable and searchable, on something that keeps working with next to no maintenance.
+It makes local history durable, searchable, and approachable without turning the village into a generic tourism product.

@@ -1,7 +1,7 @@
 ---
 title: "untereuerheim.com"
 publishDate: 2026-06-03 00:00:00
-description: "Eine statische Website für Untereuerheim, ein Dorf in Unterfranken: seine Geschichte vom Mittelalter bis heute, erzählt wie eine gedruckte Chronik im Web."
+description: "Ein redaktionelles Ortsporträt über Untereuerheim, das Chronik, Luftbilder, Baudenkmäler und örtliche Institutionen zu einem dauerhaften digitalen Archiv verbindet."
 stack:
   - Astro
   - Tailwind CSS
@@ -10,20 +10,21 @@ stack:
 tags:
   - Website
   - Ortsgeschichte
-  - Static Site
+  - Digitales Archiv
 repoUrl: https://github.com/Paul1404/untereuerheim.com
 liveUrl: https://untereuerheim.com
+featured: true
 icon: landmark
 ---
 
-Untereuerheim ist der Ort, aus dem ich komme. Diese Seite fasst seine Geschichte und seine Bauwerke an einem Ort zusammen, gestaltet wie eine gedruckte Chronik statt wie eine typische Webseite.
+Untereuerheim ist der Ort, aus dem ich komme. Die Seite verbindet seine Geschichte, Luftbilder, Baudenkmäler und örtlichen Institutionen zu einem redaktionellen Erlebnis, das sich wie eine gedruckte Chronik liest.
 
 ### Was es macht
 
-- Stellt die Ortsgeschichte vom frühen Mittelalter an dar, mit Archivfotos und Dokumenten.
-- Listet die örtlichen Bauwerke und Institutionen auf: Kirchen, Mühlen, Brücken und Vereine.
-- Wird als vorgerendertes statisches HTML ausgeliefert, ohne Datenbank, ohne API und mit fast keinem clientseitigen JavaScript.
+- Erzählt die Ortsgeschichte in einer quellenbasierten Chronik mit Archivmaterial und heutigen Luftbildern.
+- Dokumentiert Baudenkmäler und Institutionen in strukturierten, langfristig pflegbaren Inhalten.
+- Liefert vorgerendertes HTML über einen gehärteten Bun-Server aus, mit responsiven Bildern und fast keinem JavaScript im Browser.
 
 ### Warum es wichtig ist
 
-Es ist Ortsgeschichte, dauerhaft und durchsuchbar gemacht, auf einer Basis, die mit fast keiner Wartung weiterläuft.
+Die Seite macht Ortsgeschichte dauerhaft, durchsuchbar und zugänglich, ohne den Ort in ein austauschbares Tourismusprodukt zu verwandeln.

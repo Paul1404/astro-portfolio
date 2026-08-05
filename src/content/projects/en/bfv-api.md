@@ -12,7 +12,6 @@ tags:
   - Open Source
 repoUrl: https://github.com/Paul1404/bfv-api
 liveUrl: https://sg-spielplan.untereuerheim.com/
-featured: true
 icon: calendar-days
 ---
 

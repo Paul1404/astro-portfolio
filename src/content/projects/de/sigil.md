@@ -11,7 +11,6 @@ tags:
   - Sicherheit
   - Self-Hosted
 repoUrl: https://github.com/Paul1404/Sigil
-featured: true
 icon: shield-check
 ---
 
