@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
-    "@iconify-json/lucide": "^1.2.122",
+    "@iconify-json/lucide": "^1.2.123",
     "@jop-software/astro-cookieconsent": "^3.0.1",
     "@tailwindcss/typography": "^0.5.20",
     "@tailwindcss/vite": "^4.3.3",
@@ -22,7 +22,7 @@
     "defu": "^6.1.7",
     "tailwindcss": "^4.3.3",
     "vanilla-cookieconsent": "^3.1.0",
-    "wrangler": "^4.120.0"
+    "wrangler": "^4.123.0"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
