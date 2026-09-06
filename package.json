@@ -11,7 +11,7 @@
     "favicons": "node scripts/generate-favicons.mjs"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.7.3",
+    "@astrojs/sitemap": "^3.7.4",
     "@iconify-json/lucide": "^1.2.126",
     "@jop-software/astro-cookieconsent": "^3.0.1",
     "@tailwindcss/typography": "^0.5.20",
