@@ -11,22 +11,22 @@
     "favicons": "node scripts/generate-favicons.mjs"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.7.3",
-    "@iconify-json/lucide": "^1.2.126",
+    "@astrojs/sitemap": "^3.7.4",
+    "@iconify-json/lucide": "^1.2.131",
     "@jop-software/astro-cookieconsent": "^3.0.1",
     "@tailwindcss/typography": "^0.5.20",
     "@tailwindcss/vite": "^4.3.3",
-    "astro": "^7.2.0",
+    "astro": "^7.3.2",
     "astro-icon": "^1.2.0",
     "astro-robots-txt": "^1.0.0",
     "defu": "^6.1.7",
     "tailwindcss": "^4.3.3",
     "vanilla-cookieconsent": "^3.1.0",
-    "wrangler": "^4.127.0"
+    "wrangler": "^4.131.1"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
-    "sharp": "^0.35.3",
+    "sharp": "^0.35.4",
     "typescript": "^6.0.3"
   }
 }
