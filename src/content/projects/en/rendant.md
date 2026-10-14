@@ -1,7 +1,7 @@
 ---
 title: "Rendant"
 publishDate: 2026-05-07 00:00:00
-description: "An audit-first finance workspace for German clubs, covering cash counts, tax analysis, receipts, historical imports, and year-over-year reporting."
+description: "Club finance administration linking cash counts, numbered receipts, tax analysis, historical imports, and traceable corrections."
 stack:
   - TypeScript
   - TanStack Start
@@ -11,21 +11,26 @@ stack:
 tags:
   - Club Finance
   - Auditability
-  - Open Source
+  - Public Source
 repoUrl: https://github.com/Paul1404/rendant
 liveUrl: https://rendant.sv-untereuerheim.de
 featured: true
+featuredOrder: 4
 icon: receipt-euro
 ---
 
-Club finances often begin in spreadsheets and end in a handover that nobody can fully reconstruct. Rendant turns that fragile process into one coherent workflow, from counting a cash box to reviewing the final receipt.
+Rendant connects the cash count at an event with the records needed for bookkeeping and handover. It brings cash movements, card payments, expenses, tax allocations, and historical revenue into one workflow.
 
 ### What it does
 
-- Records cash counts, card payments, expenses, VAT allocations, and numbered PDF receipts.
-- Combines current records with reviewed historical imports for cross-year comparisons and tax reporting.
-- Preserves corrections, cancellations, imports, and administrative changes in an append-only audit trail.
+- Calculates cash totals from coin and note counts, opening balances, card payments, and expenses.
+- Produces numbered PDF receipts with SHA-256 checksums, and preserves the original record when a cancellation creates a separate correction receipt.
+- Combines current protocols with historical spreadsheet imports for comparisons across years, VAT analysis, and PDF or CSV handover.
 
-### Why it matters
+### Engineering
 
-Financial software should make decisions easier to verify, not hide them behind a polished dashboard. Rendant gives volunteers a practical tool while keeping the original record, its evidence, and every later correction visible.
+The TanStack Start application uses PostgreSQL transactions for numbering and financial changes, with receipts stored in S3-compatible storage. An append-only audit log records relevant changes; role-limited workflows separate routine capture from administrative imports and settings.
+
+### Source and access
+
+Public source under a proprietary license. Use requires a separate written agreement. Repository screenshots use synthetic cash records and amounts.

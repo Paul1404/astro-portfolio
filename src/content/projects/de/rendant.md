@@ -1,7 +1,7 @@
 ---
 title: "Rendant"
 publishDate: 2026-05-07 00:00:00
-description: "Ein revisionsnaher Finanzarbeitsplatz für Vereine – von Kassenprotokollen und Steuerauswertung bis zu Belegen, Altimporten und Vorjahresvergleichen."
+description: "Vereinsfinanzen mit Kassenzählprotokollen, nummerierten Belegen, Steuerauswertung, historischen Importen und nachvollziehbaren Korrekturen."
 stack:
   - TypeScript
   - TanStack Start
@@ -9,23 +9,28 @@ stack:
   - Bun
   - S3
 tags:
-  - Vereinsfinanzen
-  - Nachvollziehbarkeit
-  - Open Source
+  - Club Finance
+  - Auditability
+  - Public Source
 repoUrl: https://github.com/Paul1404/rendant
 liveUrl: https://rendant.sv-untereuerheim.de
 featured: true
+featuredOrder: 4
 icon: receipt-euro
 ---
 
-Vereinsfinanzen beginnen oft in Tabellen und enden bei einer Übergabe, die niemand mehr vollständig nachvollziehen kann. Rendant macht daraus einen zusammenhängenden Ablauf – vom Zählen einer Kasse bis zur Prüfung des fertigen Belegs.
+Rendant verbindet die Kassenaufnahme bei einer Veranstaltung mit den Unterlagen für Buchhaltung und Übergabe. Kassenbewegungen, Kartenzahlungen, Ausgaben, Steueraufteilungen und historische Umsätze bilden einen gemeinsamen Ablauf.
 
 ### Was es macht
 
-- Erfasst Kassenbestände, Kartenzahlungen, Ausgaben, Umsatzsteuer und nummerierte PDF-Belege.
-- Verbindet aktuelle Protokolle mit geprüften Altimporten für Vorjahresvergleiche und Steuerauswertungen.
-- Hält Korrekturen, Stornos, Importe und administrative Änderungen in einer unveränderlichen Ereignisspur fest.
+- Berechnet Kassenbestände aus Münz- und Scheinstückelungen, Anfangsbestand, Kartenzahlungen und Ausgaben.
+- Erstellt nummerierte PDF-Belege mit SHA-256-Prüfsummen. Bei einer Stornierung bleiben Original und Belegnummer erhalten; die Korrektur bekommt einen zusätzlichen Beleg.
+- Verbindet aktuelle Protokolle mit historischen Tabellenimporten für Vorjahresvergleiche, Umsatzsteuerauswertungen und die Übergabe per PDF oder CSV.
 
-### Warum es wichtig ist
+### Technische Umsetzung
 
-Finanzsoftware sollte Entscheidungen leichter prüfbar machen, statt sie hinter einem schicken Dashboard zu verstecken. Rendant gibt Ehrenamtlichen ein praktisches Werkzeug und hält zugleich Originaldaten, Belege und spätere Korrekturen sichtbar.
+Die TanStack-Start-Anwendung nutzt PostgreSQL-Transaktionen für Belegnummern und Finanzänderungen. Belege liegen in S3-kompatiblem Speicher. Eine fortlaufende Ereignisspur hält relevante Änderungen fest; Rollen trennen laufende Erfassung von administrativen Importen und Einstellungen.
+
+### Quellcode und Zugang
+
+Öffentlich einsehbarer Quellcode unter proprietärer Lizenz. Die Nutzung erfordert eine gesonderte schriftliche Vereinbarung. Repository-Screenshots zeigen synthetische Kassenprotokolle und Beträge.

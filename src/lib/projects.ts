@@ -17,7 +17,7 @@ export function langOf(entry: Project): string {
  * All projects for a locale, most mature and impressive first.
  *
  * Featured projects lead the list, then everything else. Within each tier the
- * newest projects come first, so the ordering still reflects recency.
+ * explicit featuredOrder curates the showcase; dates order the remaining work.
  */
 export async function getProjects(lang: Lang): Promise<Project[]> {
 	const all = await getCollection('projects');
@@ -26,6 +26,11 @@ export async function getProjects(lang: Lang): Promise<Project[]> {
 		.sort((a, b) => {
 			if (a.data.featured !== b.data.featured) {
 				return a.data.featured ? -1 : 1;
+			}
+			if (a.data.featured && b.data.featured) {
+				const order = (a.data.featuredOrder ?? Number.MAX_SAFE_INTEGER) -
+					(b.data.featuredOrder ?? Number.MAX_SAFE_INTEGER);
+				if (order !== 0) return order;
 			}
 			return b.data.publishDate.valueOf() - a.data.publishDate.valueOf();
 		});

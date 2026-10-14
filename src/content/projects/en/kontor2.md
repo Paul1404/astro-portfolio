@@ -1,7 +1,7 @@
 ---
 title: "Kontor2"
 publishDate: 2026-05-24 00:00:00
-description: "A self-hosted, multi-tenant back office for German clubs, bringing members, contributions, SEPA, documents, privacy workflows, and audit history into one system."
+description: "A multi-tenant club back office with members, families, SEPA billing, invoices, correspondence, self-service, and audit history."
 stack:
   - TypeScript
   - TanStack Start
@@ -12,19 +12,25 @@ tags:
   - Club Management
   - Data Protection
   - Multi-Tenant
+repoUrl: https://github.com/Paul1404/kontor2
 liveUrl: https://kontor2.com
 featured: true
+featuredOrder: 2
 icon: building-2
 ---
 
-Kontor2 replaces a fragmented commercial club-management workflow with software that clubs can operate and control themselves. It began with a lossless migration of a real legacy database and grew into a complete back office for more than one organisation.
+Kontor2 began with the migration of an existing club database and grew into a complete back office. Historical member records, contracts, mandates, and billing runs remain available alongside current administration.
 
 ### What it does
 
 - Manages members, families, contributions, SEPA direct debits, returns, invoices, reminders, honours, and correspondence.
-- Gives members a self-service portal while keeping proposed changes in a review queue for the board.
-- Builds privacy, encryption, snapshots, document fingerprints, and an append-only audit trail into everyday administration.
+- Gives members a self-service portal while keeping proposed changes in a board review queue.
+- Supports document workflows, data-quality checks, privacy requests, snapshots, and field-level restore.
 
-### Why it matters
+### Engineering
 
-Club software holds financial and personal data for years. Kontor2 is designed so that ownership, tenant isolation, legal documents, and historical evidence are part of the architecture rather than features added at the end.
+Each club has its own database, encryption keyring, and branding, selected by the request hostname. Typed APIs connect the interface to the domain services; encrypted bank details, an append-only consent log, and searchable audit records are part of the data model. A role-limited MCP endpoint exposes selected workflows to assistants.
+
+### Source and access
+
+The source is public under a proprietary license. Deployment and use require the owner's written permission.

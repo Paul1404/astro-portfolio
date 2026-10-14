@@ -13,7 +13,6 @@ tags:
   - Digitales Archiv
 repoUrl: https://github.com/Paul1404/untereuerheim.com
 liveUrl: https://untereuerheim.com
-featured: true
 icon: landmark
 ---
 

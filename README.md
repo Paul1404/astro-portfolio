@@ -49,7 +49,8 @@ locale (`en/` and `de/`) sharing the same slug. The frontmatter schema is define
 `tags`, `repoUrl`, `liveUrl`, `featured`, `status`, and an `icon` (a Lucide name).
 Every project card and detail header renders the same brand-gradient icon hero, so
 the look stays consistent without per-project artwork. Set `featured: true` to
-surface a project on the home page.
+surface a project on the home page. Use `featuredOrder` to curate the showcase
+without changing project dates; both locales must use the same order.
 
 ## Web terminal
 

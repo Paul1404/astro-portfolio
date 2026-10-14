@@ -20,7 +20,8 @@ It uses Astro, TypeScript, Tailwind CSS, npm, Markdown content collections, and 
 ## Project rules
 
 - Use npm and preserve `package-lock.json`.
-- Keep English and German project content aligned.
+- Keep English and German project content aligned, including `featuredOrder`.
+- Verify project claims and license terms from current repository documentation. Public source is not automatically open source, and forks must not be presented as original work.
 - Do not expose private repository URLs. Publicly usable private projects may link only to their live product.
 - Preserve static output. GitHub Pages publishes `dist/` through `.github/workflows/pages.yml` on `master`.
 - Use the custom hostname as Astro's `site`, with no repository-name base path.
