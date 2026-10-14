@@ -1,7 +1,7 @@
 ---
 title: "Kontor2"
 publishDate: 2026-05-24 00:00:00
-description: "Eine selbst gehostete, mandantenfähige Vereinsverwaltung, die Mitglieder, Beiträge, SEPA, Dokumente, Datenschutz und Änderungshistorie in einem System verbindet."
+description: "Eine mandantenfähige Vereinsverwaltung mit Mitgliedern, Familien, SEPA-Abrechnung, Rechnungen, Rundschreiben, Selbstverwaltung und Änderungshistorie."
 stack:
   - TypeScript
   - TanStack Start
@@ -9,22 +9,28 @@ stack:
   - Bun
   - S3
 tags:
-  - Vereinsverwaltung
-  - Datenschutz
-  - Mandantenfähig
+  - Club Management
+  - Data Protection
+  - Multi-Tenant
+repoUrl: https://github.com/Paul1404/kontor2
 liveUrl: https://kontor2.com
 featured: true
+featuredOrder: 2
 icon: building-2
 ---
 
-Kontor2 ersetzt eine zersplitterte kommerzielle Vereinsverwaltung durch Software, die Vereine selbst betreiben und kontrollieren können. Das Projekt begann mit der verlustfreien Migration einer echten Altdatenbank und wurde zu einem vollständigen Backoffice für mehrere Organisationen.
+Kontor2 begann mit der Migration einer bestehenden Vereinsdatenbank und wuchs zu einer vollständigen Verwaltung. Historische Mitglieder, Verträge, Mandate und Abrechnungsläufe bleiben neben der aktuellen Verwaltung verfügbar.
 
 ### Was es macht
 
 - Verwaltet Mitglieder, Familien, Beiträge, SEPA-Lastschriften, Rückläufer, Rechnungen, Mahnungen, Ehrungen und Rundschreiben.
-- Bietet Mitgliedern ein Self-Service-Portal und legt vorgeschlagene Änderungen dem Vorstand zur Prüfung vor.
-- Verankert Datenschutz, Verschlüsselung, Snapshots, Dokumentprüfsummen und eine unveränderliche Ereignisspur in der täglichen Verwaltung.
+- Gibt Mitgliedern ein Selbstverwaltungsportal und legt vorgeschlagene Änderungen dem Vorstand zur Prüfung vor.
+- Unterstützt Dokumentenabläufe, Datenqualitätsprüfungen, Datenschutzanfragen, Snapshots und die Wiederherstellung einzelner Felder.
 
-### Warum es wichtig ist
+### Technische Umsetzung
 
-Vereinssoftware bewahrt Finanz- und Personendaten über viele Jahre. Kontor2 ist deshalb so gebaut, dass Datenhoheit, Mandantentrennung, rechtssichere Dokumente und historische Nachweise Teil der Architektur sind – nicht Ergänzungen am Ende.
+Jeder Verein erhält eine eigene Datenbank, einen eigenen Schlüsselbund und eigenes Branding, aufgelöst über den Hostnamen der Anfrage. Typisierte APIs verbinden Oberfläche und Fachlogik. Verschlüsselte Bankdaten, ein fortlaufendes Einwilligungsprotokoll und durchsuchbare Änderungshistorien gehören zum Datenmodell. Ein rollenbegrenzter MCP-Endpunkt stellt ausgewählte Abläufe für Assistenten bereit.
+
+### Quellcode und Zugang
+
+Der Quellcode ist öffentlich einsehbar und proprietär lizenziert. Deployment und Nutzung benötigen die schriftliche Erlaubnis des Eigentümers.

@@ -1,28 +1,34 @@
 ---
-title: "Diatrack"
+title: "DiaTrack"
 publishDate: 2026-06-04 00:00:00
-description: "A diabetes hardware tracker that monitors sensor and catheter lifecycles and reminds you before they expire."
+description: "A sensor and catheter tracker with replacement countdowns, email reminders, device history, and failure statistics."
 stack:
-  - Python
-  - Web
-  - Docker
+  - TypeScript
+  - TanStack Start
+  - PostgreSQL
+  - Bun
 tags:
-  - Health
-  - Self-Hosted
-  - Open Source
+  - Device Tracking
+  - Reminders
+  - Public Source
 repoUrl: https://github.com/Paul1404/diatrack
 featured: true
+featuredOrder: 6
 icon: activity
 ---
 
-People who manage diabetes are also quietly managing a pile of hardware: glucose sensors and infusion catheters that each have their own replacement schedule. Miss a change window and your readings drift or you run into a problem at the worst possible time.
+DiaTrack keeps the replacement schedule and history of diabetes sensors and catheters in one application. It records when a device was installed, where it was placed, and why its use ended.
 
 ### What it does
 
-- Tracks the lifecycle of each sensor and catheter and works out when it is due for replacement.
-- Sends expiry reminders automatically so nothing gets forgotten.
-- Ships as a single container web app you can self host.
+- Shows countdowns for active devices and sends configurable email reminders before replacement is due.
+- Records early failures and their reasons, with searchable, sortable device history.
+- Compares lifetimes and failure rates by location and reason, with per-user settings and a mobile-friendly interface.
 
-### Why it matters
+### Engineering
 
-This is software with a direct, daily, real-world impact on someone's health routine. It takes a thing you have to remember and turns it into a thing the app remembers for you.
+One TypeScript application on Bun and TanStack Start, with typed oRPC procedures, runtime validation, PostgreSQL, and Drizzle. The German interface uses TanStack Query and Form for server state and device entry.
+
+### Source and access
+
+The source is public, but no software license is specified. Public visibility does not grant reuse rights. Repository screenshots use fictional device records and contain no personal health history.

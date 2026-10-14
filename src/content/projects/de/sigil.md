@@ -1,27 +1,34 @@
 ---
 title: "Sigil"
 publishDate: 2026-05-31 00:00:00
-description: "Ein selbst gehosteter DMARC-Report-Viewer, der aggregierte Berichte aus einem IMAP-Postfach einliest und zeigt, was mit der E-Mail-Authentifizierung passiert."
+description: "Ein Dashboard für E-Mail-Sicherheit, das DMARC- und TLS-Berichte einliest, Absenderquellen bündelt und DNS-Einträge zur Authentifizierung prüft."
 stack:
   - FastAPI
   - React
+  - PostgreSQL
   - Docker
 tags:
-  - E-Mail
-  - Sicherheit
-  - Self-Hosted
+  - Email
+  - Security
+  - Open Source
 repoUrl: https://github.com/Paul1404/Sigil
+featured: true
+featuredOrder: 5
 icon: shield-check
 ---
 
-DMARC-Berichte sind XML-Dateien, die sich in einem Postfach anhäufen und von Hand praktisch unlesbar sind. Gleichzeitig sind sie die einzige Möglichkeit zu sehen, wer E-Mails unter der eigenen Domain versendet. Sigil verwandelt dieses Rauschen in etwas, auf das man tatsächlich reagieren kann.
+Sigil macht aus Berichtsanhängen in einem IMAP-Postfach eine Übersicht über die Authentifizierung einer Maildomain. Absenderquellen, Alignment-Fehler und Probleme bei der TLS-Zustellung lassen sich gemeinsam prüfen.
 
 ### Was es macht
 
-- Verbindet sich mit einem IMAP-Postfach, holt aggregierte DMARC- und TLS-RPT-Berichte ab und wertet sie aus.
-- Zeigt Pass- und Fail-Trends, sodass man Spoofing und fehlkonfigurierte Absender erkennt.
-- Führt DNS-Health-Checks für MX, SPF, DKIM, DANE und MTA-STS durch.
+- Liest komprimierte XML- und JSON-Anhänge mit aggregierten DMARC-Berichten und SMTP-TLS-Berichten ein.
+- Zeigt Erfolgsquoten, Zeitverläufe, Absenderquellen und Domainübersichten, um Spoofing von legitimen Konfigurationsproblemen zu unterscheiden.
+- Prüft MX, SPF, DKIM, DMARC, TLSA/DANE, MTA-STS und TLS-Reporting-Einträge.
 
-### Warum es wichtig ist
+### Technische Umsetzung
 
-E-Mail-Authentifizierung lässt sich leicht falsch einrichten und schwer überprüfen. Sigil bietet einen selbst gehosteten, privaten Einblick, ob die eigene Domain tatsächlich geschützt ist.
+Ein FastAPI-Backend mit PostgreSQL und eine React-Oberfläche werden in einem Docker-Image ausgeliefert. Hintergrundabfragen übernehmen den Import, IMAP-Passwörter sind verschlüsselt gespeichert und Migrationen laufen beim Start.
+
+### Quellcode und Zugang
+
+MIT-lizenziert und selbst gehostet. Die Repository-Screenshots verwenden synthetische Berichte und zeigen weder Postfachinhalte noch echte Absenderdaten.

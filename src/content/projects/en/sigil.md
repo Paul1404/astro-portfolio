@@ -1,27 +1,34 @@
 ---
 title: "Sigil"
 publishDate: 2026-05-31 00:00:00
-description: "A self-hosted DMARC report viewer that ingests aggregate reports from an IMAP mailbox and shows you what is happening with your email authentication."
+description: "A mail-security dashboard that ingests DMARC and TLS reports, groups sending sources, and checks email-authentication DNS records."
 stack:
   - FastAPI
   - React
+  - PostgreSQL
   - Docker
 tags:
   - Email
   - Security
-  - Self-Hosted
+  - Open Source
 repoUrl: https://github.com/Paul1404/Sigil
+featured: true
+featuredOrder: 5
 icon: shield-check
 ---
 
-DMARC reports are XML files that pile up in a mailbox and are basically unreadable by hand. They are also the only way to see who is sending mail as your domain. Sigil turns that noise into something you can actually act on.
+Sigil turns report attachments in an IMAP mailbox into a view of how a domain's mail is authenticated. Sending sources, alignment failures, and TLS delivery problems can be reviewed together.
 
 ### What it does
 
-- Connects to an IMAP mailbox, pulls aggregate DMARC and TLS-RPT reports, and parses them.
-- Shows pass and fail trends so you can spot spoofing and misconfigured senders.
-- Runs DNS health checks across MX, SPF, DKIM, DANE and MTA-STS.
+- Ingests compressed XML and JSON attachments for DMARC aggregate reports and SMTP TLS reports.
+- Shows pass rates, timelines, sending sources, and domain summaries to help distinguish spoofing from legitimate configuration problems.
+- Checks MX, SPF, DKIM, DMARC, TLSA/DANE, MTA-STS, and TLS Reporting records.
 
-### Why it matters
+### Engineering
 
-Email authentication is easy to set up wrong and hard to verify. Sigil gives a self-hosted, private view into whether your domain is actually protected.
+A FastAPI and PostgreSQL backend with a React frontend, packaged into one Docker image. Background polling handles ingestion, IMAP passwords are encrypted at rest, and migrations run on startup.
+
+### Source and access
+
+MIT licensed and self-hosted. Repository screenshots render synthetic report fixtures; they do not expose mailbox contents or real sender data.

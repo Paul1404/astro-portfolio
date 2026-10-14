@@ -13,7 +13,6 @@ tags:
   - Static Site
 repoUrl: https://github.com/Paul1404/hof-stetten.de
 liveUrl: https://hof-stetten.de
-featured: true
 icon: map
 ---
 

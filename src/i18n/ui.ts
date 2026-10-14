@@ -13,7 +13,7 @@ export type Lang = keyof typeof languages;
 // Structured content (skill cards, focus chips) kept separate from flat strings.
 export const content = {
 	en: {
-		focus: ['Cloud', 'Linux', 'Containers', 'Networking', 'Automation'],
+		focus: ['Applications', 'Data', 'Integrations', 'Cloud', 'Automation'],
 		skills: [
 			{
 				icon: 'lucide:cloud',
@@ -22,8 +22,8 @@ export const content = {
 			},
 			{
 				icon: 'lucide:box',
-				title: 'Virtualization and containers',
-				body: 'Docker and container-first deployments, with a background in VMware vSphere and Proxmox from years of hands-on lab work.',
+				title: 'Applications and data',
+				body: 'TypeScript, React, TanStack Start, and PostgreSQL. I connect interfaces, validated APIs, and domain logic into applications that people can use.',
 			},
 			{
 				icon: 'lucide:terminal',
@@ -38,7 +38,7 @@ export const content = {
 		],
 	},
 	de: {
-		focus: ['Cloud', 'Linux', 'Container', 'Netzwerke', 'Automatisierung'],
+		focus: ['Anwendungen', 'Daten', 'Schnittstellen', 'Cloud', 'Automatisierung'],
 		skills: [
 			{
 				icon: 'lucide:cloud',
@@ -47,8 +47,8 @@ export const content = {
 			},
 			{
 				icon: 'lucide:box',
-				title: 'Virtualisierung und Container',
-				body: 'Docker und container-first Deployments, mit einem Hintergrund in VMware vSphere und Proxmox aus Jahren praktischer Lab-Arbeit.',
+				title: 'Anwendungen und Daten',
+				body: 'TypeScript, React, TanStack Start und PostgreSQL. Ich verbinde Oberflächen, validierte APIs und Fachlogik zu Anwendungen, die Menschen nutzen können.',
 			},
 			{
 				icon: 'lucide:terminal',
@@ -89,15 +89,15 @@ export const ui = {
 		'cta.seeAll': 'See all projects',
 
 		// Home
-		'home.meta.title': 'Paul Dresch | Systems engineer',
+		'home.meta.title': "Paul Dresch | Software, cloud & automation",
 		'home.meta.desc':
-			'Systems engineer working with cloud infrastructure, Linux, and automation. A selection of projects and tools I have built.',
-		'home.hero.eyebrow': 'Systems engineer',
-		'home.hero.titleLead': 'I build and run ',
-		'home.hero.titleHighlight': 'infrastructure',
-		'home.hero.titleTail': ', and the tools around it.',
+			"Applications for personal finance, club administration, infrastructure operations, and email security. Designed, built, and maintained by Paul Dresch.",
+		'home.hero.eyebrow': "Software, cloud & automation",
+		'home.hero.titleLead': "I turn everyday work into ",
+		'home.hero.titleHighlight': "useful software",
+		'home.hero.titleTail': ".",
 		'home.hero.subtitle':
-			'Mostly cloud now, on Railway and Hetzner, with a background in Linux, networking, and virtualization. Most of what I make started as a problem I needed to solve.',
+			"From personal finance and club administration to infrastructure inventories and email security. I build the application, connect the data, and keep it running.",
 		'home.featured.eyebrow': 'Selected work',
 		'home.featured.title': 'Projects',
 
@@ -108,7 +108,7 @@ export const ui = {
 		'projects.hero.eyebrow': 'Projects',
 		'projects.hero.title': 'A selection of my work',
 		'projects.hero.tagline':
-			'Cloud apps, self-hosted services, command line tools, and automation. Most of it is open source, and most of it started as a problem I had.',
+			"Applications, infrastructure tools, and automation built around real workflows. Explore the problem, the implementation, and the source where it is public.",
 
 		// Project card / detail
 		'project.code': 'Code',
@@ -121,22 +121,22 @@ export const ui = {
 
 		// About
 		'about.meta.title': 'About | Paul Dresch',
-		'about.meta.desc': 'Systems engineer who builds and ships real software.',
+		'about.meta.desc': "I design, build, and operate applications that bring complex workflows into one place.",
 		'about.hero.eyebrow': 'About',
-		'about.hero.title': 'Systems engineer, mostly in the cloud',
+		'about.hero.title': "From a real problem to a working application",
 		'about.hero.tagline':
-			'I work close to infrastructure and turn it into tools that solve a specific problem. Here is the short version.',
+			"I work across software, data, integrations, and operations. The projects here show how those pieces fit together.",
 		'about.bodyP1':
-			'I am a systems engineer with a long-standing interest in Linux, infrastructure, and networking. These days most of what I run lives in the cloud, on Railway and Hetzner, but it grew out of years of hands-on work with real hardware. That is where I learned how systems actually behave, and it still shapes how I build.',
+			"I build applications around work that deserves better tools: managing club members, checking cash records, understanding personal finances, or connecting infrastructure to its owners and costs. I take a project from its data model and interface through integrations, deployment, and maintenance.",
 		'about.bodyP2':
-			'Most of what I make comes from a real need: a club that wanted its member letters automated, a mail server that needed proper monitoring, a pile of Dependabot pull requests that needed taming. I tend to work on the unglamorous problems, and I try to solve them in a way other people can reuse.',
+			"My background in Linux, networking, and virtualization informs how I build software. I care about clear ownership of data, recoverable changes, and records that people can check later. Recent work includes Fortuna, Kontor2, Kataster, Rendant, Sigil, and DiaTrack.",
 		'about.skillsTitle': 'What I work with',
-		'about.imageLabel': 'Cloud and Linux infrastructure',
+		'about.imageLabel': "Software, data, and operations",
 
 		// Contact CTA
 		'contact.title': 'Get in touch',
 		'contact.body':
-			'Happy to talk about cloud infrastructure, automation, or a project you have in mind.',
+			"Happy to talk about a useful application, a complex workflow, or the infrastructure behind it.",
 		'contact.send': 'Send a message',
 
 		// 404
@@ -186,15 +186,15 @@ export const ui = {
 		'cta.seeAll': 'Alle Projekte ansehen',
 
 		// Home
-		'home.meta.title': 'Paul Dresch | Systems Engineer',
+		'home.meta.title': "Paul Dresch | Software, Cloud & Automatisierung",
 		'home.meta.desc':
-			'Systems Engineer mit Fokus auf Cloud-Infrastruktur, Linux und Automatisierung. Eine Auswahl an Projekten und Tools, die ich gebaut habe.',
-		'home.hero.eyebrow': 'Systems Engineer',
-		'home.hero.titleLead': 'Ich baue und betreibe ',
-		'home.hero.titleHighlight': 'Infrastruktur',
-		'home.hero.titleTail': ', und die Tools drumherum.',
+			"Anwendungen für persönliche Finanzen, Vereinsverwaltung, Infrastruktur und E-Mail-Sicherheit. Entworfen, gebaut und gepflegt von Paul Dresch.",
+		'home.hero.eyebrow': "Software, Cloud & Automatisierung",
+		'home.hero.titleLead': "Ich mache aus alltäglicher Arbeit ",
+		'home.hero.titleHighlight': "brauchbare Software",
+		'home.hero.titleTail': ".",
 		'home.hero.subtitle':
-			'Heute meist in der Cloud, auf Railway und Hetzner, mit einem Hintergrund in Linux, Netzwerken und Virtualisierung. Das meiste, was ich baue, begann als ein Problem, das ich lösen musste.',
+			"Von persönlichen Finanzen und Vereinsverwaltung bis zu Infrastruktur-Inventaren und E-Mail-Sicherheit. Ich baue die Anwendung, verbinde die Daten und halte sie am Laufen.",
 		'home.featured.eyebrow': 'Ausgewählte Arbeiten',
 		'home.featured.title': 'Projekte',
 
@@ -205,7 +205,7 @@ export const ui = {
 		'projects.hero.eyebrow': 'Projekte',
 		'projects.hero.title': 'Eine Auswahl meiner Arbeit',
 		'projects.hero.tagline':
-			'Cloud-Anwendungen, selbst gehostete Dienste, Kommandozeilen-Tools und Automatisierung. Das meiste ist Open Source und begann als ein Problem, das ich selbst hatte.',
+			"Anwendungen, Infrastruktur-Tools und Automatisierung für konkrete Arbeitsabläufe. Hier stehen das Problem, die Umsetzung und, soweit öffentlich, der Quellcode.",
 
 		// Project card / detail
 		'project.code': 'Code',
@@ -218,22 +218,22 @@ export const ui = {
 
 		// About
 		'about.meta.title': 'Über mich | Paul Dresch',
-		'about.meta.desc': 'Systems Engineer, der echte Software baut und ausliefert.',
+		'about.meta.desc': "Ich entwerfe, baue und betreibe Anwendungen, die komplexe Arbeitsabläufe zusammenbringen.",
 		'about.hero.eyebrow': 'Über mich',
-		'about.hero.title': 'Systems Engineer, heute meist in der Cloud',
+		'about.hero.title': "Vom konkreten Problem zur funktionierenden Anwendung",
 		'about.hero.tagline':
-			'Ich arbeite nah an Infrastruktur und mache daraus Tools, die ein konkretes Problem lösen. Hier ist die kurze Version.',
+			"Ich verbinde Software, Daten, Schnittstellen und Betrieb. Die Projekte hier zeigen, wie diese Teile zusammenspielen.",
 		'about.bodyP1':
-			'Ich bin Systems Engineer mit einem langjährigen Interesse an Linux, Infrastruktur und Netzwerken. Heute läuft das meiste, was ich betreibe, in der Cloud auf Railway und Hetzner, doch das ist aus Jahren praktischer Arbeit mit echter Hardware gewachsen. Dort habe ich gelernt, wie Systeme sich wirklich verhalten, und das prägt bis heute, wie ich baue.',
+			"Ich baue Anwendungen für Aufgaben, die bessere Werkzeuge brauchen: Vereinsmitglieder verwalten, Kassenprotokolle prüfen, persönliche Finanzen verstehen oder Infrastruktur mit Verantwortlichen und Kosten verbinden. Ich begleite ein Projekt vom Datenmodell und der Oberfläche über Schnittstellen bis zu Deployment und Wartung.",
 		'about.bodyP2':
-			'Das meiste, was ich baue, entsteht aus einem echten Bedarf: ein Verein, der seine Mitglieder-Serienbriefe automatisieren wollte, ein Mailserver, der ordentliches Monitoring brauchte, ein Berg an Dependabot-Pull-Requests, der gebändigt werden wollte. Ich arbeite eher an den unspektakulären Problemen und versuche, sie so zu lösen, dass andere die Lösung weiterverwenden können.',
+			"Mein Hintergrund in Linux, Netzwerken und Virtualisierung prägt, wie ich Software baue. Mir sind klare Datenverantwortung, wiederherstellbare Änderungen und später prüfbare Vorgänge wichtig. Zu meinen jüngeren Arbeiten gehören Fortuna, Kontor2, Kataster, Rendant, Sigil und DiaTrack.",
 		'about.skillsTitle': 'Womit ich arbeite',
-		'about.imageLabel': 'Cloud- und Linux-Infrastruktur',
+		'about.imageLabel': "Software, Daten und Betrieb",
 
 		// Contact CTA
 		'contact.title': 'Kontakt aufnehmen',
 		'contact.body':
-			'Ich spreche gerne über Cloud-Infrastruktur, Automatisierung oder ein Projekt, das Sie im Kopf haben.',
+			"Ich spreche gerne über eine nützliche Anwendung, einen komplexen Arbeitsablauf oder die Infrastruktur dahinter.",
 		'contact.send': 'Nachricht senden',
 
 		// 404
