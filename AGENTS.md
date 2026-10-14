@@ -13,7 +13,7 @@ This is the canonical instruction file for this repository. Claude Code loads it
 
 ## Project
 
-This is Paul's bilingual static portfolio, deployed through Cloudflare Pages.
+This is Paul's bilingual static portfolio, deployed through GitHub Pages at `https://portfolio.pdcd.net`.
 
 It uses Astro, TypeScript, Tailwind CSS, npm, Markdown content collections, and built-in Astro i18n routing.
 
@@ -22,7 +22,11 @@ It uses Astro, TypeScript, Tailwind CSS, npm, Markdown content collections, and 
 - Use npm and preserve `package-lock.json`.
 - Keep English and German project content aligned.
 - Do not expose private repository URLs. Publicly usable private projects may link only to their live product.
-- Preserve static output and the existing Cloudflare deployment model.
+- Preserve static output. GitHub Pages publishes `dist/` through `.github/workflows/pages.yml` on `master`.
+- Use the custom hostname as Astro's `site`, with no repository-name base path.
+- GitHub Pages ignores `_redirects`; legacy routes need generated HTML redirects.
+- Route 53 DNS is managed by `infra/github-pages-dns.json`, stack `astro-portfolio-pages-dns` in `eu-central-1`.
+- Keep the contact email unchanged when changing the website hostname.
 - Treat generated icons and optimized assets as generated outputs.
 
 ## Commands

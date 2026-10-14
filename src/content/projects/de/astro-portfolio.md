@@ -10,7 +10,7 @@ tags:
   - Web
   - Open Source
 repoUrl: https://github.com/Paul1404/astro-portfolio
-liveUrl: https://pd-portfolio.net
+liveUrl: https://portfolio.pdcd.net
 icon: globe
 ---
 
@@ -24,4 +24,4 @@ Eine persönliche Seite muss schnell laden, leicht zu pflegen sein und nicht sel
 
 ### Warum es wichtig ist
 
-Inhalt und Code bleiben getrennt, sodass das Schreiben über ein neues Projekt nie ein Bearbeiten der Seite selbst bedeutet. Sie baut zu reinen statischen Dateien und wird auf Cloudflare Pages deployt.
+Inhalt und Code bleiben getrennt, sodass das Schreiben über ein neues Projekt nie ein Bearbeiten der Seite selbst bedeutet. Sie baut zu reinen statischen Dateien und wird auf GitHub Pages deployt.

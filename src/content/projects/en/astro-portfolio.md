@@ -10,7 +10,7 @@ tags:
   - Web
   - Open Source
 repoUrl: https://github.com/Paul1404/astro-portfolio
-liveUrl: https://pd-portfolio.net
+liveUrl: https://portfolio.pdcd.net
 icon: globe
 ---
 
@@ -24,4 +24,4 @@ A personal site has to load fast, stay easy to update, and not turn into a maint
 
 ### Why it matters
 
-The content and the code stay separate, so writing about a new project never means editing the site itself. It builds to plain static files and deploys to Cloudflare Pages.
+The content and the code stay separate, so writing about a new project never means editing the site itself. It builds to plain static files and deploys to GitHub Pages.

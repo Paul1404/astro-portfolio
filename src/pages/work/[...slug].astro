@@ -1,0 +1,29 @@
+---
+import { getProjects, slugOf } from '../../lib/projects';
+
+export async function getStaticPaths() {
+    const projects = await getProjects('en');
+    return [
+        { params: { slug: undefined }, props: { target: '/projects/' } },
+        ...projects.map((entry) => ({
+            params: { slug: slugOf(entry) },
+            props: { target: `/projects/${slugOf(entry)}/` },
+        })),
+    ];
+}
+
+const { target } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="refresh" content={`0;url=${target}`} />
+        <link rel="canonical" href={new URL(target, Astro.site).href} />
+        <meta name="robots" content="noindex" />
+        <title>Project moved</title>
+    </head>
+    <body>
+        <p>This page has moved. <a href={target}>Continue to the project.</a></p>
+    </body>
+</html>

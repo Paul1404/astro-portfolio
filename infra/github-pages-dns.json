@@ -1,0 +1,32 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "DNS for the Astro portfolio hosted on GitHub Pages.",
+  "Parameters": {
+    "HostedZoneId": {
+      "Type": "AWS::Route53::HostedZone::Id",
+      "Description": "Existing public hosted zone for pdcd.net."
+    }
+  },
+  "Resources": {
+    "PortfolioCname": {
+      "Type": "AWS::Route53::RecordSet",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "HostedZoneId"
+        },
+        "Name": "portfolio.pdcd.net.",
+        "Type": "CNAME",
+        "TTL": "300",
+        "ResourceRecords": [
+          "Paul1404.github.io."
+        ]
+      }
+    }
+  },
+  "Outputs": {
+    "SiteUrl": {
+      "Description": "Public HTTPS URL of the portfolio.",
+      "Value": "https://portfolio.pdcd.net"
+    }
+  }
+}
