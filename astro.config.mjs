@@ -6,7 +6,7 @@ import icon from "astro-icon";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-  site: 'https://pd-portfolio.net/',
+  site: 'https://portfolio.pdcd.net/',
   i18n: {
     locales: ['en', 'de'],
     defaultLocale: 'en',
@@ -19,7 +19,7 @@ export default defineConfig({
   },
   integrations: [
     icon(),
-    sitemap(),
+    sitemap({ filter: (page) => !new URL(page).pathname.startsWith('/work/') }),
     robotsTxt(),
     cookieconsent({
       guiOptions: {
@@ -49,12 +49,12 @@ export default defineConfig({
           de: {
             consentModal: {
               title: "Datenschutz und Cookie-Richtlinie",
-              description: "Diese Seite wird über Cloudflare bereitgestellt, das Cookies für Performance und Sicherheit nutzen kann. Mit der Nutzung unserer Website stimmen Sie der Verwendung dieser Cookies zu. Details in unserer Datenschutzerklärung.",
+              description: "Diese Seite wird über GitHub Pages bereitgestellt. Ihre Einstellungen werden lokal im Browser gespeichert. Details finden Sie in unserer Datenschutzerklärung.",
               closeIconLabel: "",
               acceptAllBtn: "Alle akzeptieren",
               acceptNecessaryBtn: "Alle ablehnen",
               showPreferencesBtn: "Einstellungen verwalten",
-              footer: "<a href=\"https://pd-portfolio.net/privacy-policy/\">Datenschutz</a>\n<a href=\"https://pd-portfolio.net/privacy-policy/#impressum\">Impressum</a>",
+              footer: "<a href=\"https://portfolio.pdcd.net/privacy-policy/\">Datenschutz</a>\n<a href=\"https://portfolio.pdcd.net/privacy-policy/#impressum\">Impressum</a>",
             },
             preferencesModal: {
               title: "Einstellungen zur Einwilligung",
@@ -66,7 +66,7 @@ export default defineConfig({
               sections: [
                 {
                   title: "Verwendung von Cookies",
-                  description: "Diese Seite wird über Cloudflare bereitgestellt, das Cookies für Performance und Sicherheit nutzen kann. Mit der Nutzung unserer Website stimmen Sie der Verwendung dieser Cookies zu. Details in unserer Datenschutzerklärung.",
+                  description: "Diese Seite wird über GitHub Pages bereitgestellt. Ihre Einstellungen werden lokal im Browser gespeichert. Details finden Sie in unserer Datenschutzerklärung.",
                 },
                 {
                   title: "Streng notwendige Cookies <span class=\"pm__badge\">Immer aktiviert</span>",
@@ -88,12 +88,12 @@ export default defineConfig({
           en: {
             consentModal: {
               title: "Privacy and cookie policy",
-              description: "This site is powered by Cloudflare, which may use cookies for performance and security. By using our website, you consent to the use of these cookies. Details in our privacy policy.",
+              description: "This site is hosted on GitHub Pages. Your preferences are stored locally in your browser. See our privacy policy for details.",
               closeIconLabel: "",
               acceptAllBtn: "Accept all",
               acceptNecessaryBtn: "Reject all",
               showPreferencesBtn: "Manage preferences",
-              footer: "<a href=\"https://pd-portfolio.net/privacy-policy/\">Privacy Policy</a>\n<a href=\"https://pd-portfolio.net/privacy-policy/#impressum\">Legal Notice</a>",
+              footer: "<a href=\"https://portfolio.pdcd.net/privacy-policy/\">Privacy Policy</a>\n<a href=\"https://portfolio.pdcd.net/privacy-policy/#impressum\">Legal Notice</a>",
             },
             preferencesModal: {
               title: "Consent Preferences Center",
@@ -105,7 +105,7 @@ export default defineConfig({
               sections: [
                 {
                   title: "Cookie Usage",
-                  description: "This site is powered by Cloudflare, which may use cookies for performance and security. By using our website, you consent to the use of these cookies. Details in our privacy policy.",
+                  description: "This site is hosted on GitHub Pages. Your preferences are stored locally in your browser. See our privacy policy for details.",
                 },
                 {
                   title: "Strictly Necessary Cookies <span class=\"pm__badge\">Always Enabled</span>",

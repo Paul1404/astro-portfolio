@@ -4,7 +4,7 @@ Paul Dresch's personal portfolio. A static site that showcases software:
 cloud apps, self-hosted tools, automation, and infrastructure projects. Available
 in English and German.
 
-Live at [pd-portfolio.net](https://pd-portfolio.net).
+Live at [portfolio.pdcd.net](https://portfolio.pdcd.net).
 
 ## Stack
 
@@ -13,7 +13,7 @@ Live at [pd-portfolio.net](https://pd-portfolio.net).
 - [astro-icon](https://www.astroicon.dev/) with the Lucide icon set
 - Projects authored as Markdown in a `projects` content collection
 - Built-in Astro i18n routing (English default, German under `/de/`)
-- Deployed to Cloudflare Pages
+- Deployed to GitHub Pages
 
 ## Run locally
 
@@ -69,8 +69,19 @@ This writes the PNG variants and `manifest.webmanifest` into `public/`.
 
 ## Deployment
 
-Cloudflare Pages serves the `dist/` directory (see `wrangler.jsonc`). Old `/work/*`
-URLs redirect to `/projects/*` via `public/_redirects`.
+GitHub Pages serves `dist/`. `.github/workflows/pages.yml` validates, builds, and
+publishes on pushes to `master`, and validates pull requests without deploying them.
+Pages settings use GitHub Actions and the custom domain `portfolio.pdcd.net`.
+Astro uses this domain for canonical URLs, language alternates, and sitemaps.
+
+AWS CloudFormation stack `astro-portfolio-pages-dns` in `eu-central-1` manages the
+Route 53 CNAME from `portfolio.pdcd.net` to `Paul1404.github.io` using
+`infra/github-pages-dns.json`. The existing pdcd.net hosted zone is passed as a parameter.
+
+Old `/work/` and `/work/<project>/` links use generated HTML redirects to
+`/projects/` and `/projects/<project>/`, because GitHub Pages does not interpret
+Cloudflare's `_redirects` file. The previous Cloudflare configuration remains
+available for the existing deployment.
 
 ## License
 
