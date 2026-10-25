@@ -13,6 +13,7 @@ tags:
 repoUrl: https://github.com/Paul1404/dmo
 liveUrl: https://dmo.pdcd.net
 icon: git-merge
+status: archived
 ---
 
 If you run a lot of repositories you end up drowning in Dependabot pull requests. Going through them one repo at a time is slow and you start ignoring them, which is exactly how you fall behind on security updates.

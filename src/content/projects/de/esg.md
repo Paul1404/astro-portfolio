@@ -13,6 +13,7 @@ tags:
 repoUrl: https://github.com/Paul1404/esg
 liveUrl: https://esg.pdcd.net
 icon: mail
+status: archived
 ---
 
 E-Mail-Clients sind die schlimmste Rendering-Zielplattform überhaupt. Outlook verwendet die Word-Engine, Gmail streift die Hälfte des CSS heraus, und Apple Mail invertiert Farben im Dark Mode einfach ohne Vorwarnung. ESG erzeugt Signaturen, die das alles überstehen.

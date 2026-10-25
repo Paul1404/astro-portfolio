@@ -10,6 +10,7 @@ tags:
   - Open Source
 repoUrl: https://github.com/Paul1404/WinCrashTrace
 icon: monitor-x
+status: archived
 ---
 
 When a Windows machine crashes, the useful evidence is scattered across event logs, dump files, and reliability history, and a lot of it ages out. WinCrashTrace gathers it into a single bundle while it is still there.

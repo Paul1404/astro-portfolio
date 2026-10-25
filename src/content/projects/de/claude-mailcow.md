@@ -11,6 +11,7 @@ tags:
   - Open Source
 repoUrl: https://github.com/Paul1404/claude-mailcow
 icon: bot
+status: archived
 ---
 
 Mailcow zu verwalten bedeutet normalerweise die Admin-UI oder rohe API-Aufrufe. Dieser Skill bringt Claude Code bei, das für einen zu übernehmen, sodass man einen Mailserver in normaler Sprache steuern kann.

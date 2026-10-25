@@ -63,3 +63,11 @@ Use local assets in `src/assets/projects`, registered in `src/lib/project-images
 and the bilingual `screenshot` frontmatter. Keep uncropped application views,
 localized alt text, and the fictional-data caption. See `docs/project-screenshots.md`
 for provenance. Projects without an approved screenshot use text, not invented artwork.
+
+## Curation and motion
+
+Mark projects with archived upstream repositories `status: archived` in both
+locales. `getProjects` excludes them from listings, detail routes, the terminal,
+and generated legacy redirects. Retain content for history. Keep the homepage
+constellation and animated brand highlight; screenshot-led project presentation
+does not require removing intentional motion. Honor reduced-motion preferences.

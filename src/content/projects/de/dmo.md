@@ -13,6 +13,7 @@ tags:
 repoUrl: https://github.com/Paul1404/dmo
 liveUrl: https://dmo.pdcd.net
 icon: git-merge
+status: archived
 ---
 
 Wer viele Repositories betreibt, ertrinkt irgendwann in Dependabot-Pull-Requests. Sie Repository für Repository durchzugehen ist langsam, und irgendwann ignoriert man sie einfach. Genau so bleibt man bei Sicherheitsupdates hinterher.

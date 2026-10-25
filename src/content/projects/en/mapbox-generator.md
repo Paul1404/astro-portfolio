@@ -11,6 +11,7 @@ tags:
   - Open Source
 repoUrl: https://github.com/Paul1404/mapbox-generator
 icon: map
+status: archived
 ---
 
 Sometimes you just need a clean picture of a route, not an interactive map widget. This produces print and web ready static maps from a route definition.

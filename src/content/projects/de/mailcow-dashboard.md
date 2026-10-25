@@ -11,6 +11,7 @@ tags:
   - Open Source
 repoUrl: https://github.com/Paul1404/mailcow-dashboard
 icon: gauge
+status: archived
 ---
 
 Einen eigenen Mailserver zu betreiben ist solange in Ordnung, bis etwas langsam wird oder Queues sich stauen und man keine Ahnung hat, warum. Dieses Dashboard gibt Mailcow eine ordentliche Monitoring-Ansicht.

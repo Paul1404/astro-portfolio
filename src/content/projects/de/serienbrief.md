@@ -13,6 +13,7 @@ tags:
   - Open Source
 repoUrl: https://github.com/Paul1404/svu-serienbrief
 icon: qr-code
+status: archived
 ---
 
 Vereine führen Mitgliederdaten, die langsam veralten, und Korrekturen manuell einzuholen ist undankbare Arbeit. Dieses Tool generiert personalisierte Briefe, über die Mitglieder ihre eigenen Daten korrigieren können.

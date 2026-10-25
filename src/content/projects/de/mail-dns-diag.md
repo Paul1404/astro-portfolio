@@ -11,6 +11,7 @@ tags:
   - CLI
 repoUrl: https://github.com/Paul1404/mail_dns_diag.sh
 icon: search-check
+status: archived
 ---
 
 Die Diagnose von E-Mail-Zustellproblemen bedeutet, eine lange Liste von DNS-Records zu überprüfen. Dabei ist es leicht, einen zu übersehen. Dieses Skript führt das gesamte Audit mit einem einzigen Befehl durch.

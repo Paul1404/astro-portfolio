@@ -11,6 +11,7 @@ tags:
   - CLI
 repoUrl: https://github.com/Paul1404/dkim-splitter
 icon: scissors
+status: archived
 ---
 
 DKIM keys are longer than a single DNS TXT string is allowed to be, so they have to be split into chunks. Doing that by hand is fiddly and easy to get wrong, which then quietly breaks signing.

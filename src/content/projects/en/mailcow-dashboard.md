@@ -11,6 +11,7 @@ tags:
   - Open Source
 repoUrl: https://github.com/Paul1404/mailcow-dashboard
 icon: gauge
+status: archived
 ---
 
 Running your own mail server is fine until something is slow or queues are backing up and you have no idea why. This gives Mailcow a proper monitoring view.

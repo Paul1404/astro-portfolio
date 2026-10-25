@@ -15,6 +15,7 @@ tags:
 repoUrl: https://github.com/Paul1404/rdw
 liveUrl: https://rdw.pdcd.net
 icon: radar
+status: archived
 ---
 
 Railway gruppiert Deployments nach Projekt. Das ist in Ordnung, bis man mehrere Services über mehr als einen Workspace betreibt. Dann heißt den Überblick behalten: sich durch jedes Projekt einzeln klicken.

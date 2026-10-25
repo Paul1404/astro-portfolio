@@ -13,6 +13,7 @@ tags:
 repoUrl: https://github.com/Paul1404/bfv-api
 liveUrl: https://sg-spielplan.untereuerheim.com/
 icon: calendar-days
+status: archived
 ---
 
 Der Bayerische Fußball-Verband veröffentlicht Spielpläne, aber nicht in einem Format, das man tatsächlich abonnieren kann. Dieses Tool ruft den Spielplan einer Mannschaft ab und wandelt ihn in Dateien um, die Menschen wirklich nutzen können.

@@ -11,6 +11,7 @@ tags:
   - Open Source
 repoUrl: https://github.com/Paul1404/mapbox-generator
 icon: map
+status: archived
 ---
 
 Manchmal braucht man einfach ein sauberes Bild einer Route und kein interaktives Karten-Widget. Dieses Tool erzeugt druck- und webfertige statische Karten aus einer Routendefinition.

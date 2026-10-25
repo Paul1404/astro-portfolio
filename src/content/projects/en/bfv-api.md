@@ -13,6 +13,7 @@ tags:
 repoUrl: https://github.com/Paul1404/bfv-api
 liveUrl: https://sg-spielplan.untereuerheim.com/
 icon: calendar-days
+status: archived
 ---
 
 The Bavarian Football Association publishes fixtures, but not in a format you can actually subscribe to. This pulls the schedule for a team and turns it into files people can use.

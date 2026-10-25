@@ -11,6 +11,7 @@ tags:
   - Open Source
 repoUrl: https://github.com/Paul1404/svums
 icon: user-plus
+status: archived
 ---
 
 Joining a club usually means a paper form, a back and forth over missing fields, and someone typing it all into a spreadsheet later. This replaces that with a single online form that produces clean records from the start.
