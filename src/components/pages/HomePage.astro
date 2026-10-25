@@ -22,8 +22,7 @@ const projects = (featured.length ? featured : allProjects).slice(0, 6);
 	<section class="relative isolate overflow-hidden">
 		<HeroBackground />
 		<div class="mx-auto max-w-6xl px-6 pb-16 pt-24 sm:pb-20 sm:pt-32">
-			<p class="text-sm text-brand">Paul Dresch</p>
-			<h1 class="mt-4 max-w-4xl text-4xl font-semibold leading-tight sm:text-5xl">{t('home.hero.titleLead')}<span class="text-gradient-flow">{t('home.hero.titleHighlight')}</span>{t('home.hero.titleTail')}</h1>
+			<h1 class="max-w-4xl text-4xl font-semibold leading-tight sm:text-5xl">{t('home.hero.titleLead')}<span class="text-gradient-flow">{t('home.hero.titleHighlight')}</span>{t('home.hero.titleTail')}</h1>
 			<p class="mt-5 max-w-2xl text-lg leading-relaxed text-muted">{t('home.hero.subtitle')}</p>
 			<div class="mt-7 flex flex-wrap gap-5 text-sm">
 				<a href={localizePath('/projects/', lang)} class="font-medium text-brand underline-offset-4 hover:underline">{t('cta.viewProjects')}</a>

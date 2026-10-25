@@ -20,7 +20,7 @@ const links = [
 			<p>&copy; {currentYear} Paul Dresch</p>
 			<p>{t('footer.builtWith')}</p>
 		</div>
-		<div class="flex items-center gap-4">
+		<div class="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
 			{
 				links.map(({ label, href, icon }) => (
 					<a
@@ -40,6 +40,46 @@ const links = [
 			>
 				{t('footer.legal')}
 			</a>
+			<div data-analytics-settings-slot class="rr-block"></div>
 		</div>
 	</div>
 </footer>
+
+<script>
+	// Keep the shared consent loader unchanged; only its placement is site-specific.
+	const slot = document.querySelector<HTMLElement>('[data-analytics-settings-slot]');
+	const placeSettings = () => {
+		const consent = document.getElementById('site-analytics-consent');
+		if (!slot || !consent) return false;
+		slot.append(consent);
+		const settings = consent.querySelector<HTMLButtonElement>('[data-settings]');
+		if (settings) {
+			// Closing the initial prompt must not scroll the page to the footer.
+			const focus = settings.focus.bind(settings);
+			settings.focus = (options) => focus({ ...options, preventScroll: true });
+		}
+		return true;
+	};
+	if (slot && !placeSettings()) {
+		const observer = new MutationObserver(() => {
+			if (placeSettings()) observer.disconnect();
+		});
+		observer.observe(document.body, { childList: true });
+	}
+</script>
+
+<style is:global>
+	footer #site-analytics-consent [data-settings] {
+		position: static;
+		min-height: 44px;
+		padding: 0;
+		border: 0;
+		background: transparent;
+		color: var(--color-subtle);
+		font: inherit;
+		text-decoration: none;
+	}
+	footer #site-analytics-consent [data-settings]:hover {
+		color: var(--color-ink);
+	}
+</style>

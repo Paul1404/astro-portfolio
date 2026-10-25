@@ -71,3 +71,9 @@ locales. `getProjects` excludes them from listings, detail routes, the terminal,
 and generated legacy redirects. Retain content for history. Keep the homepage
 constellation and animated brand highlight; screenshot-led project presentation
 does not require removing intentional motion. Honor reduced-motion preferences.
+
+Mobile browser chrome can emit viewport resize events while scrolling. Keep
+constellation particles across resizes and skip canvas buffer writes when the
+hero geometry and pixel ratio are unchanged. The footer places the shared
+analytics consent control in the document flow; keep the common loader intact
+and preserve reopening, rejection, withdrawal, and focus without a scroll jump.
