@@ -12,6 +12,7 @@ tags:
   - Open Source
 repoUrl: https://github.com/Paul1404/mwa
 icon: terminal
+status: archived
 ---
 
 Updating Mailcow means SSHing into the box and running the upgrade script by hand. Fine once, annoying often, and easy to put off. This puts the whole flow behind an authenticated web page.

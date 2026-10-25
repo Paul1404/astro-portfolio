@@ -12,6 +12,7 @@ tags:
   - Open Source
 repoUrl: https://github.com/Paul1404/mailcow-cold-standby
 icon: database-backup
+status: archived
 ---
 
 Ein Mailserver ist eines dieser Dinge, bei denen einem ein Backup erst einfällt, wenn der Server weg ist. Dieses Tool hält eine Cold-Standby-Kopie extern vor, damit ein Ausfall nicht bedeutet, dass E-Mails verloren gehen.

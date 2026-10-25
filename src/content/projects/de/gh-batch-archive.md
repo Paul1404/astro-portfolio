@@ -11,6 +11,7 @@ tags:
   - Open Source
 repoUrl: https://github.com/Paul1404/gh-batch-archive
 icon: archive
+status: archived
 ---
 
 Repositories einzeln in der GitHub-Oberfläche zu archivieren ist mühsam, und einen wirklich vertrauenswürdigen Rückgängig-Button gibt es nicht. Dieses Tool verpackt das GitHub CLI in ein sicheres, interaktives Batch-Werkzeug.

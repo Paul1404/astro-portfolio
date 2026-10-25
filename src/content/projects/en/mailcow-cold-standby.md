@@ -12,6 +12,7 @@ tags:
   - Open Source
 repoUrl: https://github.com/Paul1404/mailcow-cold-standby
 icon: database-backup
+status: archived
 ---
 
 A mail server is one of those things you only realise you should have backed up after it is gone. This keeps a cold standby copy off site so a failure does not mean lost mail.

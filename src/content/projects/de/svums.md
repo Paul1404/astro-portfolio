@@ -11,6 +11,7 @@ tags:
   - Open Source
 repoUrl: https://github.com/Paul1404/svums
 icon: user-plus
+status: archived
 ---
 
 Einem Verein beizutreten bedeutet meist ein Papierformular, ein Hin und Her wegen fehlender Angaben und später jemanden, der alles in eine Tabelle abtippt. Dieses Projekt ersetzt das durch ein einziges Online-Formular, das von Anfang an saubere Datensätze liefert.

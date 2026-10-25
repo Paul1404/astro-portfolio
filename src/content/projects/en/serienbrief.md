@@ -13,6 +13,7 @@ tags:
   - Open Source
 repoUrl: https://github.com/Paul1404/svu-serienbrief
 icon: qr-code
+status: archived
 ---
 
 Clubs keep member records that slowly go out of date, and chasing corrections by hand is thankless work. This generates personalised letters that let members fix their own data.

@@ -11,6 +11,7 @@ tags:
   - Open Source
 repoUrl: https://github.com/Paul1404/claude-mailcow
 icon: bot
+status: archived
 ---
 
 Managing Mailcow normally means the admin UI or raw API calls. This teaches Claude Code how to do it for you, so you can manage a mail server in plain language.

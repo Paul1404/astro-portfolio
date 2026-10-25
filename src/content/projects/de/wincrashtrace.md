@@ -10,6 +10,7 @@ tags:
   - Open Source
 repoUrl: https://github.com/Paul1404/WinCrashTrace
 icon: monitor-x
+status: archived
 ---
 
 Wenn ein Windows-Rechner abstürzt, sind die nützlichen Belege über Ereignisprotokolle, Dump-Dateien und den Zuverlässigkeitsverlauf verstreut, und vieles davon verfällt mit der Zeit. WinCrashTrace sammelt es in einem einzigen Bundle, solange es noch da ist.

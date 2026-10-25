@@ -11,6 +11,7 @@ tags:
   - CLI
 repoUrl: https://github.com/Paul1404/dkim-splitter
 icon: scissors
+status: archived
 ---
 
 DKIM-Keys sind länger als ein einzelner DNS-TXT-String sein darf, weshalb sie in Blöcke aufgeteilt werden müssen. Das von Hand zu tun ist umständlich und fehleranfällig. Ein Fehler dabei bricht die Signierung still und leise.

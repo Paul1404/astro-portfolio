@@ -1,5 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components';
+import HeroBackground from '../HeroBackground.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Section from '../Section.astro';
 import ProjectCard from '../ProjectCard.astro';
@@ -18,14 +19,17 @@ const projects = (featured.length ? featured : allProjects).slice(0, 6);
 ---
 
 <BaseLayout title={t('home.meta.title')} description={t('home.meta.desc')}>
-	<section class="mx-auto max-w-6xl px-6 pb-16 pt-24 sm:pb-20 sm:pt-32">
-		<p class="text-sm text-brand">Paul Dresch</p>
-		<h1 class="mt-4 max-w-4xl text-4xl font-semibold leading-tight sm:text-5xl">{t('home.hero.titleLead')}{t('home.hero.titleHighlight')}{t('home.hero.titleTail')}</h1>
-		<p class="mt-5 max-w-2xl text-lg leading-relaxed text-muted">{t('home.hero.subtitle')}</p>
-		<div class="mt-7 flex flex-wrap gap-5 text-sm">
-			<a href={localizePath('/projects/', lang)} class="font-medium text-brand underline-offset-4 hover:underline">{t('cta.viewProjects')}</a>
-			<a href="https://github.com/Paul1404" class="text-muted underline-offset-4 hover:underline">GitHub</a>
-			<a href="mailto:contact@pd-portfolio.net" class="text-muted underline-offset-4 hover:underline">{t('cta.contact')}</a>
+	<section class="relative isolate overflow-hidden">
+		<HeroBackground />
+		<div class="mx-auto max-w-6xl px-6 pb-16 pt-24 sm:pb-20 sm:pt-32">
+			<p class="text-sm text-brand">Paul Dresch</p>
+			<h1 class="mt-4 max-w-4xl text-4xl font-semibold leading-tight sm:text-5xl">{t('home.hero.titleLead')}<span class="text-gradient-flow">{t('home.hero.titleHighlight')}</span>{t('home.hero.titleTail')}</h1>
+			<p class="mt-5 max-w-2xl text-lg leading-relaxed text-muted">{t('home.hero.subtitle')}</p>
+			<div class="mt-7 flex flex-wrap gap-5 text-sm">
+				<a href={localizePath('/projects/', lang)} class="font-medium text-brand underline-offset-4 hover:underline">{t('cta.viewProjects')}</a>
+				<a href="https://github.com/Paul1404" class="text-muted underline-offset-4 hover:underline">GitHub</a>
+				<a href="mailto:contact@pd-portfolio.net" class="text-muted underline-offset-4 hover:underline">{t('cta.contact')}</a>
+			</div>
 		</div>
 	</section>
 

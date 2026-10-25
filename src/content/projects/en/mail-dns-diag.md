@@ -11,6 +11,7 @@ tags:
   - CLI
 repoUrl: https://github.com/Paul1404/mail_dns_diag.sh
 icon: search-check
+status: archived
 ---
 
 Diagnosing mail delivery problems means checking a long list of DNS records, and it is easy to miss one. This runs the whole audit in a single command.

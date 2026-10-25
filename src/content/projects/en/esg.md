@@ -13,6 +13,7 @@ tags:
 repoUrl: https://github.com/Paul1404/esg
 liveUrl: https://esg.pdcd.net
 icon: mail
+status: archived
 ---
 
 Email clients are the worst rendering target on the planet. Outlook uses the Word engine, Gmail strips half your CSS, and Apple Mail will happily invert your colours in dark mode without asking. ESG builds signatures that survive all of it.

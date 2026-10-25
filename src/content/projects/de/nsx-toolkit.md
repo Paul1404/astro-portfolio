@@ -12,6 +12,7 @@ tags:
   - Automatisierung
 repoUrl: https://github.com/Paul1404/nsx-api.sh
 icon: network
+status: archived
 ---
 
 NSX-T hat eine leistungsfähige REST API, sie manuell zu bedienen ist jedoch langsam. Die Backup-Einrichtung rundherum ist zudem leicht unsicher konfigurierbar. Dieses Projekt besteht aus zwei Tools, die NSX-T-Operationen wiederholbar und sicher machen.

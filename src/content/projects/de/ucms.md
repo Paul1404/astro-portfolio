@@ -13,6 +13,7 @@ tags:
   - Open Source
 repoUrl: https://github.com/Paul1404/ucms
 icon: layout-template
+status: archived
 ---
 
 Viele kleine Organisationen brauchen eine Website und haben niemanden, der sie baut oder pflegt. ucms gibt ihnen einen visuellen Editor und Hosting für mehrere Seiten auf einer Instanz, sodass ein Ehrenamtlicher eine Seite zusammenstellen und aktuell halten kann.
