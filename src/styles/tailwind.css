@@ -68,6 +68,7 @@
     color: var(--color-ink);
     letter-spacing: -0.02em;
     text-wrap: balance;
+    overflow-wrap: anywhere;
   }
 
   ::selection {
@@ -127,3 +128,7 @@
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* Narrow screens need long German headings and contact links to wrap naturally. */
+.prose { overflow-wrap: anywhere; }
+main [id] { scroll-margin-top: 6rem; }

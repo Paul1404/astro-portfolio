@@ -99,8 +99,9 @@ const terminalData = {
 					class="max-h-[60vh] min-h-[320px] overflow-y-auto whitespace-pre-wrap break-words px-4 py-4 [scrollbar-width:thin]"
 				>
 				</div>
-				<div class="flex items-center gap-2 border-t border-line px-4 py-3">
-					<span data-prompt class="shrink-0 text-brand">guest@pd-portfolio:~$</span>
+				<div class="flex items-center gap-2 border-t border-line px-4 py-1">
+					<span data-prompt class="hidden shrink-0 text-brand sm:inline">guest@pd-portfolio:~$</span>
+					<span class="shrink-0 text-brand sm:hidden" aria-hidden="true">guest:~$</span>
 					<input
 						data-input
 						type="text"
@@ -109,7 +110,9 @@ const terminalData = {
 						autocorrect="off"
 						spellcheck="false"
 						aria-label={t('a11y.terminalInput')}
-						class="w-full border-0 bg-transparent text-ink outline-none placeholder:text-subtle"
+						placeholder={t('terminal.inputPlaceholder')}
+						enterkeyhint="go"
+						class="min-h-11 min-w-0 flex-1 border-0 bg-transparent text-base text-ink outline-none placeholder:text-subtle"
 					/>
 				</div>
 			</web-terminal>
@@ -156,11 +159,18 @@ const terminalData = {
 
 			this.print(this.data.strings.welcome, 'text-muted');
 
-			// Clicking anywhere in the terminal focuses the input.
-			this.addEventListener('click', () => this.input.focus());
+			// Touch users choose the input explicitly, so reading output or following
+			// a link never summons the keyboard. Desktop keeps click-to-type.
+			this.addEventListener('click', (event) => {
+				if (!window.matchMedia('(pointer: fine)').matches) return;
+				if (event.target instanceof Element && event.target.closest('a, button, input')) return;
+				if (window.getSelection()?.toString()) return;
+				this.input.focus();
+			});
 			this.input.addEventListener('keydown', (e) => this.onKey(e));
-			// Focus on load without yanking the page scroll position.
-			this.input.focus({ preventScroll: true });
+			if (window.matchMedia('(min-width: 768px) and (pointer: fine)').matches) {
+				this.input.focus({ preventScroll: true });
+			}
 		}
 
 		private onKey(e: KeyboardEvent) {

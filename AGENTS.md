@@ -77,3 +77,12 @@ constellation particles across resizes and skip canvas buffer writes when the
 hero geometry and pixel ratio are unchanged. The footer places the shared
 analytics consent control in the document flow; keep the common loader intact
 and preserve reopening, rejection, withdrawal, and focus without a scroll jump.
+
+Mobile navigation must close on outside taps, Escape, focus leaving the menu,
+and desktop breakpoints. Keep standalone navigation targets at least 44 px.
+Do not autofocus the terminal on touch or narrow screens, and keep its input
+at 16 px to avoid iOS focus zoom. Long headings must wrap without page overflow;
+anchor targets need clearance under the sticky header.
+Analytics settings need a footer fallback on query/hash URLs where the shared
+loader intentionally does not initialize. Navigate to the localized plain
+privacy page and open the panel there; never relax the loader's route gate.
