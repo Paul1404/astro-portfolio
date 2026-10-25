@@ -25,9 +25,9 @@ const projects = (featured.length ? featured : allProjects).slice(0, 6);
 			<h1 class="max-w-4xl text-4xl font-semibold leading-tight sm:text-5xl">{t('home.hero.titleLead')}<span class="text-gradient-flow">{t('home.hero.titleHighlight')}</span>{t('home.hero.titleTail')}</h1>
 			<p class="mt-5 max-w-2xl text-lg leading-relaxed text-muted">{t('home.hero.subtitle')}</p>
 			<div class="mt-7 flex flex-wrap gap-5 text-sm">
-				<a href={localizePath('/projects/', lang)} class="font-medium text-brand underline-offset-4 hover:underline">{t('cta.viewProjects')}</a>
-				<a href="https://github.com/Paul1404" class="text-muted underline-offset-4 hover:underline">GitHub</a>
-				<a href="mailto:contact@pd-portfolio.net" class="text-muted underline-offset-4 hover:underline">{t('cta.contact')}</a>
+				<a href={localizePath('/projects/', lang)} class="inline-flex min-h-11 items-center font-medium text-brand underline-offset-4 hover:underline">{t('cta.viewProjects')}</a>
+				<a href="https://github.com/Paul1404" class="inline-flex min-h-11 items-center text-muted underline-offset-4 hover:underline">GitHub</a>
+				<a href="mailto:contact@pd-portfolio.net" class="inline-flex min-h-11 items-center text-muted underline-offset-4 hover:underline">{t('cta.contact')}</a>
 			</div>
 		</div>
 	</section>

@@ -9,7 +9,7 @@ const t = useTranslations(lang);
 <theme-toggle>
 	<button
 		type="button"
-		class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-line text-muted transition-colors hover:border-brand hover:text-brand"
+		class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line text-muted transition-colors hover:border-brand hover:text-brand"
 	>
 		<span class="sr-only">{t('a11y.toggleTheme')}</span>
 		<Icon name="lucide:moon" class="h-4 w-4 dark:hidden" />
@@ -35,6 +35,11 @@ const t = useTranslations(lang);
 
 			// Initialize button state to reflect current theme.
 			setTheme(this.isDark());
+			// Both navigation copies must reflect changes from the other toggle
+			// or from the terminal's theme command.
+			new MutationObserver(() => {
+				button.setAttribute('aria-pressed', String(this.isDark()));
+			}).observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 		}
 
 		isDark() {

@@ -5,6 +5,6 @@ const t = useTranslations(getLangFromUrl(Astro.url));
 <section class="mx-auto w-full max-w-6xl px-6">
 	<div class="border-t border-line py-10 sm:flex sm:items-baseline sm:justify-between sm:gap-8">
 		<div><h2 class="text-xl font-semibold">{t('contact.title')}</h2><p class="mt-2 max-w-xl text-muted">{t('contact.body')}</p></div>
-		<a href="mailto:contact@pd-portfolio.net" class="mt-5 inline-block shrink-0 text-brand underline-offset-4 hover:underline">{t('contact.send')}</a>
+		<a href="mailto:contact@pd-portfolio.net" class="mt-5 inline-flex min-h-11 shrink-0 items-center text-brand underline-offset-4 hover:underline">{t('contact.send')}</a>
 	</div>
 </section>

@@ -81,6 +81,7 @@ export const ui = {
 		// Footer
 		'footer.builtWith': 'Built in Untereuerheim with Astro and Tailwind.',
 		'footer.legal': 'Legal Notice',
+		'footer.analytics': 'Analytics settings',
 
 		// Shared CTAs
 		'cta.github': 'GitHub',
@@ -117,7 +118,7 @@ export const ui = {
 		'project.screenshotCaption': 'Application screenshot with fictional demo data.',
 		'project.live': 'Live',
 		'project.allProjects': 'All projects',
-		'project.liveDemo': 'Live demo',
+		'project.liveDemo': 'Visit website',
 		'project.viewCode': 'View code',
 		'status.wip': 'In progress',
 		'status.archived': 'Archived',
@@ -158,6 +159,7 @@ export const ui = {
 		'terminal.tagline':
 			'A small shell that runs entirely in your browser. Type a command and press enter. Start with help.',
 		'terminal.hint': 'Tip: try help, ls, about, or whoami.',
+		'terminal.inputPlaceholder': 'Type a command',
 
 		// Privacy
 		'privacy.meta.title': 'Privacy Policy | Paul Dresch',
@@ -181,6 +183,7 @@ export const ui = {
 		// Footer
 		'footer.builtWith': 'Gebaut in Untereuerheim mit Astro und Tailwind.',
 		'footer.legal': 'Impressum',
+		'footer.analytics': 'Analyse-Einstellungen',
 
 		// Shared CTAs
 		'cta.github': 'GitHub',
@@ -217,7 +220,7 @@ export const ui = {
 		'project.screenshotCaption': 'Anwendungsansicht mit fiktiven Beispieldaten.',
 		'project.live': 'Live',
 		'project.allProjects': 'Alle Projekte',
-		'project.liveDemo': 'Live-Demo',
+		'project.liveDemo': 'Website öffnen',
 		'project.viewCode': 'Code ansehen',
 		'status.wip': 'In Arbeit',
 		'status.archived': 'Archiviert',
@@ -260,11 +263,12 @@ export const ui = {
 		'terminal.tagline':
 			'Eine kleine Shell, die komplett in deinem Browser läuft. Tippe einen Befehl und drücke Enter. Starte mit help.',
 		'terminal.hint': 'Tipp: probiere help, ls, about oder whoami.',
+		'terminal.inputPlaceholder': 'Befehl eingeben',
 
 		// Privacy
 		'privacy.meta.title': 'Datenschutz | Paul Dresch',
 		'privacy.meta.desc': 'Datenschutzerklärung und Impressum',
 		'privacy.eyebrow': 'Rechtliches',
-		'privacy.title': 'Datenschutzerklärung',
+		'privacy.title': 'Datenschutz',
 	},
 } as const;

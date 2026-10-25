@@ -27,7 +27,7 @@ const links = [
 						href={href}
 						target={href.startsWith('http') ? '_blank' : undefined}
 						rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
-						class="inline-flex items-center gap-1.5 transition-colors hover:text-ink"
+						class="inline-flex min-h-11 items-center gap-1.5 transition-colors hover:text-ink"
 					>
 						<Icon name={icon} class="h-4 w-4" />
 						{label}
@@ -36,11 +36,13 @@ const links = [
 			}
 			<a
 				href={`${localizePath('/privacy-policy/', lang)}#impressum`}
-				class="transition-colors hover:text-ink"
+				class="inline-flex min-h-11 items-center transition-colors hover:text-ink"
 			>
 				{t('footer.legal')}
 			</a>
-			<div data-analytics-settings-slot class="rr-block"></div>
+			<div data-analytics-settings-slot class="rr-block">
+				<a data-analytics-settings-fallback href={localizePath('/privacy-policy/', lang)} class="inline-flex min-h-11 items-center transition-colors hover:text-ink">{t('footer.analytics')}</a>
+			</div>
 		</div>
 	</div>
 </footer>
@@ -48,15 +50,39 @@ const links = [
 <script>
 	// Keep the shared consent loader unchanged; only its placement is site-specific.
 	const slot = document.querySelector<HTMLElement>('[data-analytics-settings-slot]');
+	const fallback = slot?.querySelector<HTMLAnchorElement>('[data-analytics-settings-fallback]');
+	const requestedKey = 'portfolio-open-analytics';
+	fallback?.addEventListener('click', (event) => {
+		if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+		event.preventDefault();
+		// Query/hash URLs intentionally exclude analytics. Open settings on the
+		// plain privacy page instead, without weakening the shared route gate.
+		try { sessionStorage.setItem(requestedKey, '1'); } catch { /* Navigation still works. */ }
+		if (new URL(fallback.href).pathname === location.pathname && !location.search) {
+			// Removing only a fragment is otherwise a same-document navigation,
+			// which would leave the intentionally skipped consent loader dormant.
+			history.replaceState(history.state, '', fallback.href);
+			location.reload();
+		} else {
+			location.assign(fallback.href);
+		}
+	});
 	const placeSettings = () => {
 		const consent = document.getElementById('site-analytics-consent');
 		if (!slot || !consent) return false;
+		fallback?.remove();
 		slot.append(consent);
 		const settings = consent.querySelector<HTMLButtonElement>('[data-settings]');
 		if (settings) {
 			// Closing the initial prompt must not scroll the page to the footer.
 			const focus = settings.focus.bind(settings);
 			settings.focus = (options) => focus({ ...options, preventScroll: true });
+			try {
+				if (sessionStorage.getItem(requestedKey)) {
+					sessionStorage.removeItem(requestedKey);
+					if (consent.querySelector('section')?.hidden) settings.click();
+				}
+			} catch { /* The regular footer control remains available. */ }
 		}
 		return true;
 	};
