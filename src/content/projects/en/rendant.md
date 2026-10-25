@@ -1,7 +1,7 @@
 ---
 title: "Rendant"
 publishDate: 2026-05-07 00:00:00
-description: "Club finance administration linking cash counts, numbered receipts, tax analysis, historical imports, and traceable corrections."
+description: "Club finance administration in use at a club with annual turnover in the low six figures in euros, linking cash counts, receipts, tax analysis, and historical revenue."
 stack:
   - TypeScript
   - TanStack Start
@@ -22,7 +22,7 @@ screenshot:
   alt: "Rendant cash records and annual revenue chart"
 ---
 
-Rendant connects the cash count at an event with the records needed for bookkeeping and handover. It brings cash movements, card payments, expenses, tax allocations, and historical revenue into one workflow.
+Rendant is used for the finances of a club with annual turnover in the low six figures in euros. It connects event cash counts, card payments, expenses, tax allocations, and historical revenue with the records needed for bookkeeping.
 
 ### What it does
 

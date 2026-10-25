@@ -18,7 +18,7 @@ const projects = defineCollection({
 		// Optional badge for projects that aren't simply live; omit for the default case.
 		status: z.enum(['wip', 'archived']).optional(),
 		screenshot: z.object({
-			image: z.enum(['fortuna', 'kontor2', 'kataster', 'rendant', 'sigil', 'diatrack']),
+			image: z.enum(['fortuna', 'kontor2', 'kataster', 'rendant', 'remise', 'diatrack']),
 			alt: z.string().min(1),
 		}).optional(),
 		// Optional icon for uses outside the project showcase.
