@@ -1,7 +1,7 @@
 ---
 title: "Kataster"
 publishDate: 2026-09-30 00:00:00
-description: "Ein Infrastrukturregister, das Erkennung, Verantwortliche, Monitoring, Providerkosten, Verträge und Rechnungsvorbereitung verbindet."
+description: "Selbst im Einsatz für meine Infrastruktur: Ressourcen und Verantwortliche mit Monitoring, Providerkosten, Verträgen und Rechnungsvorbereitung verbinden."
 stack:
   - TypeScript
   - TanStack Start
@@ -22,7 +22,7 @@ screenshot:
   alt: "Kataster: Abrechnung mit Kundenkosten, Preisen und Marge"
 ---
 
-Kataster verbindet zwei Fragen: Welche Infrastruktur gibt es, und wem gehört sie, was kostet sie und kann sie abgerechnet werden? Domains, DNS, Mail, Hosts, Container, Cloud-Projekte und Zertifikate stehen in einem gemeinsamen Register.
+Ich nutze Kataster selbst für den Betrieb meiner Infrastruktur. Das Register verbindet die vorhandenen Ressourcen mit Verantwortlichen, Kosten und Abrechnungsreife. Domains, DNS, Mail, Hosts, Container, Cloud-Projekte und Zertifikate stehen in einer gemeinsamen Übersicht.
 
 ### Was es macht
 

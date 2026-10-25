@@ -1,7 +1,7 @@
 ---
 title: "Kontor2"
 publishDate: 2026-05-24 00:00:00
-description: "A multi-tenant club back office with members, families, SEPA billing, invoices, correspondence, self-service, and audit history."
+description: "Club administration in use by a club with around 500 members, covering member records, SEPA billing, invoices, correspondence, and self-service."
 stack:
   - TypeScript
   - TanStack Start
@@ -22,7 +22,7 @@ screenshot:
   alt: "Kontor2 member register with filters and membership status"
 ---
 
-Kontor2 began with the migration of an existing club database and grew into a complete back office. Historical member records, contracts, mandates, and billing runs remain available alongside current administration.
+Kontor2 is used in a club with around 500 members. It supports the ongoing administration alongside historical member records, contracts, mandates, and billing runs.
 
 ### What it does
 

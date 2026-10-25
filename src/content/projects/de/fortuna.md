@@ -1,7 +1,7 @@
 ---
 title: "Fortuna"
 publishDate: 2026-09-30 00:00:00
-description: "Ein Finanzarbeitsplatz für Konten, Cashflow, Verträge, Vermögenswerte und Nettovermögen mit begrenztem Zugriff für einen Assistenten."
+description: "Für meine eigenen Finanzen gebaut und selbst im Einsatz: Konten, Cashflow, Verträge, Vermögenswerte und Nettovermögen in einer Anwendung."
 stack:
   - TypeScript
   - TanStack Start
@@ -21,7 +21,7 @@ screenshot:
   alt: "Fortuna: Finanzübersicht mit Konten und Nettovermögen"
 ---
 
-Fortuna bringt Finanzdaten, die sonst über mehrere Werkzeuge verteilt sind, in einer Anwendung zusammen. Konten, Buchungen, Abonnements, Verträge, Vermögenswerte, Schulden und Anlagen bilden eine gemeinsame Sicht auf Cashflow und Nettovermögen.
+Ich habe Fortuna für meine eigenen Finanzen gebaut und nutze es selbst. Konten, Buchungen, Abonnements, Verträge, Vermögenswerte, Schulden und Anlagen bilden eine gemeinsame Sicht auf Cashflow und Nettovermögen.
 
 ### Was es macht
 

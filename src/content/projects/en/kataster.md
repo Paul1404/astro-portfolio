@@ -1,7 +1,7 @@
 ---
 title: "Kataster"
 publishDate: 2026-09-30 00:00:00
-description: "An infrastructure register connecting discovery, ownership, monitoring, provider costs, contracts, and invoice preparation."
+description: "I use Kataster to manage my infrastructure, connecting resources and owners with monitoring, provider costs, contracts, and billing preparation."
 stack:
   - TypeScript
   - TanStack Start
@@ -22,7 +22,7 @@ screenshot:
   alt: "Kataster billing view with customer costs, prices and margin"
 ---
 
-Kataster closes the gap between knowing what infrastructure exists and knowing who owns it, what it costs, and whether it is ready to be billed. Domains, DNS, mail, hosts, containers, cloud projects, and certificates share one register.
+I use Kataster for my own infrastructure operations. It connects what exists with who owns it, what it costs, and whether it is ready to be billed. Domains, DNS, mail, hosts, containers, cloud projects, and certificates share one register.
 
 ### What it does
 

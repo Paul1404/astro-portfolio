@@ -91,13 +91,13 @@ export const ui = {
 		// Home
 		'home.meta.title': "Paul Dresch | Software, cloud & automation",
 		'home.meta.desc':
-			"Applications for personal finance, club administration, infrastructure operations, and email security. Designed, built, and maintained by Paul Dresch.",
+			"Applications for personal finance, club administration, infrastructure operations, and resale. Designed, built, and maintained by Paul Dresch.",
 		'home.hero.eyebrow': "Software, cloud & automation",
 		'home.hero.titleLead': "I turn everyday work into ",
 		'home.hero.titleHighlight': "useful software",
 		'home.hero.titleTail': ".",
 		'home.hero.subtitle':
-			"From personal finance and club administration to infrastructure inventories and email security. I build the application, connect the data, and keep it running.",
+			"From personal finance and club administration to infrastructure inventories and resale. I build the application, connect the data, and keep it running.",
 		'home.featured.eyebrow': 'Selected work',
 		'home.featured.title': 'Projects',
 
@@ -132,7 +132,7 @@ export const ui = {
 		'about.bodyP1':
 			"I build applications around work that deserves better tools: managing club members, checking cash records, understanding personal finances, or connecting infrastructure to its owners and costs. I take a project from its data model and interface through integrations, deployment, and maintenance.",
 		'about.bodyP2':
-			"My background in Linux, networking, and virtualization informs how I build software. I care about clear ownership of data, recoverable changes, and records that people can check later. Recent work includes Fortuna, Kontor2, Kataster, Rendant, Sigil, and DiaTrack.",
+			"My background in Linux, networking, and virtualization informs how I build software. I care about clear ownership of data, recoverable changes, and records that people can check later. Recent work includes Fortuna, Kontor2, Kataster, Rendant, Remise, and DiaTrack.",
 		'about.skillsTitle': 'What I work with',
 		'about.imageLabel': "Software, data, and operations",
 
@@ -191,13 +191,13 @@ export const ui = {
 		// Home
 		'home.meta.title': "Paul Dresch | Software, Cloud & Automatisierung",
 		'home.meta.desc':
-			"Anwendungen für persönliche Finanzen, Vereinsverwaltung, Infrastruktur und E-Mail-Sicherheit. Entworfen, gebaut und gepflegt von Paul Dresch.",
+			"Anwendungen für persönliche Finanzen, Vereinsverwaltung, Infrastruktur und Wiederverkauf. Entworfen, gebaut und gepflegt von Paul Dresch.",
 		'home.hero.eyebrow': "Software, Cloud & Automatisierung",
 		'home.hero.titleLead': "Ich mache aus alltäglicher Arbeit ",
 		'home.hero.titleHighlight': "brauchbare Software",
 		'home.hero.titleTail': ".",
 		'home.hero.subtitle':
-			"Von persönlichen Finanzen und Vereinsverwaltung bis zu Infrastruktur-Inventaren und E-Mail-Sicherheit. Ich baue die Anwendung, verbinde die Daten und halte sie am Laufen.",
+			"Von persönlichen Finanzen und Vereinsverwaltung bis zu Infrastruktur-Inventaren und Wiederverkauf. Ich baue die Anwendung, verbinde die Daten und halte sie am Laufen.",
 		'home.featured.eyebrow': 'Ausgewählte Arbeiten',
 		'home.featured.title': 'Projekte',
 
@@ -232,7 +232,7 @@ export const ui = {
 		'about.bodyP1':
 			"Ich baue Anwendungen für Aufgaben, die bessere Werkzeuge brauchen: Vereinsmitglieder verwalten, Kassenprotokolle prüfen, persönliche Finanzen verstehen oder Infrastruktur mit Verantwortlichen und Kosten verbinden. Ich begleite ein Projekt vom Datenmodell und der Oberfläche über Schnittstellen bis zu Deployment und Wartung.",
 		'about.bodyP2':
-			"Mein Hintergrund in Linux, Netzwerken und Virtualisierung prägt, wie ich Software baue. Mir sind klare Datenverantwortung, wiederherstellbare Änderungen und später prüfbare Vorgänge wichtig. Zu meinen jüngeren Arbeiten gehören Fortuna, Kontor2, Kataster, Rendant, Sigil und DiaTrack.",
+			"Mein Hintergrund in Linux, Netzwerken und Virtualisierung prägt, wie ich Software baue. Mir sind klare Datenverantwortung, wiederherstellbare Änderungen und später prüfbare Vorgänge wichtig. Zu meinen jüngeren Arbeiten gehören Fortuna, Kontor2, Kataster, Rendant, Remise und DiaTrack.",
 		'about.skillsTitle': 'Womit ich arbeite',
 		'about.imageLabel': "Software, Daten und Betrieb",
 

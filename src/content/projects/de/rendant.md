@@ -1,7 +1,7 @@
 ---
 title: "Rendant"
 publishDate: 2026-05-07 00:00:00
-description: "Vereinsfinanzen mit Kassenzählprotokollen, nummerierten Belegen, Steuerauswertung, historischen Importen und nachvollziehbaren Korrekturen."
+description: "Finanzverwaltung im Vereinseinsatz mit einem Jahresumsatz im niedrigen sechsstelligen Eurobereich: Kassenprotokolle, Belege, Steuerauswertung und historische Umsätze."
 stack:
   - TypeScript
   - TanStack Start
@@ -22,7 +22,7 @@ screenshot:
   alt: "Rendant: Kassenprotokolle und Jahresumsatzverlauf"
 ---
 
-Rendant verbindet die Kassenaufnahme bei einer Veranstaltung mit den Unterlagen für Buchhaltung und Übergabe. Kassenbewegungen, Kartenzahlungen, Ausgaben, Steueraufteilungen und historische Umsätze bilden einen gemeinsamen Ablauf.
+Rendant wird für die Finanzen eines Vereins mit einem Jahresumsatz im niedrigen sechsstelligen Eurobereich eingesetzt. Kassenaufnahme, Kartenzahlungen, Ausgaben, Steueraufteilungen und historische Umsätze werden mit den Unterlagen für die Buchhaltung verbunden.
 
 ### Was es macht
 

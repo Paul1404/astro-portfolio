@@ -1,7 +1,7 @@
 ---
 title: "Kontor2"
 publishDate: 2026-05-24 00:00:00
-description: "Eine mandantenfähige Vereinsverwaltung mit Mitgliedern, Familien, SEPA-Abrechnung, Rechnungen, Rundschreiben, Selbstverwaltung und Änderungshistorie."
+description: "Vereinsverwaltung im Einsatz bei einem Verein mit rund 500 Mitgliedern: Mitgliederstammdaten, SEPA-Abrechnung, Rechnungen, Rundschreiben und Selbstverwaltung."
 stack:
   - TypeScript
   - TanStack Start
@@ -22,7 +22,7 @@ screenshot:
   alt: "Kontor2: Mitgliederverzeichnis mit Filtern und Mitgliedsstatus"
 ---
 
-Kontor2 begann mit der Migration einer bestehenden Vereinsdatenbank und wuchs zu einer vollständigen Verwaltung. Historische Mitglieder, Verträge, Mandate und Abrechnungsläufe bleiben neben der aktuellen Verwaltung verfügbar.
+Kontor2 wird in einem Verein mit rund 500 Mitgliedern eingesetzt. Die laufende Verwaltung steht neben historischen Mitgliederakten, Verträgen, Mandaten und Abrechnungsläufen.
 
 ### Was es macht
 

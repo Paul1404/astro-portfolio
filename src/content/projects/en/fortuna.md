@@ -1,7 +1,7 @@
 ---
 title: "Fortuna"
 publishDate: 2026-09-30 00:00:00
-description: "A personal-finance workspace connecting accounts, cashflow, contracts, assets, and net worth, with a scoped assistant interface."
+description: "I use Fortuna to manage my own finances: accounts, cashflow, contracts, assets, and net worth in one workspace."
 stack:
   - TypeScript
   - TanStack Start
@@ -21,7 +21,7 @@ screenshot:
   alt: "Fortuna finance desk with accounts and net worth"
 ---
 
-Fortuna brings financial records that normally live in separate tools into one application. Accounts, transactions, subscriptions, contracts, assets, debts, and investments feed a shared view of cashflow and net worth.
+I built Fortuna for my own finances and use it myself. Accounts, transactions, subscriptions, contracts, assets, debts, and investments feed a shared view of cashflow and net worth.
 
 ### What it does
 
