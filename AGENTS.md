@@ -86,3 +86,7 @@ anchor targets need clearance under the sticky header.
 Analytics settings need a footer fallback on query/hash URLs where the shared
 loader intentionally does not initialize. Navigate to the localized plain
 privacy page and open the panel there; never relax the loader's route gate.
+
+`npm run build` writes `/health.json` only after both localized homepages exist.
+The response includes the source revision. The Pages deployment verifies that
+exact revision independently over HTTPS before reporting success.

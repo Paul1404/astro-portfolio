@@ -44,3 +44,14 @@ jobs:
     steps:
       - uses: actions/deploy-pages@v5
         id: deployment
+      - name: Verify the published revision
+        env:
+          EXPECTED_REVISION: ${{ github.sha }}
+        run: |
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent --show-error --max-time 15 "https://portfolio.pdcd.net/health.json?revision=$EXPECTED_REVISION" > /tmp/portfolio-health.json && jq --exit-status --arg revision "$EXPECTED_REVISION" '.status == "ok" and .revision == $revision' /tmp/portfolio-health.json; then
+              exit 0
+            fi
+            sleep 5
+          done
+          exit 1
