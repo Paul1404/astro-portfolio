@@ -15,6 +15,9 @@ repoUrl: https://github.com/Paul1404/diatrack
 featured: true
 featuredOrder: 6
 icon: activity
+screenshot:
+  image: diatrack
+  alt: "DiaTrack: aktive Sensoren, Katheter und verbleibende Tragezeit"
 ---
 
 DiaTrack hält Wechseltermine und die Historie von Diabetes-Sensoren und -Kathetern in einer Anwendung fest. Erfasst werden Einsetzzeitpunkt, Körperstelle und der Grund für das Ende der Nutzung.

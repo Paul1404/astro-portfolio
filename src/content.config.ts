@@ -17,7 +17,11 @@ const projects = defineCollection({
 		featuredOrder: z.number().int().positive().optional(),
 		// Optional badge for projects that aren't simply live; omit for the default case.
 		status: z.enum(['wip', 'archived']).optional(),
-		// lucide icon name used for the card accent and image-less placeholder.
+		screenshot: z.object({
+			image: z.enum(['fortuna', 'kontor2', 'kataster', 'rendant', 'sigil', 'diatrack']),
+			alt: z.string().min(1),
+		}).optional(),
+		// Optional icon for uses outside the project showcase.
 		icon: z.string().default('package'),
 	}),
 });

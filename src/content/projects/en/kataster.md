@@ -17,6 +17,9 @@ repoUrl: https://github.com/Paul1404/kataster
 featured: true
 featuredOrder: 3
 icon: network
+screenshot:
+  image: kataster
+  alt: "Kataster billing view with customer costs, prices and margin"
 ---
 
 Kataster closes the gap between knowing what infrastructure exists and knowing who owns it, what it costs, and whether it is ready to be billed. Domains, DNS, mail, hosts, containers, cloud projects, and certificates share one register.

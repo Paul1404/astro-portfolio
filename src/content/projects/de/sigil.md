@@ -15,6 +15,9 @@ repoUrl: https://github.com/Paul1404/Sigil
 featured: true
 featuredOrder: 5
 icon: shield-check
+screenshot:
+  image: sigil
+  alt: "Sigil: Dashboard mit E-Mail-Authentifizierungsberichten und Absenderquellen"
 ---
 
 Sigil macht aus Berichtsanhängen in einem IMAP-Postfach eine Übersicht über die Authentifizierung einer Maildomain. Absenderquellen, Alignment-Fehler und Probleme bei der TLS-Zustellung lassen sich gemeinsam prüfen.

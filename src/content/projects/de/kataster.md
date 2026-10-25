@@ -17,6 +17,9 @@ repoUrl: https://github.com/Paul1404/kataster
 featured: true
 featuredOrder: 3
 icon: network
+screenshot:
+  image: kataster
+  alt: "Kataster: Abrechnung mit Kundenkosten, Preisen und Marge"
 ---
 
 Kataster verbindet zwei Fragen: Welche Infrastruktur gibt es, und wem gehört sie, was kostet sie und kann sie abgerechnet werden? Domains, DNS, Mail, Hosts, Container, Cloud-Projekte und Zertifikate stehen in einem gemeinsamen Register.

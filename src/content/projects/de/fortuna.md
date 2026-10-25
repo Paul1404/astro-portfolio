@@ -16,6 +16,9 @@ repoUrl: https://github.com/Paul1404/fortuna
 featured: true
 featuredOrder: 1
 icon: wallet
+screenshot:
+  image: fortuna
+  alt: "Fortuna: Finanzübersicht mit Konten und Nettovermögen"
 ---
 
 Fortuna bringt Finanzdaten, die sonst über mehrere Werkzeuge verteilt sind, in einer Anwendung zusammen. Konten, Buchungen, Abonnements, Verträge, Vermögenswerte, Schulden und Anlagen bilden eine gemeinsame Sicht auf Cashflow und Nettovermögen.

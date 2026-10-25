@@ -17,6 +17,9 @@ liveUrl: https://rendant.sv-untereuerheim.de
 featured: true
 featuredOrder: 4
 icon: receipt-euro
+screenshot:
+  image: rendant
+  alt: "Rendant cash records and annual revenue chart"
 ---
 
 Rendant connects the cash count at an event with the records needed for bookkeeping and handover. It brings cash movements, card payments, expenses, tax allocations, and historical revenue into one workflow.

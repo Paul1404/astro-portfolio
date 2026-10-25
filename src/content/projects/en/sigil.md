@@ -15,6 +15,9 @@ repoUrl: https://github.com/Paul1404/Sigil
 featured: true
 featuredOrder: 5
 icon: shield-check
+screenshot:
+  image: sigil
+  alt: "Sigil dashboard with email authentication reports and sending sources"
 ---
 
 Sigil turns report attachments in an IMAP mailbox into a view of how a domain's mail is authenticated. Sending sources, alignment failures, and TLS delivery problems can be reviewed together.
