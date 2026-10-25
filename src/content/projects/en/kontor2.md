@@ -17,6 +17,9 @@ liveUrl: https://kontor2.com
 featured: true
 featuredOrder: 2
 icon: building-2
+screenshot:
+  image: kontor2
+  alt: "Kontor2 member register with filters and membership status"
 ---
 
 Kontor2 began with the migration of an existing club database and grew into a complete back office. Historical member records, contracts, mandates, and billing runs remain available alongside current administration.

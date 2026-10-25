@@ -17,6 +17,9 @@ liveUrl: https://rendant.sv-untereuerheim.de
 featured: true
 featuredOrder: 4
 icon: receipt-euro
+screenshot:
+  image: rendant
+  alt: "Rendant: Kassenprotokolle und Jahresumsatzverlauf"
 ---
 
 Rendant verbindet die Kassenaufnahme bei einer Veranstaltung mit den Unterlagen für Buchhaltung und Übergabe. Kassenbewegungen, Kartenzahlungen, Ausgaben, Steueraufteilungen und historische Umsätze bilden einen gemeinsamen Ablauf.

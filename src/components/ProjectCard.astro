@@ -1,104 +1,37 @@
 ---
+import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
-import TechBadge from './TechBadge.astro';
 import { slugOf, type Project } from '../lib/projects';
+import { projectImages } from '../lib/project-images';
 import { getLangFromUrl, useTranslations, localizePath } from '../i18n/utils';
 
-interface Props {
-	project: Project;
-	index?: number;
-}
-
-const { project, index = 0 } = Astro.props;
-const { title, description, stack, repoUrl, liveUrl, status, icon } = project.data;
-
+interface Props { project: Project; }
+const { project } = Astro.props;
+const { title, description, stack, repoUrl, liveUrl, status, screenshot } = project.data;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const href = localizePath(`/projects/${slugOf(project)}/`, lang);
-
-const statusLabel: Record<string, string> = {
-	wip: t('status.wip'),
-	archived: t('status.archived'),
-};
-
-// Stagger the reveal of cards within a grid row.
-const revealDelay = `${(index % 3) * 90}ms`;
+const statusLabel = { wip: t('status.wip'), archived: t('status.archived') };
 ---
 
-<article
-	data-reveal="scale"
-	style={`--reveal-delay: ${revealDelay}`}
-	class="card-spotlight group relative flex flex-col overflow-hidden rounded-card border border-line bg-surface hover:border-line-strong"
->
-	<div class="relative z-10 aspect-[16/9] overflow-hidden border-b border-line bg-elevated">
-		<div
-			class="flex h-full w-full items-center justify-center bg-[linear-gradient(135deg,var(--color-brand-tint),transparent)]"
-		>
-			<div class="pointer-events-none absolute inset-0 bg-grid opacity-30"></div>
-			<div
-				class="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_70%_at_50%_120%,var(--color-brand-tint),transparent)]"
-			>
-			</div>
-			<div
-				class="relative flex h-16 w-16 items-center justify-center rounded-2xl border border-line bg-surface/70 shadow-sm backdrop-blur-sm transition-transform duration-200 group-hover:scale-105"
-			>
-				<Icon name={`lucide:${icon}`} class="h-8 w-8 text-brand" />
-			</div>
-		</div>
-		{
-			status && (
-				<span class="absolute right-3 top-3 rounded-full border border-line bg-surface/90 px-2.5 py-1 font-mono text-xs text-muted backdrop-blur">
-					{statusLabel[status]}
-				</span>
-			)
-		}
-	</div>
-
-	<div class="relative z-10 flex flex-1 flex-col gap-3 p-5">
-		<h3 class="text-lg font-semibold text-ink">
-			<a href={href} class="before:absolute before:inset-0 before:content-['']">
-				{title}
+<article class:list={['project-entry border-t border-line pt-8', screenshot && 'grid items-center gap-6 lg:grid-cols-[1.5fr_1fr] lg:gap-10']}>
+	{screenshot && (
+		<figure class="min-w-0">
+			<a href={href} class="block overflow-hidden rounded-lg border border-line bg-elevated transition-colors hover:border-brand">
+				<Image src={projectImages[screenshot.image]} alt={screenshot.alt} widths={[640, 960, 1600]} sizes="(min-width: 1152px) 650px, (min-width: 1024px) 58vw, calc(100vw - 48px)" class="h-auto w-full" loading="lazy" />
 			</a>
-		</h3>
-		<p class="line-clamp-3 flex-1 text-sm text-muted">{description}</p>
-
-		{
-			stack.length > 0 && (
-				<div class="flex flex-wrap gap-1.5">
-					{stack.slice(0, 4).map((s) => (
-						<TechBadge label={s} />
-					))}
-				</div>
-			)
-		}
-
-		{
-			(repoUrl || liveUrl) && (
-				<div class="relative z-10 mt-1 flex items-center gap-4 border-t border-line pt-3 text-sm">
-					{repoUrl && (
-						<a
-							href={repoUrl}
-							target="_blank"
-							rel="noopener noreferrer"
-							class="inline-flex items-center gap-1.5 text-subtle transition-colors hover:text-ink"
-						>
-							<Icon name="lucide:github" class="h-4 w-4" />
-							{t('project.code')}
-						</a>
-					)}
-					{liveUrl && (
-						<a
-							href={liveUrl}
-							target="_blank"
-							rel="noopener noreferrer"
-							class="inline-flex items-center gap-1.5 text-subtle transition-colors hover:text-brand"
-						>
-							<Icon name="lucide:external-link" class="h-4 w-4" />
-							{t('project.live')}
-						</a>
-					)}
-				</div>
-			)
-		}
+			<figcaption class="mt-2 text-xs text-subtle">{t('project.screenshotCaption')}</figcaption>
+		</figure>
+	)}
+	<div class:list={['min-w-0', !screenshot && 'max-w-3xl']}>
+		{status && <p class="mb-2 text-sm text-subtle">{statusLabel[status]}</p>}
+		<h3 class="text-2xl font-semibold"><a href={href} class="decoration-brand underline-offset-4 hover:underline">{title}</a></h3>
+		<p class="mt-3 text-base leading-relaxed text-muted">{description}</p>
+		{stack.length > 0 && <p class="mt-4 font-mono text-xs leading-relaxed text-subtle">{stack.join(', ')}</p>}
+		<div class="mt-5 flex flex-wrap items-center gap-x-5 gap-y-3 text-sm">
+			<a href={href} class="font-medium text-brand underline-offset-4 hover:underline">{t('project.details')}</a>
+			{repoUrl && <a href={repoUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-muted hover:text-ink"><Icon name="lucide:github" class="h-4 w-4" />{t('project.code')}</a>}
+			{liveUrl && <a href={liveUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-muted hover:text-ink"><Icon name="lucide:external-link" class="h-4 w-4" />{t('project.live')}</a>}
+		</div>
 	</div>
 </article>

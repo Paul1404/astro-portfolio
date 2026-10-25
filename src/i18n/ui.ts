@@ -112,6 +112,9 @@ export const ui = {
 
 		// Project card / detail
 		'project.code': 'Code',
+		'project.details': 'Project details',
+		'project.fullScreenshot': 'Open full screenshot',
+		'project.screenshotCaption': 'Application screenshot with fictional demo data.',
 		'project.live': 'Live',
 		'project.allProjects': 'All projects',
 		'project.liveDemo': 'Live demo',
@@ -209,6 +212,9 @@ export const ui = {
 
 		// Project card / detail
 		'project.code': 'Code',
+		'project.details': 'Zum Projekt',
+		'project.fullScreenshot': 'Screenshot in voller Größe öffnen',
+		'project.screenshotCaption': 'Anwendungsansicht mit fiktiven Beispieldaten.',
 		'project.live': 'Live',
 		'project.allProjects': 'Alle Projekte',
 		'project.liveDemo': 'Live-Demo',

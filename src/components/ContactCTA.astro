@@ -1,34 +1,10 @@
 ---
-import { Icon } from 'astro-icon/components';
-import CallToAction from './CallToAction.astro';
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
-
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+const t = useTranslations(getLangFromUrl(Astro.url));
 ---
-
 <section class="mx-auto w-full max-w-6xl px-6">
-	<div
-		data-reveal="scale"
-		class="card-spotlight relative overflow-hidden rounded-card border border-line bg-elevated px-6 py-12 text-center sm:px-12 sm:py-16"
-	>
-		<div class="pointer-events-none absolute inset-0 z-0 bg-grid opacity-40"></div>
-		<div
-			class="aurora-blob left-1/2 top-0 z-0 h-64 w-64 -translate-x-1/2"
-			style="background: radial-gradient(circle, var(--color-brand-tint), transparent 70%);"
-		>
-		</div>
-		<h2 class="relative z-10 text-2xl font-semibold sm:text-3xl">{t('contact.title')}</h2>
-		<p class="relative z-10 mx-auto mt-3 max-w-md text-muted">{t('contact.body')}</p>
-		<div class="relative z-10 mt-7 flex flex-wrap justify-center gap-3">
-			<CallToAction href="mailto:contact@pd-portfolio.net">
-				<Icon name="lucide:send" class="h-4 w-4" />
-				{t('contact.send')}
-			</CallToAction>
-			<CallToAction href="https://github.com/Paul1404" variant="outline" external>
-				<Icon name="lucide:github" class="h-4 w-4" />
-				{t('cta.github')}
-			</CallToAction>
-		</div>
+	<div class="border-t border-line py-10 sm:flex sm:items-baseline sm:justify-between sm:gap-8">
+		<div><h2 class="text-xl font-semibold">{t('contact.title')}</h2><p class="mt-2 max-w-xl text-muted">{t('contact.body')}</p></div>
+		<a href="mailto:contact@pd-portfolio.net" class="mt-5 inline-block shrink-0 text-brand underline-offset-4 hover:underline">{t('contact.send')}</a>
 	</div>
 </section>

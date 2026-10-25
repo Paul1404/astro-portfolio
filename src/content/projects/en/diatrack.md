@@ -15,6 +15,9 @@ repoUrl: https://github.com/Paul1404/diatrack
 featured: true
 featuredOrder: 6
 icon: activity
+screenshot:
+  image: diatrack
+  alt: "DiaTrack overview with active sensors, catheters and remaining wear time"
 ---
 
 DiaTrack keeps the replacement schedule and history of diabetes sensors and catheters in one application. It records when a device was installed, where it was placed, and why its use ended.

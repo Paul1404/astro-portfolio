@@ -16,6 +16,9 @@ repoUrl: https://github.com/Paul1404/fortuna
 featured: true
 featuredOrder: 1
 icon: wallet
+screenshot:
+  image: fortuna
+  alt: "Fortuna finance desk with accounts and net worth"
 ---
 
 Fortuna brings financial records that normally live in separate tools into one application. Accounts, transactions, subscriptions, contracts, assets, debts, and investments feed a shared view of cashflow and net worth.

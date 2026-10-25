@@ -56,3 +56,10 @@ honors DNT/GPC, excludes query-bearing and authenticated routes, and strips
 individual event data and titles. Server-side strict masking and replay limits
 are owned by web-host-gitops analytics/websites.json. Never rely on recorder
 data-mask-level attributes. Keep the site's privacy notice and providers aligned.
+
+## Project screenshots
+
+Use local assets in `src/assets/projects`, registered in `src/lib/project-images.ts`
+and the bilingual `screenshot` frontmatter. Keep uncropped application views,
+localized alt text, and the fictional-data caption. See `docs/project-screenshots.md`
+for provenance. Projects without an approved screenshot use text, not invented artwork.

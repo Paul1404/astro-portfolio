@@ -17,6 +17,9 @@ liveUrl: https://kontor2.com
 featured: true
 featuredOrder: 2
 icon: building-2
+screenshot:
+  image: kontor2
+  alt: "Kontor2: Mitgliederverzeichnis mit Filtern und Mitgliedsstatus"
 ---
 
 Kontor2 begann mit der Migration einer bestehenden Vereinsdatenbank und wuchs zu einer vollständigen Verwaltung. Historische Mitglieder, Verträge, Mandate und Abrechnungsläufe bleiben neben der aktuellen Verwaltung verfügbar.
