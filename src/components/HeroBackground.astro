@@ -71,23 +71,38 @@
 
 		const resize = () => {
 			const rect = canvas.parentElement!.getBoundingClientRect();
-			width = rect.width;
-			height = rect.height;
-			dpr = Math.min(window.devicePixelRatio || 1, 2);
+			const nextWidth = rect.width;
+			const nextHeight = rect.height;
+			const nextDpr = Math.min(window.devicePixelRatio || 1, 2);
+			// Mobile browser chrome changes the viewport during scrolling without
+			// changing the hero. Leave the canvas and particle state untouched.
+			if (nextWidth === width && nextHeight === height && nextDpr === dpr) return;
+			const oldWidth = width;
+			const oldHeight = height;
+			width = nextWidth;
+			height = nextHeight;
+			dpr = nextDpr;
 			canvas.width = Math.floor(width * dpr);
 			canvas.height = Math.floor(height * dpr);
 			ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-			// Node count scales with area but stays capped for performance.
-			const count = Math.min(96, Math.max(28, Math.round((width * height) / 15000)));
-			nodes = Array.from({ length: count }, () => ({
-				x: Math.random() * width,
-				y: Math.random() * height,
-				vx: (Math.random() - 0.5) * 0.32,
-				vy: (Math.random() - 0.5) * 0.32,
-				r: Math.random() * 1.6 + 1,
-				pulse: Math.random() * Math.PI * 2,
-			}));
+			if (nodes.length) {
+				// Preserve the constellation across orientation and layout changes.
+				for (const node of nodes) {
+					node.x *= oldWidth > 0 ? width / oldWidth : 1;
+					node.y *= oldHeight > 0 ? height / oldHeight : 1;
+				}
+			} else {
+				const count = Math.min(96, Math.max(28, Math.round((width * height) / 15000)));
+				nodes = Array.from({ length: count }, () => ({
+					x: Math.random() * width,
+					y: Math.random() * height,
+					vx: (Math.random() - 0.5) * 0.32,
+					vy: (Math.random() - 0.5) * 0.32,
+					r: Math.random() * 1.6 + 1,
+					pulse: Math.random() * Math.PI * 2,
+				}));
+			}
 		};
 
 		const rgba = (c: { r: number; g: number; b: number }, a: number) =>
@@ -223,11 +238,10 @@
 			attributeFilter: ['class'],
 		});
 
-		let resizeTimer = 0;
-		window.addEventListener('resize', () => {
-			window.clearTimeout(resizeTimer);
-			resizeTimer = window.setTimeout(resize, 150);
-		});
+		// Observe actual hero geometry. A viewport resize also checks for a DPR
+		// change, but resize() is a no-op when its drawing dimensions are stable.
+		new ResizeObserver(resize).observe(canvas.parentElement!);
+		window.addEventListener('resize', resize, { passive: true });
 
 		resize();
 		start();
