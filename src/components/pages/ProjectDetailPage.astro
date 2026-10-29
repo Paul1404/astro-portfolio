@@ -85,7 +85,7 @@ const statusLabel: Record<string, string> = {
 				<a href={projectImages[screenshot.image].src} aria-label={t('project.fullScreenshot')}>
 					<Image src={projectImages[screenshot.image]} alt={screenshot.alt} widths={[640, 960, 1600]} sizes="(min-width: 896px) 848px, calc(100vw - 48px)" class="h-auto w-full rounded-lg border border-line" />
 				</a>
-				<figcaption class="mt-3 text-sm text-subtle">{t('project.screenshotCaption')}</figcaption>
+				<figcaption class="mt-3 text-sm text-subtle">{screenshot.caption ?? t('project.screenshotCaption')}</figcaption>
 			</figure>
 		)}
 

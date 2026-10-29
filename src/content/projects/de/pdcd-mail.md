@@ -19,6 +19,10 @@ tags:
 featured: true
 featuredOrder: 6
 icon: mail
+screenshot:
+  image: stalwart
+  alt: "Weißes Stalwart-Logo mit Schriftzug auf dem offiziellen roten Hintergrund"
+  caption: "Offizielles Stalwart-Markenmotiv. Stalwart Labs."
 ---
 
 PDCD Mail ist die Mailinfrastruktur, die ich für Familie, Vereine und kleinere Organisationen betreibe. Ich habe 38 aktive Postfächer in acht Domains von Mailcow auf Stalwart unter Rocky Linux migriert. Dazu gehörten gemeinsam genutzte Postfächer, Aliase, Weiterleitungen und sechs Abholjobs für externe Mailkonten.

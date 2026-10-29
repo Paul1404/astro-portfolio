@@ -63,6 +63,9 @@ Use local assets in `src/assets/projects`, registered in `src/lib/project-images
 and the bilingual `screenshot` frontmatter. Keep uncropped application views,
 localized alt text, and the fictional-data caption. See `docs/project-screenshots.md`
 for provenance. Projects without an approved screenshot use text, not invented artwork.
+Explicitly requested official brand artwork may use the same image pipeline with
+a localized `screenshot.caption` and source recorded in that provenance document.
+Do not label brand artwork as a fictional-data application screenshot.
 
 ## Curation and motion
 

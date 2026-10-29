@@ -20,7 +20,7 @@ const statusLabel = { wip: t('status.wip'), archived: t('status.archived') };
 			<a href={href} class="block overflow-hidden rounded-lg border border-line bg-elevated transition-colors hover:border-brand">
 				<Image src={projectImages[screenshot.image]} alt={screenshot.alt} widths={[640, 960, 1600]} sizes="(min-width: 1152px) 650px, (min-width: 1024px) 58vw, calc(100vw - 48px)" class="h-auto w-full" loading="lazy" />
 			</a>
-			<figcaption class="mt-2 text-xs text-subtle">{t('project.screenshotCaption')}</figcaption>
+			<figcaption class="mt-2 text-xs text-subtle">{screenshot.caption ?? t('project.screenshotCaption')}</figcaption>
 		</figure>
 	)}
 	<div class:list={['min-w-0', !screenshot && 'max-w-3xl']}>

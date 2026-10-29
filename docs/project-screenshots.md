@@ -11,6 +11,7 @@ these with production account captures or generated dashboard artwork.
 | rendant.webp | rendant/docs/screenshots/overview.png | Synthetic cash records documented in the project README |
 | diatrack.webp | diatrack/docs/screenshots/overview.png | Synthetic device records documented in the project README |
 | remise.webp | Current Remise inventory interface, captured locally on 2026-10-25 | Isolated frontend preview with fictional records and stubbed dashboard reads |
+| stalwart.webp | https://stalw.art/img/stalwart-social-card.jpg, linked by the official homepage Open Graph metadata, retrieved 2026-10-29 | Official brand image, not an application screenshot; no account or mailbox data |
 
 Sources were reviewed on 2026-10-25. WebP exports preserve the full image and
 resize to a maximum width of 1600 pixels at quality 88. Astro generates responsive
@@ -27,3 +28,9 @@ preview, not proof of marketplace execution.
 Usage statements for Kontor2 (around 500 club members), Rendant (annual turnover
 in the low six figures in euros), Fortuna, and Kataster were supplied by Paul on
 2026-10-25. These describe actual use; screenshot figures remain fictional.
+
+PDCD Mail uses the official, unaltered Stalwart brand composition at Paul's
+request, exported to WebP at quality88 with its1200x675 dimensions preserved.
+Both locales provide an explicit caption attributing Stalwart Labs, overriding
+the fictional-data screenshot caption. The image identifies the underlying
+software; it is not a screenshot of the deployed mail platform or an endorsement.
