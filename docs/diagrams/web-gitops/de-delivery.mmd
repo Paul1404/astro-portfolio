@@ -1,0 +1,18 @@
+flowchart TB
+  accTitle: Release und Pull-Deployment
+  accDescr: GitHub prüft und veröffentlicht unveränderliche Artefakte und promotet dann ein Site-Manifest. Ein getrenntes unprivilegiertes Hostkonto holt den Sollzustand ab, verifiziert Artefakte, wendet rootless Units an und speichert Erfolg nach der SQL-Bereitschaftsprüfung.
+  subgraph GitHub["GitHub-Release-Pipeline"]
+    direction LR
+    Source["Anwendungsquellcode"] --> CI["Image-, SQL- und Origin-Tests"]
+    CI --> Release["Unveränderliche Archive<br/>SHA-256 + Image IDs"]
+    Release --> Promotion["Geprüfte Promotion"] --> Manifest["Festgelegtes Site-Manifest"]
+  end
+  subgraph Host["Site-Konto auf dem Produktionshost"]
+    direction LR
+    Pull["Lesender Pull<br/>Alle 2 Minuten"] --> Verify["Artefakte verifizieren"]
+    Verify --> Runtime["Rootless Podman<br/>systemd Quadlet"]:::focus
+    Runtime --> Ready["HTTPS- und SQL-Bereitschaft"] --> Applied["Angewendete Revision speichern"]:::good
+  end
+  GitHub -->|Host holt Sollzustand und Release-Artefakte ab| Host
+  classDef focus fill:#4f46e5,color:#ffffff,stroke:#3730a3,stroke-width:2px
+  classDef good fill:#ecfdf5,color:#14532d,stroke:#86b99e

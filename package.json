@@ -9,6 +9,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "diagrams:mail": "node scripts/render-mail-diagrams.mjs",
+    "diagrams:gitops": "node scripts/render-mail-diagrams.mjs web-gitops",
     "favicons": "node scripts/generate-favicons.mjs"
   },
   "dependencies": {

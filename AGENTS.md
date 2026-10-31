@@ -98,3 +98,7 @@ PDCD Mail diagrams use bilingual Mermaid sources in `docs/diagrams/pdcd-mail`
 and committed SVGs in `public/diagrams/pdcd-mail`. Regenerate with
 `npm run diagrams:mail`; see that directory's README for browser requirements.
 Keep the static rendering, accessible descriptions, and contained mobile scroll.
+The Web GitOps case study uses the same pipeline under `docs/diagrams/web-gitops`
+and `public/diagrams/web-gitops`, regenerated with `npm run diagrams:gitops`.
+Its controller repository is private. Link only the public application build
+sources, and distinguish workflow promotion checks from enforced branch protection.

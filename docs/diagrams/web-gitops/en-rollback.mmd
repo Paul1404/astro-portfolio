@@ -1,0 +1,21 @@
+sequenceDiagram
+  accTitle: Readiness and data-preserving rollback
+  accDescr: After compatibility and artifact checks, the reconciler snapshots the database and applies application images. A SQL-backed readiness check either accepts the new revision or restores the old application and origin images. Database contents are retained.
+  participant R as Reconciler
+  participant A as Application + origin
+  participant D as Database
+  Note over R,D: Database / CMS-base changes held for compatibility review
+  R->>D: Pre-update snapshot
+  D-->>R: Snapshot complete
+  R->>A: Apply new images
+  R->>A: HTTPS readiness check
+  A->>D: Read-only SQL check
+  D-->>A: Readiness result
+  A-->>R: Health result
+  alt Healthy
+    R->>R: Record applied revision
+  else Failed
+    R->>A: Restore old app + origin images
+    R->>A: Recheck readiness
+    Note over A,D: Database contents preserved<br/>No automatic schema downgrade
+  end

@@ -1,0 +1,21 @@
+sequenceDiagram
+  accTitle: Bereitschaft und datenerhaltendes Rollback
+  accDescr: Nach Kompatibilitäts- und Artefaktprüfungen sichert der Reconciler die Datenbank und wendet Anwendungsimages an. SQL-basierte Bereitschaft akzeptiert die neue Revision oder stellt alte Anwendungs- und Origin-Images wieder her. Datenbankinhalte bleiben erhalten.
+  participant R as Reconciler
+  participant A as Anwendung + Origin
+  participant D as Datenbank
+  Note over R,D: Datenbank- / CMS-Basisänderungen erfordern Kompatibilitätsprüfung
+  R->>D: Snapshot vor dem Update
+  D-->>R: Snapshot vollständig
+  R->>A: Neue Images anwenden
+  R->>A: HTTPS-Bereitschaft prüfen
+  A->>D: Lesende SQL-Prüfung
+  D-->>A: Prüfergebnis
+  A-->>R: Bereitschaftsergebnis
+  alt Bereit
+    R->>R: Angewendete Revision speichern
+  else Fehler
+    R->>A: Alte Anwendungs- und Origin-Images herstellen
+    R->>A: Bereitschaft erneut prüfen
+    Note over A,D: Datenbankinhalte bleiben erhalten<br/>Kein automatisches Schema-Downgrade
+  end

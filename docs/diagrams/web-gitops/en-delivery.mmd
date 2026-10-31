@@ -1,0 +1,18 @@
+flowchart TB
+  accTitle: Release and pull deployment
+  accDescr: GitHub tests and publishes immutable artifacts, then promotes one site manifest. A separate unprivileged host account pulls desired state, verifies artifacts, applies rootless units and records success after SQL readiness.
+  subgraph GitHub["GitHub release pipeline"]
+    direction LR
+    Source["Application source"] --> CI["Image, SQL and origin tests"]
+    CI --> Release["Immutable archives<br/>SHA-256 + Image IDs"]
+    Release --> Promotion["Checked promotion"] --> Manifest["Pinned site manifest"]
+  end
+  subgraph Host["Per-site account on the production host"]
+    direction LR
+    Pull["Read-only pull<br/>Every 2 minutes"] --> Verify["Verify artifacts"]
+    Verify --> Runtime["Rootless Podman<br/>systemd Quadlet"]:::focus
+    Runtime --> Ready["SQL-backed HTTPS readiness"] --> Applied["Record applied revision"]:::good
+  end
+  GitHub -->|Host pulls desired state and release artifacts| Host
+  classDef focus fill:#4f46e5,color:#ffffff,stroke:#3730a3,stroke-width:2px
+  classDef good fill:#ecfdf5,color:#14532d,stroke:#86b99e
