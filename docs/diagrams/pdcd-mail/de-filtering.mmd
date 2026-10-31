@@ -1,0 +1,18 @@
+flowchart TB
+  accTitle: Filterung und Verhalten bei Fehlern
+  accDescr: SMTP-Mail und neue Importe werden auf Schadsoftware geprüft. Saubere Nachrichten erhalten einen Score aus Regeln und KI-Signal. Ab fünf Punkten erfolgt die Ablage in Junk. Ohne KI-Urteil nutzt SMTP die normalen Regeln, Abholjobs stellen zurück und versuchen es erneut. Schadsoftware und Scannerfehler umgehen den Schutz nicht.
+  Source["SMTP-Mail oder neuer Import"] --> AV{"ClamAV"}
+  AV -->|Schadsoftware| Block["Zustellung blockieren"]:::warning
+  AV -->|Scanner nicht verfügbar| Retry["Zurückstellen und erneut versuchen"]:::warning
+  AV -->|Sauber| Rules["Normale Spamsignale"]
+  Rules --> AI["Begrenzte KI-Klassifizierung<br/>2 Worker + kurze Warteschlange"]:::core
+  AI -->|Urteil| Score{"Gesamtscore ≥ 5?"}
+  AI -. Nicht verfügbar: SMTP .-> Fallback["Nur normaler Spamscore"] --> Score
+  AI -. Nicht verfügbar: Abholjob .-> Retry
+  Score -->|Ja| Junk["Junk"]:::warning
+  Score -->|Nein| Inbox["Posteingang"]:::good
+
+  classDef core fill:#d92650,color:#ffffff,stroke:#b91c45,stroke-width:2px
+  classDef store fill:#eff6ff,color:#1e3a5f,stroke:#93b4d5
+  classDef good fill:#ecfdf5,color:#14532d,stroke:#86b99e
+  classDef warning fill:#fff1f2,color:#9f1239,stroke:#e8a3b4

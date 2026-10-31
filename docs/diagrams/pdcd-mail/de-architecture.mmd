@@ -1,0 +1,17 @@
+flowchart TB
+  accTitle: Produktive Mailarchitektur
+  accDescr: Stalwart bedient bestehende Mailclients, empfängt SMTP und gefilterte Importe und versendet über SES oder direkte Zustellung. Verschlüsselter Speicher wird nach B2 gesichert, Hostprüfungen melden an CloudWatch.
+  Incoming["SMTP aus dem Internet"] -->|SMTP / TLS| Core
+  Clients["Bestehende Mailclients"] <-->|IMAP / Submission / Sieve| Core
+  Collectors["Sechs externe Abholjobs<br/>Viren- und Spamprüfung"] -->|IMAP import| Core
+  Core["Stalwart<br/>Native Anmeldung, Aliase, Routing, Filter"]:::core
+  Core -->|Regulärer Versand| SES["Amazon SES"]
+  Core -->|Relay-Ausnahmen + Weiterleitung| Direct["Direkte MX-Zustellung"]
+  Core --> Store[("Verschlüsselter Mailspeicher")]:::store
+  Store --> Backup["restic → Backblaze B2<br/>Verschlüsselte Sicherungen"]:::store
+  Core -. Zustell- und Hostprüfungen .-> Monitor["AWS CloudWatch<br/>Protokolle, DANE, Abholjobs, Testzustellung"]
+
+  classDef core fill:#d92650,color:#ffffff,stroke:#b91c45,stroke-width:2px
+  classDef store fill:#eff6ff,color:#1e3a5f,stroke:#93b4d5
+  classDef good fill:#ecfdf5,color:#14532d,stroke:#86b99e
+  classDef warning fill:#fff1f2,color:#9f1239,stroke:#e8a3b4

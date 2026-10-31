@@ -132,3 +132,30 @@
 /* Narrow screens need long German headings and contact links to wrap naturally. */
 .prose { overflow-wrap: anywhere; }
 main [id] { scroll-margin-top: 6rem; }
+
+/* Keep technical diagrams readable without widening the mobile page. */
+.mail-diagram { margin-block: 2rem; }
+.mail-diagram-scroll {
+  overflow-x: auto;
+  max-width: 100%;
+  border: 1px solid var(--color-line);
+  border-radius: .75rem;
+  background: #f8fafc;
+  padding: 1rem;
+}
+.mail-diagram-scroll:focus-visible { outline: 2px solid var(--color-brand); outline-offset: 3px; }
+.mail-diagram .mail-diagram-scroll img {
+  display: block;
+  width: 100%;
+  min-width: 680px;
+  max-width: none;
+  height: auto;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+}
+.mail-diagram figcaption { margin-top: .75rem; font-size: .875rem; line-height: 1.6; }
+.mail-diagram img[src$="-migration.svg"] { min-width: 880px; }
+@media (min-width: 1200px) {
+  .mail-diagram { width: calc(100% + 16rem); margin-inline: -8rem; }
+}

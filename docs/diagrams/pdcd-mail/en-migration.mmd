@@ -1,0 +1,13 @@
+flowchart LR
+  accTitle: Migration from Mailcow to native Stalwart
+  accDescr: A pilot verified real clients before mailbox batches and routing moved. Password verifiers were imported for native authentication. Temporary bridges were removed and mail flow checked with Mailcow powered off.
+  Pilot["Pilot mailbox<br/>Verify saved credentials in real clients"] --> Batches
+  Batches["Mailbox batches + routing handover<br/>Temporary compatibility during transition"] --> Native
+  Native["Native authentication<br/>One-off verifier import + focused Rust patch"]:::core --> Retire
+  Retire["Remove migration bridges<br/>Direct Stalwart clients and independent collectors"] --> Proven
+  Proven["Mailcow powered off<br/>Verify external delivery and sending"]:::good
+
+  classDef core fill:#d92650,color:#ffffff,stroke:#b91c45,stroke-width:2px
+  classDef store fill:#eff6ff,color:#1e3a5f,stroke:#93b4d5
+  classDef good fill:#ecfdf5,color:#14532d,stroke:#86b99e
+  classDef warning fill:#fff1f2,color:#9f1239,stroke:#e8a3b4

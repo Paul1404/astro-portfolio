@@ -1,0 +1,17 @@
+flowchart TB
+  accTitle: Production mail architecture
+  accDescr: Stalwart serves existing mail clients, receives SMTP and filtered collector imports, and routes outbound mail through SES or direct delivery. Encrypted storage is backed up to B2; host checks report to CloudWatch.
+  Incoming["Internet SMTP"] -->|SMTP / TLS| Core
+  Clients["Existing mail clients"] <-->|IMAP / Submission / Sieve| Core
+  Collectors["Six external collectors<br/>Malware + spam prefilter"] -->|IMAP import| Core
+  Core["Stalwart<br/>Native auth, aliases, routing, filtering"]:::core
+  Core -->|Ordinary outbound| SES["Amazon SES"]
+  Core -->|Relay exceptions + forwarding| Direct["Direct MX delivery"]
+  Core --> Store[("Encrypted mail storage")]:::store
+  Store --> Backup["restic → Backblaze B2<br/>Encrypted recovery copies"]:::store
+  Core -. Delivery + host checks .-> Monitor["AWS CloudWatch<br/>Protocols, DANE, collectors, delivery probe"]
+
+  classDef core fill:#d92650,color:#ffffff,stroke:#b91c45,stroke-width:2px
+  classDef store fill:#eff6ff,color:#1e3a5f,stroke:#93b4d5
+  classDef good fill:#ecfdf5,color:#14532d,stroke:#86b99e
+  classDef warning fill:#fff1f2,color:#9f1239,stroke:#e8a3b4

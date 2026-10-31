@@ -29,6 +29,13 @@ PDCD Mail ist die Mailinfrastruktur, die ich für Familie, Vereine und kleinere 
 
 Die eigentliche Herausforderung war der Weiterbetrieb. Die Nutzer hatten eingerichtete Mailclients, gespeicherte Zugangsdaten und Arbeitsabläufe auf dem bisherigen Server. Der Wechsel musste diese Verbindungen erhalten, einschließlich zusätzlicher Passwörter, über die verschiedene Personen auf gemeinsame Postfächer zugreifen.
 
+<figure class="mail-diagram">
+  <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Produktionsarchitektur. Auf kleinen Bildschirmen seitlich scrollen.">
+    <img src="/diagrams/pdcd-mail/de-architecture.svg" alt="Produktionsarchitektur: SMTP, Clientzugriffe, Abholjobs, Versand und Betrieb." width="785" height="652" loading="lazy" decoding="async" />
+  </div>
+  <figcaption>SMTP, Clientzugriffe, Abholjobs, Versand und Betrieb. <a href="/diagrams/pdcd-mail/de-architecture.svg">Diagramm vergrößern</a>. Auf kleinen Bildschirmen seitlich scrollen.</figcaption>
+</figure>
+
 ### Migration mit bestehenden Clients
 
 Nach einem Pilotpostfach und der Prüfung mit tatsächlich genutzten Mailclients folgten weitere Postfächer in Gruppen. Postfachdaten, Anmeldung, ausgehender Versand, eingehende Filterung und externe Abholjobs wurden schrittweise umgestellt. Dadurch ließ sich jede Änderung am bisherigen Verhalten überprüfen.
@@ -38,6 +45,13 @@ Auf der fertigen Plattform stellt Stalwart IMAP, SMTP-Submission und Sieve direk
 Die vorübergehenden Migrationsproxies und Anmelde-Gateways wurden anschließend entfernt. Der Mailfluss wurde bei abgeschaltetem Mailcow-Server geprüft.
 
 Auf dem Linux-Host habe ich verschlüsselten Mailspeicher eingerichtet und einen IPv6-Routingfehler am virtuellen Gateway des Providers behoben, während die IPv4-Zustellung verfügbar blieb. Neben der Anwendungsmigration gehören damit auch Netzbetrieb, Zertifikatserneuerung und unbeaufsichtigte Wartung zum Projekt.
+
+<figure class="mail-diagram">
+  <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Schrittweise Übergabe. Auf kleinen Bildschirmen seitlich scrollen.">
+    <img src="/diagrams/pdcd-mail/de-migration.svg" alt="Schrittweise Übergabe: Vom Pilotpostfach zur nativen Plattform ohne dauerhafte Migrationsbrücken." width="936" height="146" loading="lazy" decoding="async" />
+  </div>
+  <figcaption>Vom Pilotpostfach zur nativen Plattform ohne dauerhafte Migrationsbrücken. <a href="/diagrams/pdcd-mail/de-migration.svg">Diagramm vergrößern</a>. Auf kleinen Bildschirmen seitlich scrollen.</figcaption>
+</figure>
 
 ### Bestehende Passwörter in der nativen Anmeldung
 
@@ -56,6 +70,13 @@ Die externen Abholjobs brauchten einen eigenen Ansatz, weil IMAP-Importe die SMT
 Ein eingeschränkter Codex-CLI-Adapter übergibt begrenzte Betreff- und Nachrichtentexte an ein leichtgewichtiges Sprachmodell. Dessen Kategorie und Konfidenz ergänzen den bestehenden Spamscore. Das Modell unterscheidet Phishing und Betrugsversuche von gewöhnlichen kommerziellen Newslettern. Mit hoher Sicherheit als schädlich erkannte Nachrichten erhalten einen deutlichen Aufschlag, normale Werbung keinen KI-Aufschlag. Der Klassifikator kann weder Links aufrufen noch Werkzeuge ausführen. Die Nutzungsaufzeichnung enthält Tokenzahlen und Laufzeiten, keine Nachrichteninhalte.
 
 Zwei parallele Worker, eine begrenzte Warteschlange, gemeinsam genutzte Ergebnisse für gleichzeitige identische Anfragen und ein Circuit Breaker fangen Lastspitzen ab. Ein Live-Test mit drei gleichzeitigen Nachrichten war innerhalb von 10,8 Sekunden abgeschlossen. Die KI bleibt ein zusätzliches Signal: Bei Anbieterausfällen oder anhaltender Überlastung kann die SMTP-Filterung ohne KI-Urteil fortfahren; Abholjobs stellen die Verarbeitung zurück und versuchen es erneut.
+
+<figure class="mail-diagram">
+  <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Filterung und Fehlerpfade. Auf kleinen Bildschirmen seitlich scrollen.">
+    <img src="/diagrams/pdcd-mail/de-filtering.svg" alt="Filterung und Fehlerpfade: Vereinfachter Ablauf. SMTP und Abholjobs nutzen getrennte Implementierungen mit gemeinsamen Schutzprinzipien." width="774" height="1168" loading="lazy" decoding="async" />
+  </div>
+  <figcaption>Vereinfachter Ablauf. SMTP und Abholjobs nutzen getrennte Implementierungen mit gemeinsamen Schutzprinzipien. <a href="/diagrams/pdcd-mail/de-filtering.svg">Diagramm vergrößern</a>. Auf kleinen Bildschirmen seitlich scrollen.</figcaption>
+</figure>
 
 ### Zustellung, Vertrauenskette und Wiederherstellung
 

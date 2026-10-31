@@ -8,6 +8,7 @@
     "build": "astro build && node scripts/write-health.mjs",
     "preview": "astro preview",
     "astro": "astro",
+    "diagrams:mail": "node scripts/render-mail-diagrams.mjs",
     "favicons": "node scripts/generate-favicons.mjs"
   },
   "dependencies": {

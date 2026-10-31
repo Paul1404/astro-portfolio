@@ -29,6 +29,13 @@ PDCD Mail is the mail infrastructure I operate for family, associations, and sma
 
 The difficult part was continuity. Users already had working mail clients, saved credentials, and workflows built around the old server. Replacing the backend needed to preserve those relationships, including additional passwords used to give different people access to shared mailboxes.
 
+<figure class="mail-diagram">
+  <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Production architecture. Scroll sideways on smaller screens.">
+    <img src="/diagrams/pdcd-mail/en-architecture.svg" alt="Production architecture: SMTP, client access, collectors, outbound delivery, and operations." width="753" height="634" loading="lazy" decoding="async" />
+  </div>
+  <figcaption>SMTP, client access, collectors, outbound delivery, and operations. <a href="/diagrams/pdcd-mail/en-architecture.svg">Open full-size diagram</a>. Scroll sideways on smaller screens.</figcaption>
+</figure>
+
 ### Moving the service without resetting every client
 
 I started with a pilot mailbox, verified real client use, and expanded the migration in batches. Mailbox data, authentication, outbound delivery, inbound filtering, and external collectors moved in separate steps so each change could be checked against the existing behaviour.
@@ -38,6 +45,13 @@ The finished platform serves IMAP, SMTP submission, and Sieve directly from Stal
 The temporary migration proxies and credential gateways were subsequently removed. Mail flow was tested with the old Mailcow host shut down.
 
 On the Linux host, I configured encrypted mail storage and resolved an IPv6 routing fault at the provider's virtual gateway while keeping IPv4 delivery available. This work sits alongside the application migration: the replacement also needs working networking, certificate renewal, and unattended maintenance.
+
+<figure class="mail-diagram">
+  <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Staged handover. Scroll sideways on smaller screens.">
+    <img src="/diagrams/pdcd-mail/en-migration.svg" alt="Staged handover: From a pilot mailbox to native operation without permanent migration bridges." width="936" height="163" loading="lazy" decoding="async" />
+  </div>
+  <figcaption>From a pilot mailbox to native operation without permanent migration bridges. <a href="/diagrams/pdcd-mail/en-migration.svg">Open full-size diagram</a>. Scroll sideways on smaller screens.</figcaption>
+</figure>
 
 ### Preserving passwords in native authentication
 
@@ -56,6 +70,13 @@ External mailbox collection required extra work. IMAP imports bypass the SMTP fi
 A constrained Codex CLI adapter runs a lightweight language model on bounded subject and body text and contributes a category and confidence to the existing spam score. It distinguishes phishing and scams from ordinary commercial newsletters. Confident harmful verdicts carry a strong penalty; ordinary marketing receives no AI penalty. The classifier cannot browse links or run tools, and the usage ledger stores token counts and timing rather than message content.
 
 Two parallel workers, a bounded queue, shared in-flight results, and a circuit breaker handle overlapping arrivals. A live three-message burst completed all classifications within 10.8 seconds. AI remains an additional signal: provider failures or sustained overload can leave SMTP filtering to the conventional rules, while collectors defer and retry.
+
+<figure class="mail-diagram">
+  <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Filtering and failure paths. Scroll sideways on smaller screens.">
+    <img src="/diagrams/pdcd-mail/en-filtering.svg" alt="Filtering and failure paths: Simplified flow. SMTP and collectors use separate implementations with shared protection principles." width="737" height="1132" loading="lazy" decoding="async" />
+  </div>
+  <figcaption>Simplified flow. SMTP and collectors use separate implementations with shared protection principles. <a href="/diagrams/pdcd-mail/en-filtering.svg">Open full-size diagram</a>. Scroll sideways on smaller screens.</figcaption>
+</figure>
 
 ### Delivery, trust, and recovery
 

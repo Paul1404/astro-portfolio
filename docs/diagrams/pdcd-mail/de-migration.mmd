@@ -1,0 +1,13 @@
+flowchart LR
+  accTitle: Migration von Mailcow zu nativem Stalwart
+  accDescr: Ein Pilot prüfte echte Mailclients vor den Postfachgruppen und dem Routingwechsel. Passwortprüfwerte wurden für die native Anmeldung importiert. Temporäre Brücken wurden entfernt und der Mailfluss bei abgeschaltetem Mailcow geprüft.
+  Pilot["Pilotpostfach<br/>Gespeicherte Zugänge in echten Clients prüfen"] --> Batches
+  Batches["Postfachgruppen + Routingwechsel<br/>Vorübergehende Kompatibilität beim Übergang"] --> Native
+  Native["Native Anmeldung<br/>Einmaliger Import der Prüfwerte + Rust-Patch"]:::core --> Retire
+  Retire["Migrationsbrücken entfernen<br/>Clients direkt an Stalwart, unabhängige Abholjobs"] --> Proven
+  Proven["Mailcow abgeschaltet<br/>Externen Empfang und Versand prüfen"]:::good
+
+  classDef core fill:#d92650,color:#ffffff,stroke:#b91c45,stroke-width:2px
+  classDef store fill:#eff6ff,color:#1e3a5f,stroke:#93b4d5
+  classDef good fill:#ecfdf5,color:#14532d,stroke:#86b99e
+  classDef warning fill:#fff1f2,color:#9f1239,stroke:#e8a3b4

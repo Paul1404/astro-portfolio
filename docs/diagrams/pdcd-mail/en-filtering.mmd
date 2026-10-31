@@ -1,0 +1,18 @@
+flowchart TB
+  accTitle: Filtering and failure behaviour
+  accDescr: SMTP mail and new collector imports are checked for malware. Clean mail is scored with conventional rules and an AI signal. Scores of five or more go to Junk. If AI is unavailable, SMTP uses conventional filtering and collectors defer and retry. Malware and scanner failures do not bypass protection.
+  Source["SMTP mail or new collector import"] --> AV{"ClamAV"}
+  AV -->|Malware| Block["Block delivery"]:::warning
+  AV -->|Scanner unavailable| Retry["Defer and retry"]:::warning
+  AV -->|Clean| Rules["Conventional spam signals"]
+  Rules --> AI["Bounded AI classification<br/>2 workers + short queue"]:::core
+  AI -->|Verdict| Score{"Combined score ≥ 5?"}
+  AI -. Unavailable: SMTP .-> Fallback["Conventional score only"] --> Score
+  AI -. Unavailable: collector .-> Retry
+  Score -->|Yes| Junk["Junk"]:::warning
+  Score -->|No| Inbox["Inbox"]:::good
+
+  classDef core fill:#d92650,color:#ffffff,stroke:#b91c45,stroke-width:2px
+  classDef store fill:#eff6ff,color:#1e3a5f,stroke:#93b4d5
+  classDef good fill:#ecfdf5,color:#14532d,stroke:#86b99e
+  classDef warning fill:#fff1f2,color:#9f1239,stroke:#e8a3b4
