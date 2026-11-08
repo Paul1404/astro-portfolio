@@ -10,6 +10,7 @@
     "astro": "astro",
     "diagrams:mail": "node scripts/render-mail-diagrams.mjs",
     "diagrams:gitops": "node scripts/render-mail-diagrams.mjs web-gitops",
+    "diagrams:vertex": "node scripts/render-mail-diagrams.mjs vertex",
     "favicons": "node scripts/generate-favicons.mjs"
   },
   "dependencies": {

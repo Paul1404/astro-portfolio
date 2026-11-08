@@ -17,9 +17,11 @@ tags:
   - CI/CD
   - Security
 featured: true
-featuredOrder: 7
+featuredOrder: 8
 icon: git-pull-request
 ---
+
+Diese Fallstudie beschreibt das ursprüngliche Deployment auf einem einzelnen Host. Websites und Anwendungen wurden später nach [Vertex](/de/projects/vertex/) verschoben, wo Fleet ihre Kubernetes-Konfiguration abgleicht.
 
 Mit PDCD Web GitOps betreibe ich Websites und unterstützende Dienste auf demselben Rocky-Linux-Host wie meine [Mailplattform](/de/projects/pdcd-mail/), mit getrennten Deployment-Berechtigungen. Dazu gehören WordPress- und REDAXO-Websites sowie über Image-Digests festgelegte Umami- und Vaultwarden-Deployments.
 

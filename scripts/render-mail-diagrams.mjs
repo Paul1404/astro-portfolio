@@ -5,7 +5,7 @@ import path from 'node:path';
 
 // Generated SVGs are committed. The normal static build needs no browser or Mermaid runtime.
 const project = process.argv[2] ?? 'pdcd-mail';
-if (!['pdcd-mail', 'web-gitops'].includes(project)) throw new Error('Unknown diagram collection');
+if (!['pdcd-mail', 'web-gitops', 'vertex'].includes(project)) throw new Error('Unknown diagram collection');
 const source = `docs/diagrams/${project}`;
 const temporary = mkdtempSync(path.join(tmpdir(), 'pdcd-mermaid-'));
 try {

@@ -1,0 +1,14 @@
+flowchart TB
+  accTitle: Vertex platform architecture
+  accDescr: Existing websites use CloudFront while applications can use the public gateway directly. Route 53 directs traffic to three nodes. Traefik routes requests to applications; Fleet reconciles the private Git repository; Longhorn replicates volumes across the nodes.
+  Users["Visitors and operators"] --> Edge["CloudFront for existing websites"]
+  Users --> DNS["Route 53 health-checked DNS"]
+  Edge --> DNS
+  DNS --> Gateway["Traefik Gateway API<br/>HTTPS routes"]:::focus
+  Gateway --> Apps["Websites, personal apps<br/>and databases"]
+  Git["Private desired-state repository"] --> Fleet["Rancher Fleet"] --> Apps
+  Cert["cert-manager + DNS-01"] --> Gateway
+  Apps --> Storage["Longhorn replicated volumes"]:::good
+  Storage --> Nodes["Three RKE2 nodes<br/>embedded etcd"]
+  classDef focus fill:#4f46e5,color:#ffffff,stroke:#3730a3,stroke-width:2px
+  classDef good fill:#ecfdf5,color:#14532d,stroke:#86b99e
