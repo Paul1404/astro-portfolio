@@ -27,7 +27,7 @@ Das Projekt baut auf einem früheren [Website-Deployment auf einem einzelnen Hos
 
 <figure class="mail-diagram">
   <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Architektur der Vertex-Plattform. Auf kleinen Bildschirmen seitlich scrollen.">
-    <img src="/diagrams/vertex/de-architecture.svg" alt="Vertex-Architektur mit öffentlichem Zugriff, Gateway-API-Routing, Fleet-Abgleich und Longhorn-Speicher auf drei RKE2-Knoten." width="552" height="842" loading="lazy" decoding="async" />
+    <img src="/diagrams/vertex/de-architecture.svg" alt="Vertex-Architektur mit öffentlichem Zugriff, Gateway-API-Routing, Fleet-Abgleich und Longhorn-Speicher auf drei RKE2-Knoten." width="552" height="825" loading="lazy" decoding="async" />
   </div>
   <figcaption>Öffentlicher Zugriff, Anwendungsbereitstellung und replizierter Speicher auf Vertex. <a href="/diagrams/vertex/de-architecture.svg">Diagramm vergrößern</a>. Auf kleinen Bildschirmen seitlich scrollen.</figcaption>
 </figure>

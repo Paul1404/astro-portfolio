@@ -8,7 +8,7 @@ flowchart TB
   Gateway --> Apps["Websites, persönliche Anwendungen<br/>und Datenbanken"]
   Git["Privates Repository mit Sollzustand"] --> Fleet["Rancher Fleet"] --> Apps
   Cert["cert-manager + DNS-01"] --> Gateway
-  Apps --> Storage["Replizierte Longhorn-Volumes"]:::good
+  Apps --> Storage["Longhorn<br/>3 Replikate"]:::good
   Storage --> Nodes["Drei RKE2-Knoten<br/>mit eingebettetem etcd"]
   classDef focus fill:#4f46e5,color:#ffffff,stroke:#3730a3,stroke-width:2px
   classDef good fill:#ecfdf5,color:#14532d,stroke:#86b99e
