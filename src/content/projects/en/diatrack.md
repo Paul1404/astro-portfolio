@@ -13,7 +13,7 @@ tags:
   - Public Source
 repoUrl: https://github.com/Paul1404/diatrack
 featured: true
-featuredOrder: 8
+featuredOrder: 9
 icon: activity
 screenshot:
   image: diatrack

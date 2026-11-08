@@ -102,3 +102,8 @@ The Web GitOps case study uses the same pipeline under `docs/diagrams/web-gitops
 and `public/diagrams/web-gitops`, regenerated with `npm run diagrams:gitops`.
 Its controller repository is private. Link only the public application build
 sources, and distinguish workflow promotion checks from enforced branch protection.
+
+Vertex diagrams use bilingual Mermaid sources in `docs/diagrams/vertex` and
+committed SVGs in `public/diagrams/vertex`. Regenerate with
+`npm run diagrams:vertex`; keep the case study current and preserve the
+distinction between replicated storage and verified offsite backups.

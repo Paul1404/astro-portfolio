@@ -1,0 +1,8 @@
+# Vertex diagrams
+
+The English and German Mermaid sources describe the public edge, Fleet and
+replicated storage as a simplified architecture. They contain no credentials or
+private addresses. Regenerate the committed SVGs with `npm run diagrams:vertex`;
+the shared renderer and browser requirements are documented in the PDCD Mail
+diagram README. Keep the two languages, accessible descriptions and image
+sizes aligned.

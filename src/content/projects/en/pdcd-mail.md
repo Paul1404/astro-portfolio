@@ -90,6 +90,6 @@ Daily mailbox exports and recovery configuration are encrypted, compressed, and 
 
 ### Result
 
-The separately managed website deployments on this host are covered in [PDCD Web GitOps](/projects/web-gitops/).
+The original website deployment is covered in [PDCD Web GitOps](/projects/web-gitops/). The websites and applications now run on the separate [Vertex Kubernetes platform](/projects/vertex/); mail remains on its own host.
 
 The old Mailcow host can remain off. Stalwart handles the mailboxes, native authentication, routing, filtering, and client connections; the external collectors, monitoring, patching, and backups run independently of the retired platform. The project combines migration engineering, a targeted upstream-code modification, and the operational checks needed to keep a small production mail service dependable.
