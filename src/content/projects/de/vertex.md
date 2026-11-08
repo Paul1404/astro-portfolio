@@ -19,11 +19,15 @@ tags:
 featured: true
 featuredOrder: 7
 icon: server
+screenshot:
+  image: vertexDe
+  alt: "Diagramm der Vertex-Plattform mit Fleet, HTTPS-Gateway, drei RKE2-Knoten und Longhorn"
+  caption: "Architekturdiagramm der Vertex-Plattform."
 ---
 
 Vertex ist die Kubernetes-Plattform, mit der ich meine Websites und persönlichen Anwendungen von einem zunehmend ausgelasteten Einzelserver auf drei Knoten verschoben habe. Sie läuft auf drei virtuellen Maschinen mit jeweils sechs vCPUs und 12 GB Arbeitsspeicher in einem privaten Netzwerk. Darauf betreibe ich WordPress- und REDAXO-Websites sowie Paperless, Vaultwarden, Umami und Monica CRM. Mein Maildienst bleibt getrennt.
 
-Das Projekt baut auf einem früheren [Website-Deployment auf einem einzelnen Host](/de/projects/web-gitops/) auf. Dessen Release-Prozess war klar strukturiert, Anwendungen und Daten teilten sich aber eine Maschine. Vertex führt Konfiguration, Netzwerk und Speicher auf einer Plattform zusammen, die ich mit Kubernetes und Rancher verwalte.
+Das Projekt baut auf einem früheren Website-Deployment auf einem einzelnen Host auf. Dessen Release-Prozess war klar strukturiert, Anwendungen und Daten teilten sich aber eine Maschine. Vertex führt Konfiguration, Netzwerk und Speicher auf einer Plattform zusammen, die ich mit Kubernetes und Rancher verwalte.
 
 <figure class="mail-diagram">
   <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Architektur der Vertex-Plattform. Auf kleinen Bildschirmen seitlich scrollen.">

@@ -90,6 +90,6 @@ Tägliche Postfachexporte und die für eine Wiederherstellung nötige Konfigurat
 
 ### Ergebnis
 
-Das ursprüngliche Website-Deployment beschreibt [PDCD Web GitOps](/de/projects/web-gitops/). Die Websites und Anwendungen laufen inzwischen auf der separaten [Kubernetes-Plattform Vertex](/de/projects/vertex/); der Maildienst bleibt auf seinem eigenen Host.
+Die Websites und Anwendungen laufen inzwischen auf der separaten [Kubernetes-Plattform Vertex](/de/projects/vertex/); der Maildienst bleibt auf seinem eigenen Host.
 
 Der alte Mailcow-Host kann abgeschaltet bleiben. Stalwart übernimmt Postfächer, native Anmeldung, Routing, Filterung und Clientverbindungen. Abholjobs, Monitoring, Patchmanagement und Backups laufen unabhängig von der abgelösten Plattform. Das Projekt verbindet Migration im laufenden Betrieb, eine gezielte Anpassung am Upstream-Code und die betrieblichen Prüfungen für einen verlässlichen kleinen Maildienst.

@@ -12,6 +12,10 @@ tags:
 repoUrl: https://github.com/Paul1404/astro-portfolio
 liveUrl: https://portfolio.pdcd.net
 icon: globe
+screenshot:
+  image: portfolio
+  alt: "Blue portfolio brand mark"
+  caption: "Portfolio brand mark."
 ---
 
 A personal site has to load fast, stay easy to update, and not turn into a maintenance project of its own. This one is a static Astro build where adding a project means writing a Markdown file, not touching components.

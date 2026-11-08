@@ -1,7 +1,10 @@
 # Project screenshots
 
-The showcase uses real application interfaces with fictional data. Do not replace
-these with production account captures or generated dashboard artwork.
+Application screenshots use real interfaces with fictional data. Project previews
+may also use the actual project's branding, licensed photography, or an
+accurate architecture diagram when explicitly requested. Captions identify
+those assets; do not present them as application screenshots or use private
+production account captures.
 
 | Asset | Source | Data boundary |
 | --- | --- | --- |
@@ -12,9 +15,16 @@ these with production account captures or generated dashboard artwork.
 | diatrack.webp | diatrack/docs/screenshots/overview.png | Synthetic device records documented in the project README |
 | remise.webp | Current Remise inventory interface, captured locally on 2026-10-25 | Isolated frontend preview with fictional records and stubbed dashboard reads |
 | stalwart.webp | https://stalw.art/img/stalwart-social-card.jpg, linked by the official homepage Open Graph metadata, retrieved 2026-10-29 | Official brand image, not an application screenshot; no account or mailbox data |
+| vertex-en.webp, vertex-de.webp | `docs/diagrams/vertex/{en,de}-preview.mmd`, rendered through the local Mermaid pipeline | Localized simplified architecture, not a dashboard screenshot |
+| hof-stetten.webp | `hof-stetten.de/public/og.jpg`, derived from St. Anna photograph by [Tilman2007](https://commons.wikimedia.org/wiki/File:Hofstetten_27_K%C3%B6nigsberg_in_Bayern_20201129_001.jpg) | CC BY-SA 4.0, cropped by the project for its social preview and recompressed as WebP; attribution and license linked in both project pages |
+| untereuerheim.webp | `untereuerheim.com/public/og.jpg` | Aerial photograph used for the project website's social preview, recompressed as WebP |
+| svutt.webp | `svutt/public/logo.png` | SV Untereuerheim club crest used in the tournament application, centered on a white canvas |
+| portfolio.webp | `public/logo.svg` | Portfolio's own brand mark, centered on a light canvas |
 
-Sources were reviewed on 2026-10-25. WebP exports preserve the full image and
-resize to a maximum width of 1600 pixels at quality 88. Astro generates responsive
+Application screenshot sources were reviewed on 2026-10-25. WebP exports
+preserve the full source image and resize to a maximum width of 1600 pixels at
+quality 88. The project-owned social previews were already cropped by their
+source websites; diagram and logo previews use padded canvases. Astro generates responsive
 variants. Both locales select the same asset with localized alt text. The detail
 page links to the full-size local image. A screenshot illustrates the interface;
 it does not verify production integrations or live account behavior.
