@@ -20,9 +20,9 @@ featured: true
 featuredOrder: 1
 icon: server
 screenshot:
-  image: vertexEn
-  alt: "Diagram of the Vertex platform with Fleet, an HTTPS gateway, three RKE2 nodes and Longhorn"
-  caption: "Architecture diagram of the Vertex platform."
+  image: rancher
+  alt: "Rancher by SUSE logo with blue cow and black wordmark"
+  caption: "Official Rancher by SUSE brand artwork."
 ---
 
 Vertex is the Kubernetes platform I built to move my websites and personal applications off a single, increasingly busy server. It runs across three virtual machines, each with six vCPUs and 12 GB of memory, on a private network. The cluster hosts WordPress and REDAXO sites alongside Paperless, Vaultwarden, Umami and Monica CRM. My mail service remains separate.
