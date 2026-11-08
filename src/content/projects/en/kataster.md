@@ -15,7 +15,7 @@ tags:
   - Open Source
 repoUrl: https://github.com/Paul1404/kataster
 featured: true
-featuredOrder: 3
+featuredOrder: 5
 icon: network
 screenshot:
   image: kataster

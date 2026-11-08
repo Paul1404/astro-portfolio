@@ -15,7 +15,7 @@ tags:
 repoUrl: https://github.com/Paul1404/kontor2
 liveUrl: https://kontor2.com
 featured: true
-featuredOrder: 2
+featuredOrder: 3
 icon: building-2
 screenshot:
   image: kontor2

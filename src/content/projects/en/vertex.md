@@ -17,7 +17,7 @@ tags:
   - GitOps
   - Migration
 featured: true
-featuredOrder: 7
+featuredOrder: 1
 icon: server
 screenshot:
   image: vertexEn
