@@ -18,6 +18,7 @@ tags:
   - Security
 featured: true
 featuredOrder: 8
+status: archived
 icon: git-pull-request
 ---
 

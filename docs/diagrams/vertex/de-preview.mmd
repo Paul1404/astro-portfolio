@@ -1,0 +1,8 @@
+flowchart LR
+  accTitle: Vorschau der Vertex-Plattform
+  accDescr: Fleet überträgt den Sollzustand auf einen RKE2-Cluster mit drei Knoten. Ein Gateway leitet Anfragen zu den Anwendungen, die Longhorn<br/>Speicher verwenden.
+  Git["Privates Git"] --> Fleet["Rancher Fleet"] --> Cluster["3 RKE2-Knoten"]:::focus
+  Gateway["HTTPS<br/>Gateway"] --> Cluster
+  Cluster --> Store["Longhorn<br/>Speicher"]:::good
+  classDef focus fill:#4f46e5,color:#ffffff,stroke:#3730a3,stroke-width:2px
+  classDef good fill:#ecfdf5,color:#14532d,stroke:#86b99e

@@ -14,6 +14,10 @@ tags:
 repoUrl: https://github.com/Paul1404/svutt
 liveUrl: https://svutt.sv-untereuerheim.de
 icon: trophy
+screenshot:
+  image: svutt
+  alt: "SV Untereuerheim club crest used by the tournament application"
+  caption: "Club crest used by the tournament application."
 ---
 
 Running a table tennis tournament on paper means redrawing brackets by hand, copying results between sheets, and a crowd squinting at one printout to find out who plays at table 3 next. This turns the participant list into everything the day needs, driven from a single admin dashboard.

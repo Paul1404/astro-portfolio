@@ -19,11 +19,15 @@ tags:
 featured: true
 featuredOrder: 7
 icon: server
+screenshot:
+  image: vertexEn
+  alt: "Diagram of the Vertex platform with Fleet, an HTTPS gateway, three RKE2 nodes and Longhorn"
+  caption: "Architecture diagram of the Vertex platform."
 ---
 
 Vertex is the Kubernetes platform I built to move my websites and personal applications off a single, increasingly busy server. It runs across three virtual machines, each with six vCPUs and 12 GB of memory, on a private network. The cluster hosts WordPress and REDAXO sites alongside Paperless, Vaultwarden, Umami and Monica CRM. My mail service remains separate.
 
-The project followed an earlier [single-host web deployment system](/projects/web-gitops/). That system had a clear release process, but its workloads and their data shared one machine. Vertex moves the application configuration, networking and storage into a three-node platform that I can operate through Kubernetes and Rancher.
+The project followed an earlier single-host web deployment system. That system had a clear release process, but its workloads and their data shared one machine. Vertex moves the application configuration, networking and storage into a three-node platform that I can operate through Kubernetes and Rancher.
 
 <figure class="mail-diagram">
   <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Vertex platform architecture. Scroll sideways on smaller screens.">

@@ -14,6 +14,10 @@ tags:
 repoUrl: https://github.com/Paul1404/untereuerheim.com
 liveUrl: https://untereuerheim.com
 icon: landmark
+screenshot:
+  image: untereuerheim
+  alt: "Aerial view of Untereuerheim and its surroundings"
+  caption: "Aerial photograph used by the project website."
 ---
 
 Untereuerheim is the place I am from. The site gathers its history, aerial views, listed monuments, and local institutions into an editorial experience designed to read like a printed chronicle.

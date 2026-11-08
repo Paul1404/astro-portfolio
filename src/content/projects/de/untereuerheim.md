@@ -14,6 +14,10 @@ tags:
 repoUrl: https://github.com/Paul1404/untereuerheim.com
 liveUrl: https://untereuerheim.com
 icon: landmark
+screenshot:
+  image: untereuerheim
+  alt: "Luftbild von Untereuerheim und seiner Umgebung"
+  caption: "Luftbild aus der Projektwebsite."
 ---
 
 Untereuerheim ist der Ort, aus dem ich komme. Die Seite verbindet seine Geschichte, Luftbilder, Baudenkmäler und örtlichen Institutionen zu einem redaktionellen Erlebnis, das sich wie eine gedruckte Chronik liest.

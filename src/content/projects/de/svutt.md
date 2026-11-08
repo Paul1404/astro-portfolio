@@ -14,6 +14,10 @@ tags:
 repoUrl: https://github.com/Paul1404/svutt
 liveUrl: https://svutt.sv-untereuerheim.de
 icon: trophy
+screenshot:
+  image: svutt
+  alt: "Vereinswappen des SV Untereuerheim aus der Turnieranwendung"
+  caption: "Vereinswappen aus der Turnieranwendung."
 ---
 
 Ein Tischtennisturnier auf Papier zu führen bedeutet, Bäume von Hand neu zu zeichnen, Ergebnisse zwischen Blättern zu übertragen und eine Menschentraube, die auf einen einzigen Ausdruck schielt, um zu sehen, wer als Nächstes an Tisch 3 spielt. Dieses Projekt macht aus der Teilnehmerliste alles, was der Turniertag braucht, gesteuert über ein einziges Dashboard.
