@@ -14,7 +14,7 @@ tags:
   - Private Application
 liveUrl: https://app.remise.pdcd.net
 featured: true
-featuredOrder: 5
+featuredOrder: 6
 icon: archive
 screenshot:
   image: remise

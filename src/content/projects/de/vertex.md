@@ -17,12 +17,12 @@ tags:
   - GitOps
   - Migration
 featured: true
-featuredOrder: 7
+featuredOrder: 1
 icon: server
 screenshot:
-  image: vertexDe
-  alt: "Diagramm der Vertex-Plattform mit Fleet, HTTPS-Gateway, drei RKE2-Knoten und Longhorn"
-  caption: "Architekturdiagramm der Vertex-Plattform."
+  image: rancher
+  alt: "Rancher-by-SUSE-Logo mit blauer Kuh und schwarzem Schriftzug"
+  caption: "Offizielles Rancher-by-SUSE-Markenmotiv."
 ---
 
 Vertex ist die Kubernetes-Plattform, mit der ich meine Websites und persönlichen Anwendungen von einem zunehmend ausgelasteten Einzelserver auf drei Knoten verschoben habe. Sie läuft auf drei virtuellen Maschinen mit jeweils sechs vCPUs und 12 GB Arbeitsspeicher in einem privaten Netzwerk. Darauf betreibe ich WordPress- und REDAXO-Websites sowie Paperless, Vaultwarden, Umami und Monica CRM. Mein Maildienst bleibt getrennt.

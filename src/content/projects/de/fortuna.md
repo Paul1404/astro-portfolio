@@ -14,7 +14,7 @@ tags:
   - Public Source
 repoUrl: https://github.com/Paul1404/fortuna
 featured: true
-featuredOrder: 1
+featuredOrder: 7
 icon: wallet
 screenshot:
   image: fortuna

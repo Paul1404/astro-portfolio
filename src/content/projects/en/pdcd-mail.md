@@ -17,7 +17,7 @@ tags:
   - Email Security
   - Automation
 featured: true
-featuredOrder: 6
+featuredOrder: 2
 icon: mail
 screenshot:
   image: stalwart

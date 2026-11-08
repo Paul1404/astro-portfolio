@@ -15,7 +15,7 @@ production account captures.
 | diatrack.webp | diatrack/docs/screenshots/overview.png | Synthetic device records documented in the project README |
 | remise.webp | Current Remise inventory interface, captured locally on 2026-10-25 | Isolated frontend preview with fictional records and stubbed dashboard reads |
 | stalwart.webp | https://stalw.art/img/stalwart-social-card.jpg, linked by the official homepage Open Graph metadata, retrieved 2026-10-29 | Official brand image, not an application screenshot; no account or mailbox data |
-| vertex-en.webp, vertex-de.webp | `docs/diagrams/vertex/{en,de}-preview.mmd`, rendered through the local Mermaid pipeline | Localized simplified architecture, not a dashboard screenshot |
+| rancher.webp | [Rancher by SUSE official horizontal logo](https://www.rancher.com/assets/img/brand-guidelines/assets/logos/png/color/rancher-suse-logo-horizontal-color.png), published in the [brand guidelines](https://www.rancher.com/brand-guidelines), retrieved 2026-11-08 | Official brand artwork, centered on a white canvas and recompressed as WebP; not a screenshot or endorsement |
 | hof-stetten.webp | `hof-stetten.de/public/og.jpg`, derived from St. Anna photograph by [Tilman2007](https://commons.wikimedia.org/wiki/File:Hofstetten_27_K%C3%B6nigsberg_in_Bayern_20201129_001.jpg) | CC BY-SA 4.0, cropped by the project for its social preview and recompressed as WebP; attribution and license linked in both project pages |
 | untereuerheim.webp | `untereuerheim.com/public/og.jpg` | Aerial photograph used for the project website's social preview, recompressed as WebP |
 | svutt.webp | `svutt/public/logo.png` | SV Untereuerheim club crest used in the tournament application, centered on a white canvas |
