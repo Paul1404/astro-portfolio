@@ -1,0 +1,12 @@
+flowchart LR
+  accTitle: Application delivery to Vertex
+  accDescr: A change to application source is tested and scanned in GitHub Actions. Verified images are published to GHCR and their immutable digests are promoted into the private Fleet repository. Rancher Fleet reconciles Kubernetes workloads, which perform readiness checks before serving traffic.
+  Source["Application source<br/>change + review"]:::source --> CI["GitHub Actions<br/>build + test + scan"]:::control
+  CI --> Image["GHCR<br/>verified image digest"]:::storage
+  Image --> Git["Fleet repository<br/>pinned desired state"]:::source
+  Git --> Fleet["Rancher Fleet<br/>reconcile"]:::control
+  Fleet --> K8s["Kubernetes workload<br/>readiness + service"]:::gateway
+  classDef source fill:#fff7ed,stroke:#fdba74,color:#7c2d12,stroke-width:1.5px
+  classDef control fill:#eef2ff,stroke:#a5b4fc,color:#3730a3,stroke-width:1.5px
+  classDef storage fill:#dcfce7,stroke:#86b99e,color:#14532d,stroke-width:1.5px
+  classDef gateway fill:#3730a3,stroke:#312e81,color:#ffffff,stroke-width:2px

@@ -1,0 +1,23 @@
+flowchart TB
+  accTitle: Persistente Daten auf Vertex
+  accDescr: Anwendungen nutzen Datenbanken und Dateien auf Longhorn-Volumes, einige zusätzlich S3-kompatible Garage-Buckets. Auch Garage-Daten liegen auf Longhorn. Longhorn hält drei Volume-Replikate auf Cluster-Knoten. Replikation ist kein externes Backup.
+  Apps["Anwendungen"]:::workload
+  DB["Datenbanken + Dateien"]:::workload
+  Obj["Garage-Buckets<br/>getrennte Zugangsdaten je Anwendung"]:::storage
+  Vol["Longhorn-Volumes"]:::storage
+  subgraph copies["VOLUME-REPLIKATE / DREI KOPIEN"]
+    A[("Replikat A")]:::copy
+    B[("Replikat B")]:::copy
+    C[("Replikat C")]:::copy
+  end
+  Apps --> DB --> Vol
+  Apps --> Obj --> Vol
+  Vol --> A
+  Vol --> B
+  Vol --> C
+  Note["Replikation unterstützt den Neustart auf anderen Knoten.<br/>Sie ist kein externes Backup."]:::note
+  Vol -.- Note
+  classDef workload fill:#ffffff,stroke:#94a3b8,color:#0f172a,stroke-width:1.5px
+  classDef storage fill:#dcfce7,stroke:#86b99e,color:#14532d,stroke-width:1.5px
+  classDef copy fill:#eef2ff,stroke:#a5b4fc,color:#3730a3,stroke-width:1.5px
+  classDef note fill:#fff7ed,stroke:#fdba74,color:#7c2d12,stroke-width:1.5px

@@ -156,6 +156,14 @@ main [id] { scroll-margin-top: 6rem; }
 }
 .mail-diagram figcaption { margin-top: .75rem; font-size: .875rem; line-height: 1.6; }
 .mail-diagram img[src$="-migration.svg"] { min-width: 880px; }
+.mail-diagram img[src$="-delivery.svg"] { min-width: 1000px; }
 @media (min-width: 1200px) {
   .mail-diagram { width: calc(100% + 16rem); margin-inline: -8rem; }
 }
+
+/* Real cluster views complement the Vertex diagrams. */
+.vertex-screenshot { margin-block: 2rem; }
+.vertex-screenshot a { display: block; border: 1px solid var(--color-line); border-radius: .75rem; overflow: hidden; background: #1c1f27; }
+.vertex-screenshot img { display: block; width: 100%; height: auto; margin: 0; border: 0; border-radius: 0; }
+.vertex-screenshot figcaption { margin-top: .75rem; font-size: .875rem; line-height: 1.6; }
+@media (min-width: 1200px) { .vertex-screenshot { width: calc(100% + 16rem); margin-inline: -8rem; } }
