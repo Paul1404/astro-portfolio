@@ -26,41 +26,33 @@ screenshot:
   caption: "Official Rancher by SUSE brand artwork."
 ---
 
-Vertex is the Kubernetes platform I built to bring my websites, personal applications and club software together. Four virtual machines, each with six vCPUs and 12 GB of memory, run openSUSE Leap and RKE2 on a private network. The platform hosts WordPress and REDAXO sites alongside Paperless, Vaultwarden, Monica CRM and applications such as Kontor2, Rendant, Kataster, Fortuna and Remise. My Stalwart mail service remains on its own host.
+My websites and applications had outgrown their original home: a single server carrying everything from a document archive to club administration. I built Vertex to bring those services onto a platform I could operate and extend myself, then moved the applications and their data without asking users to learn new addresses or workflows.
 
-The project grew from a single-server website deployment into a platform for operating a diverse set of applications with a shared approach to delivery, networking and storage. I designed and run the infrastructure, moved the workloads and adapted their deployment pipelines to the new environment.
+Today Vertex runs across four RKE2 nodes on openSUSE Leap. It hosts my own applications, including Kontor2, Rendant, Kataster, Fortuna and Remise, alongside Paperless, Vaultwarden and several websites. My mail service remains on its own host.
 
 <figure class="mail-diagram">
   <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Vertex platform architecture. Scroll sideways on smaller screens.">
     <img src="/diagrams/vertex/en-architecture.svg" alt="Vertex architecture showing public routing, Fleet reconciliation, Garage object storage and Longhorn volumes on four RKE2 nodes." width="552" height="924" loading="lazy" decoding="async" />
   </div>
-  <figcaption>Public traffic, application delivery and storage on Vertex. <a href="/diagrams/vertex/en-architecture.svg">Open full-size diagram</a>. Scroll sideways on smaller screens.</figcaption>
+  <figcaption>How traffic, deployments and storage come together on Vertex. <a href="/diagrams/vertex/en-architecture.svg">Open full-size diagram</a>.</figcaption>
 </figure>
 
-### Kubernetes and GitOps
+### Building a platform I can operate
 
-Three RKE2 servers form the control plane with embedded etcd; a fourth node adds capacity for workloads. Rancher provides the management interface. Fleet reconciles platform components and application configurations from a private Git repository, with separate bundles for each service.
+Three nodes run the control plane and embedded etcd; a fourth adds capacity for applications. I use Rancher to manage the cluster and Fleet to reconcile each service from a private Git repository. GitHub Actions builds and scans application images, and verified digests are promoted into the deployment configuration.
 
-Applications run in their own namespaces with Kubernetes Services, health checks and resource settings. Credentials are provisioned separately from Git. GitHub Actions builds and scans application images before publishing them to GHCR; verified image digests are promoted into the Fleet configuration and deployed by Kubernetes.
+For public traffic, Traefik routes requests through Kubernetes Gateway API. cert-manager handles certificate issuance, while ExternalDNS and Route 53 manage selected DNS records. Existing sites keep their CloudFront distributions and protected origins.
 
-### Persistent volumes and object storage
+### Bringing the data with me
 
-Longhorn provides replicated persistent volumes for application files and databases. I tested moving a disposable workload between nodes and reading back the data after its volume was attached. The platform uses three replicas for these volumes, while applications can retain a single active database or service instance where their data model requires it.
+The move was more than replacing containers. Paperless documents, password vaults, CMS databases and application files all needed to arrive intact. I stopped each old writer for the final transfer, restored the data on Vertex and checked the result against its source. For Paperless, that included comparing the original files by checksum; for object storage, it included checksum verification and application-level reads.
 
-For S3-compatible object storage, I added Garage to the cluster and migrated application files into separate private buckets with scoped credentials. Fortuna stores documents there, Kontor2 uses signed uploads and downloads, and Remise separates its application records from media access. Rendant uses its own bucket. This brings object storage into the same platform while keeping each application's access separate.
+Longhorn now supplies replicated volumes for application files and databases. I tested a volume by moving a disposable workload between nodes and reading back what it had written. For applications that need object storage, I added Garage and migrated their files into private S3-compatible buckets with separate credentials. Kontor2 uses signed uploads and downloads, while Remise keeps its records and media access separate.
 
-### Public routing and certificates
+### From migration to daily use
 
-Traefik serves a Kubernetes Gateway with HTTPRoutes. cert-manager obtains certificates using DNS validation, and ExternalDNS manages selected Route 53 records. Health-checked DNS directs public traffic to the ingress nodes. Existing website domains continue through CloudFront with origin verification at the gateway.
+Vertex is where I now run both personal tools and software used by real organisations. That changed how I approached the final details: existing hostnames and media paths had to keep working, releases needed a repeatable path from source to cluster, and health checks had to reflect whether an application was actually ready.
 
-### Moving real workloads
+One example is Kontor2: I separated the process liveness check from dependency-aware readiness, so a slow database does not automatically cause the application to be restarted. Paperless also runs its document AI adapter inside the cluster.
 
-I migrated Paperless, Vaultwarden, Umami and three CMS sites from the original host, then moved applications and databases from Railway. Each migration followed the needs of its data and public interfaces: stop the old writer, transfer and restore the data, update the route, and verify the result.
-
-The checks were specific to each service. Paperless originals were compared by checksum, restored databases were checked against their source, and object migrations used checksums and application-level reads. Existing public hostnames and media paths were preserved where needed. The old application volumes on the original host were later removed after the migrations.
-
-### Operating the platform
-
-Running the applications together also means treating their health checks and delivery as part of the product. I separated liveness from dependency-aware readiness for Kontor2, so a slow database does not automatically imply that its application process needs a restart. Paperless document processing uses an in-cluster AI adapter alongside its normal document workflow.
-
-Vertex combines infrastructure engineering with the practical work of moving and operating real applications. The infrastructure configuration is private; the [website application build sources](https://github.com/Paul1404/web-services) are public.
+The result is a platform I use to build, deploy and operate my own services, with the application and infrastructure work treated as one project. The infrastructure repository is private; the [website application build sources](https://github.com/Paul1404/web-services) are public.
