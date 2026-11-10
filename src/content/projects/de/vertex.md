@@ -30,8 +30,8 @@ Meine Websites und Anwendungen waren ihrem ursprünglichen Zuhause entwachsen: e
 
 Heute läuft Vertex auf vier RKE2-Knoten mit openSUSE Leap. Dort betreibe ich eigene Anwendungen wie Kontor2, Rendant, Kataster, Fortuna und Remise, daneben Paperless, Vaultwarden und mehrere Websites. Mein Maildienst bleibt auf einem eigenen Host.
 
-<figure class="mail-diagram">
-  <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Architektur der Vertex-Plattform. Auf kleinen Bildschirmen seitlich scrollen.">
+<figure class="mail-diagram vertex-diagram">
+  <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Architektur der Vertex-Plattform.">
     <img src="/diagrams/vertex/de-architecture.svg" alt="Vertex-Architektur mit öffentlichem Routing, Fleet-Abgleich, Garage-Objektspeicher und Longhorn-Volumes auf vier RKE2-Knoten." width="615" height="1099" loading="lazy" decoding="async" />
   </div>
   <figcaption>So greifen Zugriff, Deployments und Speicher auf Vertex ineinander. <a href="/diagrams/vertex/de-architecture.svg">Diagramm vergrößern</a>.</figcaption>
@@ -41,9 +41,12 @@ Heute läuft Vertex auf vier RKE2-Knoten mit openSUSE Leap. Dort betreibe ich ei
 
 Drei Knoten betreiben die Control Plane und das eingebettete etcd; ein vierter ergänzt Kapazität für Anwendungen. Ich verwalte den Cluster mit Rancher. Fleet gleicht die Dienste mit einem privaten Git-Repository ab. GitHub Actions baut und prüft die Anwendungsimages. Geprüfte Digests werden anschließend in die Deployment-Konfiguration übernommen.
 
-<figure class="mail-diagram">
-  <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Ablauf der Anwendungsbereitstellung. Auf kleinen Bildschirmen seitlich scrollen.">
-    <img src="/diagrams/vertex/de-delivery.svg" alt="Anwendungscode gelangt über GitHub Actions und GHCR zu Fleet und einem Kubernetes-Workload." width="1128" height="93" loading="lazy" decoding="async" />
+<figure class="mail-diagram vertex-diagram">
+  <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Ablauf der Anwendungsbereitstellung.">
+    <picture>
+      <source media="(max-width: 600px)" srcset="/diagrams/vertex/de-delivery-mobile.svg" />
+      <img src="/diagrams/vertex/de-delivery.svg" alt="Anwendungscode gelangt über GitHub Actions und GHCR zu Fleet und einem Kubernetes-Workload." width="552" height="111" loading="lazy" decoding="async" />
+    </picture>
   </div>
   <figcaption>Von der geprüften Quellcodeänderung zum laufenden Dienst. <a href="/diagrams/vertex/de-delivery.svg">Diagramm vergrößern</a>.</figcaption>
 </figure>
@@ -66,9 +69,9 @@ Der Umzug bestand nicht nur darin, Container auszutauschen. Paperless-Dokumente,
 
 Longhorn stellt heute replizierte Volumes für Anwendungsdateien und Datenbanken bereit. Mit einem Testvolume habe ich eine Anwendung zwischen Knoten verschoben und ihre Daten anschließend zurückgelesen. Für Anwendungen mit Objektspeicher habe ich Garage integriert und die Dateien in private S3-kompatible Buckets mit getrennten Zugangsdaten migriert. Kontor2 nutzt signierte Uploads und Downloads, Remise trennt den Zugriff auf Anwendungsdaten und Medien.
 
-<figure class="mail-diagram">
-  <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Architektur der persistenten Daten. Auf kleinen Bildschirmen seitlich scrollen.">
-    <img src="/diagrams/vertex/de-storage.svg" alt="Anwendungen nutzen Longhorn für Datenbank- und Dateivolumes sowie Garage-Objektspeicher, mit drei Longhorn-Volume-Replikaten." width="788" height="510" loading="lazy" decoding="async" />
+<figure class="mail-diagram vertex-diagram">
+  <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Architektur der persistenten Daten.">
+    <img src="/diagrams/vertex/de-storage.svg" alt="Anwendungen nutzen Longhorn für Datenbank- und Dateivolumes sowie Garage-Objektspeicher, mit drei Longhorn-Volume-Replikaten." width="596" height="490" loading="lazy" decoding="async" />
   </div>
   <figcaption>Anwendungsdaten, Objektspeicher und replizierte Volumes. <a href="/diagrams/vertex/de-storage.svg">Diagramm vergrößern</a>.</figcaption>
 </figure>
