@@ -1,0 +1,7 @@
+flowchart TB
+  accTitle: Anwendungsbereitstellung auf Vertex
+  accDescr: GitHub Actions baut, testet und prüft Quellcodeänderungen. Geprüfte Images werden in GHCR veröffentlicht und ihre Digests in das private Fleet-Repository übernommen. Fleet gleicht Kubernetes-Workloads ab.
+  Build["GitHub Actions<br/>Build, Test und Scan"]:::source --> Image["GHCR<br/>geprüfter Image-Digest"]:::storage --> Deploy["Fleet + Kubernetes<br/>Workload abgleichen"]:::gateway
+  classDef source fill:#fff7ed,stroke:#fdba74,color:#7c2d12,stroke-width:1.5px
+  classDef storage fill:#dcfce7,stroke:#86b99e,color:#14532d,stroke-width:1.5px
+  classDef gateway fill:#3730a3,stroke:#312e81,color:#ffffff,stroke-width:2px

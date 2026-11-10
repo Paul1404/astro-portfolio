@@ -30,8 +30,8 @@ My websites and applications had outgrown their original home: a single server c
 
 Today Vertex runs across four RKE2 nodes on openSUSE Leap. It hosts my own applications, including Kontor2, Rendant, Kataster, Fortuna and Remise, alongside Paperless, Vaultwarden and several websites. My mail service remains on its own host.
 
-<figure class="mail-diagram">
-  <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Vertex platform architecture. Scroll sideways on smaller screens.">
+<figure class="mail-diagram vertex-diagram">
+  <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Vertex platform architecture.">
     <img src="/diagrams/vertex/en-architecture.svg" alt="Vertex architecture showing public routing, Fleet reconciliation, Garage object storage and Longhorn volumes on four RKE2 nodes." width="615" height="1036" loading="lazy" decoding="async" />
   </div>
   <figcaption>How traffic, deployments and storage come together on Vertex. <a href="/diagrams/vertex/en-architecture.svg">Open full-size diagram</a>.</figcaption>
@@ -41,9 +41,12 @@ Today Vertex runs across four RKE2 nodes on openSUSE Leap. It hosts my own appli
 
 Three nodes run the control plane and embedded etcd; a fourth adds capacity for applications. I use Rancher to manage the cluster and Fleet to reconcile each service from a private Git repository. GitHub Actions builds and scans application images, and verified digests are promoted into the deployment configuration.
 
-<figure class="mail-diagram">
-  <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Application delivery flow. Scroll sideways on smaller screens.">
-    <img src="/diagrams/vertex/en-delivery.svg" alt="Application source passes through GitHub Actions and GHCR into Fleet and a Kubernetes workload." width="1128" height="110" loading="lazy" decoding="async" />
+<figure class="mail-diagram vertex-diagram">
+  <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Application delivery flow.">
+    <picture>
+      <source media="(max-width: 600px)" srcset="/diagrams/vertex/en-delivery-mobile.svg" />
+      <img src="/diagrams/vertex/en-delivery.svg" alt="Application source passes through GitHub Actions and GHCR into Fleet and a Kubernetes workload." width="552" height="110" loading="lazy" decoding="async" />
+    </picture>
   </div>
   <figcaption>From a reviewed source change to a running workload. <a href="/diagrams/vertex/en-delivery.svg">Open full-size diagram</a>.</figcaption>
 </figure>
@@ -66,9 +69,9 @@ The move was more than replacing containers. Paperless documents, password vault
 
 Longhorn now supplies replicated volumes for application files and databases. I tested a volume by moving a disposable workload between nodes and reading back what it had written. For applications that need object storage, I added Garage and migrated their files into private S3-compatible buckets with separate credentials. Kontor2 uses signed uploads and downloads, while Remise keeps its records and media access separate.
 
-<figure class="mail-diagram">
-  <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Persistent data architecture. Scroll sideways on smaller screens.">
-    <img src="/diagrams/vertex/en-storage.svg" alt="Applications use Longhorn for database and file volumes and Garage object storage, with three Longhorn volume replicas." width="788" height="509" loading="lazy" decoding="async" />
+<figure class="mail-diagram vertex-diagram">
+  <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Persistent data architecture.">
+    <img src="/diagrams/vertex/en-storage.svg" alt="Applications use Longhorn for database and file volumes and Garage object storage, with three Longhorn volume replicas." width="596" height="489" loading="lazy" decoding="async" />
   </div>
   <figcaption>Application data, object storage and replicated volumes. <a href="/diagrams/vertex/en-storage.svg">Open full-size diagram</a>.</figcaption>
 </figure>
