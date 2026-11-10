@@ -28,7 +28,7 @@ screenshot:
 
 My websites and applications had outgrown their original home: a single server carrying everything from a document archive to club administration. I built Vertex to bring those services onto a platform I could operate and extend myself, then moved the applications and their data without asking users to learn new addresses or workflows.
 
-Today Vertex runs across four RKE2 nodes on openSUSE Leap. It hosts my own applications, including Kontor2, Rendant, Kataster, Fortuna and Remise, alongside Paperless, Vaultwarden and several websites. My mail service remains on its own host.
+Today Vertex runs across four RKE2 nodes on openSUSE Leap. It hosts my own applications, including [Kontor2](/projects/kontor2/), [Rendant](/projects/rendant/), [Kataster](/projects/kataster/), [Fortuna](/projects/fortuna/) and [Remise](/projects/remise/), alongside Paperless, Vaultwarden and several websites. My mail service remains on its own host.
 
 <figure class="mail-diagram vertex-diagram">
   <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Vertex platform architecture.">
@@ -87,4 +87,12 @@ One example is Kontor2: I separated the process liveness check from dependency-a
   <figcaption>The cluster dashboard during day-to-day operation. Production snapshot, November 2026.</figcaption>
 </figure>
 
-The result is a platform I use to build, deploy and operate my own services, with the application and infrastructure work treated as one project. The infrastructure repository is private; the [website application build sources](https://github.com/Paul1404/web-services) are public.
+The result is a platform I use to build, deploy and operate my own services, with the application and infrastructure work treated as one project. The infrastructure repository is private. The application source and platform documentation provide a closer look at the components behind it.
+
+Live products: [Kontor2](https://kontor2.com), [Rendant](https://rendant.sv-untereuerheim.de) and [Remise](https://app.remise.pdcd.net).
+
+### Source and references
+
+- Application source: [Kontor2](https://github.com/Paul1404/kontor2), [Rendant](https://github.com/Paul1404/rendant), [Kataster](https://github.com/Paul1404/kataster), [Fortuna](https://github.com/Paul1404/fortuna) and [website builds](https://github.com/Paul1404/web-services).
+- Platform documentation: [RKE2](https://docs.rke2.io/), [Rancher Fleet](https://fleet.rancher.io/), [Longhorn](https://longhorn.io/docs/) and [Garage](https://garagehq.deuxfleurs.fr/).
+- Routing and automation: [Kubernetes Gateway API](https://gateway-api.sigs.k8s.io/), [cert-manager](https://cert-manager.io/docs/) and [ExternalDNS](https://kubernetes-sigs.github.io/external-dns/).

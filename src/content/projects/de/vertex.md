@@ -28,7 +28,7 @@ screenshot:
 
 Meine Websites und Anwendungen waren ihrem ursprünglichen Zuhause entwachsen: einem einzelnen Server, auf dem vom Dokumentenarchiv bis zur Vereinsverwaltung alles zusammenlief. Mit Vertex habe ich eine Plattform aufgebaut, die ich selbst betreiben und erweitern kann. Anschließend habe ich die Anwendungen samt Daten umgezogen, ohne dass Nutzer neue Adressen oder Abläufe lernen mussten.
 
-Heute läuft Vertex auf vier RKE2-Knoten mit openSUSE Leap. Dort betreibe ich eigene Anwendungen wie Kontor2, Rendant, Kataster, Fortuna und Remise, daneben Paperless, Vaultwarden und mehrere Websites. Mein Maildienst bleibt auf einem eigenen Host.
+Heute läuft Vertex auf vier RKE2-Knoten mit openSUSE Leap. Dort betreibe ich eigene Anwendungen wie [Kontor2](/de/projects/kontor2/), [Rendant](/de/projects/rendant/), [Kataster](/de/projects/kataster/), [Fortuna](/de/projects/fortuna/) und [Remise](/de/projects/remise/), daneben Paperless, Vaultwarden und mehrere Websites. Mein Maildienst bleibt auf einem eigenen Host.
 
 <figure class="mail-diagram vertex-diagram">
   <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Architektur der Vertex-Plattform.">
@@ -87,4 +87,12 @@ Ein Beispiel ist Kontor2: Die Liveness-Prüfung ist von der Bereitschaftsprüfun
   <figcaption>Das Cluster-Dashboard im laufenden Betrieb. Aufnahme aus dem Betrieb, November 2026.</figcaption>
 </figure>
 
-Das Ergebnis ist eine Plattform, auf der ich meine Dienste entwickle, bereitstelle und betreibe. Anwendung und Infrastruktur gehören dabei zum selben Projekt. Das Infrastruktur-Repository ist privat; die [Build-Quellen der Website-Anwendungen](https://github.com/Paul1404/web-services) sind öffentlich.
+Das Ergebnis ist eine Plattform, auf der ich meine Dienste entwickle, bereitstelle und betreibe. Anwendung und Infrastruktur gehören dabei zum selben Projekt. Das Infrastruktur-Repository ist privat. Die Anwendungsquellen und Plattformdokumentation zeigen die Bausteine dahinter.
+
+Live-Anwendungen: [Kontor2](https://kontor2.com), [Rendant](https://rendant.sv-untereuerheim.de) und [Remise](https://app.remise.pdcd.net).
+
+### Quellcode und Referenzen
+
+- Anwendungsquellen: [Kontor2](https://github.com/Paul1404/kontor2), [Rendant](https://github.com/Paul1404/rendant), [Kataster](https://github.com/Paul1404/kataster), [Fortuna](https://github.com/Paul1404/fortuna) und [Website-Builds](https://github.com/Paul1404/web-services).
+- Plattformdokumentation: [RKE2](https://docs.rke2.io/), [Rancher Fleet](https://fleet.rancher.io/), [Longhorn](https://longhorn.io/docs/) und [Garage](https://garagehq.deuxfleurs.fr/).
+- Routing und Automatisierung: [Kubernetes Gateway API](https://gateway-api.sigs.k8s.io/), [cert-manager](https://cert-manager.io/docs/) und [ExternalDNS](https://kubernetes-sigs.github.io/external-dns/).
