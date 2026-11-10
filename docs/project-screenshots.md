@@ -4,7 +4,8 @@ Application screenshots use real interfaces with fictional data. Project preview
 may also use the actual project's branding, licensed photography, or an
 accurate architecture diagram when explicitly requested. Captions identify
 those assets; do not present them as application screenshots or use private
-production account captures.
+production account captures except where the owner explicitly supplies and
+authorizes a specific view, as recorded below.
 
 | Asset | Source | Data boundary |
 | --- | --- | --- |
@@ -44,3 +45,12 @@ request, exported to WebP at quality88 with its1200x675 dimensions preserved.
 Both locales provide an explicit caption attributing Stalwart Labs, overriding
 the fictional-data screenshot caption. The image identifies the underlying
 software; it is not a screenshot of the deployed mail platform or an endorsement.
+
+## Vertex production views
+
+Paul supplied the Rancher Continuous Delivery, node list and cluster dashboard
+screenshots on 2026-11-10 and explicitly requested their publication. The
+WebP assets in `public/images/vertex/` are exact crops of the Rancher interface,
+resized to 1600 pixels. Desktop and browser chrome were excluded. Private node
+IP addresses remain visible at his explicit request. Captions identify these as
+production snapshots rather than fictional demo data.

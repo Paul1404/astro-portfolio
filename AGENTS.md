@@ -67,6 +67,10 @@ When requested, authentic project artwork or a documented architecture diagram
 may use the same image pipeline with
 a localized `screenshot.caption` and source recorded in that provenance document.
 Do not label brand artwork as a fictional-data application screenshot.
+The Vertex case study additionally uses owner-supplied Rancher production views
+under `public/images/vertex/`, cropped to the interface at his request. Captions
+identify them as production snapshots; private node addresses remain visible per
+his instruction. See `docs/project-screenshots.md`.
 
 ## Curation and motion
 

@@ -1,0 +1,12 @@
+flowchart LR
+  accTitle: Anwendungsbereitstellung auf Vertex
+  accDescr: Eine Änderung am Anwendungscode wird in GitHub Actions gebaut, getestet und geprüft. Verifizierte Images werden in GHCR veröffentlicht und ihre unveränderlichen Digests im privaten Fleet-Repository übernommen. Rancher Fleet gleicht Kubernetes-Workloads ab, deren Bereitschaft vor der Weiterleitung von Anfragen geprüft wird.
+  Source["App-Code<br/>Änderung + Review"]:::source --> CI["GitHub Actions<br/>Build + Test + Scan"]:::control
+  CI --> Image["GHCR<br/>geprüfter Image-Digest"]:::storage
+  Image --> Git["Fleet-Repository<br/>festgelegter Sollzustand"]:::source
+  Git --> Fleet["Rancher Fleet<br/>Abgleich"]:::control
+  Fleet --> K8s["Kubernetes<br/>Workload + Service"]:::gateway
+  classDef source fill:#fff7ed,stroke:#fdba74,color:#7c2d12,stroke-width:1.5px
+  classDef control fill:#eef2ff,stroke:#a5b4fc,color:#3730a3,stroke-width:1.5px
+  classDef storage fill:#dcfce7,stroke:#86b99e,color:#14532d,stroke-width:1.5px
+  classDef gateway fill:#3730a3,stroke:#312e81,color:#ffffff,stroke-width:2px

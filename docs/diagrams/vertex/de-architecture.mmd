@@ -1,16 +1,31 @@
 flowchart TB
-  accTitle: Architektur der Vertex-Plattform
-  accDescr: Bestehende Websites nutzen CloudFront, Anwendungen können das öffentliche Gateway direkt verwenden. Route 53 verteilt Anfragen an Ingress-Knoten. Traefik leitet an Anwendungen weiter, Fleet gleicht das private Git-Repository ab, Garage stellt Objektspeicher bereit und Longhorn repliziert Volumes im Cluster.
-  Users["Besucher und Betrieb"] --> Edge["CloudFront für bestehende Websites"]
-  Users --> DNS["Route 53 mit Health Checks"]
-  Edge --> DNS
-  DNS --> Gateway["Traefik Gateway API<br/>HTTPS-Routen"]:::focus
-  Gateway --> Apps["Websites, persönliche Anwendungen<br/>und Datenbanken"]
-  Git["Privates Repository mit Sollzustand"] --> Fleet["Rancher Fleet"] --> Apps
-  Cert["cert-manager + DNS-01"] --> Gateway
-  Apps --> Storage["Longhorn<br/>3 Replikate"]:::good
-  Apps --> Garage["Garage<br/>S3-kompatible Buckets"]
-  Garage --> Storage
-  Storage --> Nodes["Vier RKE2-Knoten<br/>drei Control-Plane-Server"]
-  classDef focus fill:#4f46e5,color:#ffffff,stroke:#3730a3,stroke-width:2px
-  classDef good fill:#ecfdf5,color:#14532d,stroke:#86b99e
+  accTitle: Datenverkehr und Plattformarchitektur von Vertex
+  accDescr: Besucher erreichen das Traefik-Gateway direkt über Route 53 oder bei bestehenden Websites über CloudFront. HTTPRoutes leiten zu isolierten Anwendungsdiensten. Rancher Fleet gleicht den Sollzustand ab; cert-manager und ExternalDNS verwalten ausgewählte Zertifikate und DNS-Einträge. Longhorn stellt replizierten Speicher bereit, Garage S3-kompatible Buckets.
+  Visitor([Besucher]):::person
+  subgraph edge["ÖFFENTLICHER ZUGRIFF"]
+    DNS["Route 53<br/>DNS mit Health Checks"]:::cloud
+    CDN["CloudFront<br/>bestehende Websites"]:::cloud
+  end
+  subgraph cluster["VERTEX / VIER RKE2-KNOTEN"]
+    GW["Traefik Gateway<br/>TLS + HTTPRoutes"]:::gateway
+    Apps["App-Namespaces<br/>Services + Workloads"]:::workload
+    Store["Longhorn<br/>replizierte Volumes"]:::storage
+    Garage["Garage<br/>private Objekt-Buckets"]:::storage
+    Fleet["Rancher Fleet<br/>Sollzustand abgleichen"]:::control
+    Cert["cert-manager + ExternalDNS<br/>Zertifikate und DNS-Auswahl"]:::control
+  end
+  Git["Privates Git-Repository<br/>Plattform + Anwendungen"]:::source
+  Visitor --> DNS
+  Visitor --> CDN --> GW
+  DNS --> GW --> Apps
+  Git --> Fleet -.-> Apps
+  Cert -.-> GW
+  Apps --> Store
+  Apps --> Garage --> Store
+  classDef person fill:#e0e7ff,stroke:#818cf8,color:#312e81,stroke-width:1.5px
+  classDef cloud fill:#eff6ff,stroke:#93c5fd,color:#1e3a5f,stroke-width:1.5px
+  classDef gateway fill:#3730a3,stroke:#312e81,color:#ffffff,stroke-width:2px
+  classDef workload fill:#ffffff,stroke:#94a3b8,color:#0f172a,stroke-width:1.5px
+  classDef storage fill:#dcfce7,stroke:#86b99e,color:#14532d,stroke-width:1.5px
+  classDef control fill:#eef2ff,stroke:#a5b4fc,color:#3730a3,stroke-width:1.5px
+  classDef source fill:#fff7ed,stroke:#fdba74,color:#7c2d12,stroke-width:1.5px
