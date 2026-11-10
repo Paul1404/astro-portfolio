@@ -1,12 +1,13 @@
 ---
 title: "Vertex Kubernetes Platform"
 publishDate: 2026-11-08 00:00:00
-description: "Eine RKE2-Plattform mit drei Knoten für Websites und persönliche Anwendungen, mit Fleet-Deployments, repliziertem Speicher und verwaltetem HTTPS und DNS."
+description: "Eine RKE2-Plattform mit vier Knoten für Websites und Anwendungen, mit Fleet, repliziertem Speicher, S3-kompatiblem Objektspeicher sowie automatisiertem HTTPS und DNS."
 stack:
   - RKE2
   - Kubernetes
   - Rancher Fleet
   - Longhorn
+  - Garage S3
   - Traefik
   - cert-manager
   - Amazon Route 53
@@ -25,43 +26,41 @@ screenshot:
   caption: "Offizielles Rancher-by-SUSE-Markenmotiv."
 ---
 
-Vertex ist die Kubernetes-Plattform, mit der ich meine Websites und persönlichen Anwendungen von einem zunehmend ausgelasteten Einzelserver auf drei Knoten verschoben habe. Sie läuft auf drei virtuellen Maschinen mit jeweils sechs vCPUs und 12 GB Arbeitsspeicher in einem privaten Netzwerk. Darauf betreibe ich WordPress- und REDAXO-Websites sowie Paperless, Vaultwarden, Umami und Monica CRM. Mein Maildienst bleibt getrennt.
+Vertex ist die Kubernetes-Plattform, auf der ich meine Websites, persönlichen Anwendungen und Vereinssoftware zusammengeführt habe. Vier virtuelle Maschinen mit jeweils sechs vCPUs und 12 GB Arbeitsspeicher betreiben openSUSE Leap und RKE2 in einem privaten Netzwerk. Auf der Plattform laufen WordPress- und REDAXO-Websites, Paperless, Vaultwarden und Monica CRM sowie Anwendungen wie Kontor2, Rendant, Kataster, Fortuna und Remise. Mein Stalwart-Maildienst bleibt auf einem eigenen Host.
 
-Das Projekt baut auf einem früheren Website-Deployment auf einem einzelnen Host auf. Dessen Release-Prozess war klar strukturiert, Anwendungen und Daten teilten sich aber eine Maschine. Vertex führt Konfiguration, Netzwerk und Speicher auf einer Plattform zusammen, die ich mit Kubernetes und Rancher verwalte.
+Aus einem Website-Deployment auf einem einzelnen Server ist eine Plattform für unterschiedliche Anwendungen mit gemeinsamer Bereitstellung, Netzwerk- und Speicherverwaltung entstanden. Ich habe die Infrastruktur entworfen und betreibe sie, die Anwendungen umgezogen und ihre Deployment-Pipelines angepasst.
 
 <figure class="mail-diagram">
   <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Architektur der Vertex-Plattform. Auf kleinen Bildschirmen seitlich scrollen.">
-    <img src="/diagrams/vertex/de-architecture.svg" alt="Vertex-Architektur mit öffentlichem Zugriff, Gateway-API-Routing, Fleet-Abgleich und Longhorn-Speicher auf drei RKE2-Knoten." width="552" height="825" loading="lazy" decoding="async" />
+    <img src="/diagrams/vertex/de-architecture.svg" alt="Vertex-Architektur mit öffentlichem Routing, Fleet-Abgleich, Garage-Objektspeicher und Longhorn-Volumes auf vier RKE2-Knoten." width="552" height="941" loading="lazy" decoding="async" />
   </div>
-  <figcaption>Öffentlicher Zugriff, Anwendungsbereitstellung und replizierter Speicher auf Vertex. <a href="/diagrams/vertex/de-architecture.svg">Diagramm vergrößern</a>. Auf kleinen Bildschirmen seitlich scrollen.</figcaption>
+  <figcaption>Öffentlicher Zugriff, Anwendungsbereitstellung und Speicher auf Vertex. <a href="/diagrams/vertex/de-architecture.svg">Diagramm vergrößern</a>. Auf kleinen Bildschirmen seitlich scrollen.</figcaption>
 </figure>
 
-### Eine Plattform mit drei Knoten
+### Kubernetes und GitOps
 
-Die Knoten habe ich mit openSUSE Leap und RKE2 eingerichtet. Für die Kommunikation innerhalb des Clusters nutzen sie das private Netzwerk. Alle drei Server beteiligen sich an der Control Plane und dem eingebetteten etcd. Rancher stellt die Verwaltungsoberfläche bereit; Fleet liest den Sollzustand aus einem privaten Repository.
+Drei RKE2-Server bilden die Control Plane mit eingebettetem etcd. Ein vierter Knoten ergänzt Kapazität für Workloads. Rancher stellt die Verwaltungsoberfläche bereit. Fleet gleicht Plattformkomponenten und Anwendungskonfigurationen aus einem privaten Git-Repository ab, mit getrennten Bundles für die einzelnen Dienste.
 
-Jede Anwendung besitzt einen eigenen Namespace, Services, Persistent Volume Claims und eine Deployment-Konfiguration. Zugangsdaten werden getrennt von Git bereitgestellt. Website-Releases werden in GitHub Actions gebaut und geprüft, als unveränderliche Images veröffentlicht und in das Fleet-Repository übernommen. Kubernetes lädt die festgelegten Images und gleicht die Workloads ab.
+Die Anwendungen laufen in eigenen Namespaces mit Kubernetes-Services, Health Checks und Ressourceneinstellungen. Zugangsdaten werden getrennt von Git bereitgestellt. GitHub Actions baut und prüft die Anwendungsimages, bevor sie in GHCR veröffentlicht werden. Geprüfte Image-Digests werden in die Fleet-Konfiguration übernommen und von Kubernetes bereitgestellt.
 
-### Speicher, der mit einer Anwendung umziehen kann
+### Persistente Volumes und Objektspeicher
 
-Zuvor lagen die Anwendungsdaten auf Volumes eines einzelnen Hosts. Auf Vertex stellt Longhorn persistente Volumes mit jeweils drei Replikaten über die Knoten hinweg bereit. Fällt ein Knoten aus, kann eine Anwendung auf einem anderen Knoten mit ihren Daten neu starten.
+Longhorn stellt replizierte persistente Volumes für Anwendungsdateien und Datenbanken bereit. Mit einem Testvolume habe ich geprüft, dass sich Daten nach dem Verschieben einer Anwendung auf einen anderen Knoten wieder lesen lassen. Die Volumes nutzen drei Replikate. Anwendungen und Datenbanken können dabei als einzelne aktive Instanz laufen, wenn ihr Datenmodell das verlangt.
 
-Das habe ich mit einem Testvolume geprüft: Daten, die auf einem Knoten geschrieben wurden, ließen sich nach dem Verschieben der Anwendung auf einem zweiten Knoten lesen. Replikation ersetzt kein externes Backup. Eine einzelne Anwendungs- oder Datenbankinstanz benötigt außerdem Zeit für Neustart und Volume-Anbindung. Beim ersten Umzug waren automatisierte externe Backups und deren Wiederherstellung noch offen.
+Für S3-kompatiblen Objektspeicher habe ich Garage in den Cluster integriert und Anwendungsdateien in getrennte private Buckets mit eigenen Zugangsdaten migriert. Fortuna speichert dort Dokumente, Kontor2 nutzt signierte Uploads und Downloads, und Remise trennt Anwendungsdaten vom Medienzugriff. Rendant verwendet einen eigenen Bucket. So liegt der Objektspeicher auf derselben Plattform, während der Zugriff je Anwendung getrennt bleibt.
 
-### HTTPS und Routing
+### Öffentliches Routing und Zertifikate
 
-Traefik stellt ein Kubernetes-Gateway mit HTTPRoutes bereit. cert-manager bezieht das Wildcard-Zertifikat über DNS-Validierung in Route 53; ExternalDNS verwaltet ausgewählte Anwendungsrecords. Drei Route-53-Health-Checks steuern die öffentlichen Edge-Adressen.
+Traefik stellt ein Kubernetes-Gateway mit HTTPRoutes bereit. cert-manager bezieht Zertifikate über DNS-Validierung, ExternalDNS verwaltet ausgewählte Route-53-Records. Health-geprüfte DNS-Einträge leiten öffentliche Anfragen an die Ingress-Knoten. Bestehende Website-Domains laufen weiterhin über CloudFront; das Gateway prüft den Origin-Zugang.
 
-Bestehende Website-Domains laufen weiterhin über CloudFront. Das Gateway prüft dabei den Origin-Zugang. Die DNS-Health-Checks zeigen, ob der Ingress erreichbar ist. Sie prüfen nicht die Gesundheit jeder einzelnen Anwendung dahinter. DNS-Caching beeinflusst zudem, wie schnell Clients einen nicht verfügbaren Knoten verlassen.
+### Umzug laufender Anwendungen
 
-### Der Umzug der Anwendungen
+Paperless, Vaultwarden, Umami und drei CMS-Websites habe ich vom ursprünglichen Host umgezogen. Danach folgten Anwendungen und Datenbanken von Railway. Der Ablauf richtete sich jeweils nach den Daten und öffentlichen Schnittstellen: alte schreibende Instanz stoppen, Daten übertragen und wiederherstellen, Routing umstellen und das Ergebnis prüfen.
 
-Paperless, Vaultwarden, Umami und die drei CMS-Websites habe ich einzeln umgezogen. Vor dem abschließenden Kopieren von Datenbanken und Dateien wurde jeweils die alte schreibende Anwendung gestoppt. Anschließend wurden die bestehenden öffentlichen Adressen auf Vertex umgestellt. Die alten Daten bleiben als gestoppte Wiederherstellungskopie erhalten.
+Die Prüfungen waren auf die Dienste abgestimmt. Paperless-Originaldateien wurden per Prüfsumme verglichen, wiederhergestellte Datenbanken mit ihren Quellen abgeglichen und Objekte per Prüfsumme sowie über Anwendungszugriffe geprüft. Öffentliche Hostnamen und Medienpfade blieben erhalten, wo sie benötigt wurden. Die alten Anwendungsvolumes auf dem ursprünglichen Host wurden nach den Migrationen entfernt.
 
-Die Prüfungen richteten sich nach den jeweiligen Daten: Die 285 Originaldateien aus Paperless wurden per Prüfsumme verglichen, die wiederhergestellte Vaultwarden-Datenbank enthielt weiterhin ihre Tresoreinträge und Umami seine sieben Website-Definitionen. Nach dem Umzug wurden die Website-Startseiten und die REDAXO-Anmeldeseite geprüft. Für eine Rückkehr zum alten Host müssten zunächst die seitdem auf Vertex entstandenen Änderungen übertragen werden.
+### Betrieb der Plattform
 
-### Was noch offen ist
+Zum gemeinsamen Betrieb gehören auch passende Health Checks und eine nachvollziehbare Bereitstellung. Für Kontor2 habe ich Liveness von der Prüfung der abhängigen Dienste getrennt. Eine langsame Datenbank führt damit nicht automatisch zum Neustart des Anwendungsprozesses. Paperless ergänzt seinen Dokumentenablauf um einen KI-Adapter innerhalb des Clusters.
 
-Drei Control-Plane-Mitglieder und replizierte Volumes bedeuten noch keinen unterbrechungsfreien Betrieb. Die meisten Anwendungen und Datenbanken laufen zunächst als einzelne Instanzen. Der RKE2-Registrierungsendpunkt hängt weiterhin von einem Knoten ab. Externe Backups, Verschlüsselung der neuen Anwendungsvolumes und Wiederherstellungstests bleiben wichtige nächste Schritte.
-
-Vertex ist für mich eine praktische Plattform, um einen Kubernetes-Stack zu lernen und zu betreiben, ohne die Grenzen einer kleinen Umgebung mit drei Knoten auszublenden. Die Infrastrukturkonfiguration ist privat; die [Build-Quellen der Website-Anwendungen](https://github.com/Paul1404/web-services) sind öffentlich.
+Vertex verbindet Infrastrukturarbeit mit dem Umzug und Betrieb realer Anwendungen. Die Infrastrukturkonfiguration ist privat; die [Build-Quellen der Website-Anwendungen](https://github.com/Paul1404/web-services) sind öffentlich.

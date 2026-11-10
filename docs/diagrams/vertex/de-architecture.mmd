@@ -1,6 +1,6 @@
 flowchart TB
   accTitle: Architektur der Vertex-Plattform
-  accDescr: Bestehende Websites nutzen CloudFront, Anwendungen können das öffentliche Gateway direkt verwenden. Route 53 verteilt Anfragen auf drei Knoten. Traefik leitet an Anwendungen weiter, Fleet gleicht das private Git-Repository ab und Longhorn repliziert Volumes über die Knoten.
+  accDescr: Bestehende Websites nutzen CloudFront, Anwendungen können das öffentliche Gateway direkt verwenden. Route 53 verteilt Anfragen an Ingress-Knoten. Traefik leitet an Anwendungen weiter, Fleet gleicht das private Git-Repository ab, Garage stellt Objektspeicher bereit und Longhorn repliziert Volumes im Cluster.
   Users["Besucher und Betrieb"] --> Edge["CloudFront für bestehende Websites"]
   Users --> DNS["Route 53 mit Health Checks"]
   Edge --> DNS
@@ -9,6 +9,8 @@ flowchart TB
   Git["Privates Repository mit Sollzustand"] --> Fleet["Rancher Fleet"] --> Apps
   Cert["cert-manager + DNS-01"] --> Gateway
   Apps --> Storage["Longhorn<br/>3 Replikate"]:::good
-  Storage --> Nodes["Drei RKE2-Knoten<br/>mit eingebettetem etcd"]
+  Apps --> Garage["Garage<br/>S3-kompatible Buckets"]
+  Garage --> Storage
+  Storage --> Nodes["Vier RKE2-Knoten<br/>drei Control-Plane-Server"]
   classDef focus fill:#4f46e5,color:#ffffff,stroke:#3730a3,stroke-width:2px
   classDef good fill:#ecfdf5,color:#14532d,stroke:#86b99e
