@@ -1,12 +1,13 @@
 ---
 title: "Vertex Kubernetes Platform"
 publishDate: 2026-11-08 00:00:00
-description: "A three-node RKE2 platform for websites and personal applications, with Fleet-driven deployments, replicated storage, and managed HTTPS and DNS."
+description: "A four-node RKE2 platform running websites and applications with Fleet, replicated storage, S3-compatible object storage, and automated HTTPS and DNS."
 stack:
   - RKE2
   - Kubernetes
   - Rancher Fleet
   - Longhorn
+  - Garage S3
   - Traefik
   - cert-manager
   - Amazon Route 53
@@ -25,43 +26,41 @@ screenshot:
   caption: "Official Rancher by SUSE brand artwork."
 ---
 
-Vertex is the Kubernetes platform I built to move my websites and personal applications off a single, increasingly busy server. It runs across three virtual machines, each with six vCPUs and 12 GB of memory, on a private network. The cluster hosts WordPress and REDAXO sites alongside Paperless, Vaultwarden, Umami and Monica CRM. My mail service remains separate.
+Vertex is the Kubernetes platform I built to bring my websites, personal applications and club software together. Four virtual machines, each with six vCPUs and 12 GB of memory, run openSUSE Leap and RKE2 on a private network. The platform hosts WordPress and REDAXO sites alongside Paperless, Vaultwarden, Monica CRM and applications such as Kontor2, Rendant, Kataster, Fortuna and Remise. My Stalwart mail service remains on its own host.
 
-The project followed an earlier single-host web deployment system. That system had a clear release process, but its workloads and their data shared one machine. Vertex moves the application configuration, networking and storage into a three-node platform that I can operate through Kubernetes and Rancher.
+The project grew from a single-server website deployment into a platform for operating a diverse set of applications with a shared approach to delivery, networking and storage. I designed and run the infrastructure, moved the workloads and adapted their deployment pipelines to the new environment.
 
 <figure class="mail-diagram">
   <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Vertex platform architecture. Scroll sideways on smaller screens.">
-    <img src="/diagrams/vertex/en-architecture.svg" alt="Vertex architecture showing public traffic, Gateway API routing, Fleet reconciliation and Longhorn storage across three RKE2 nodes." width="552" height="772" loading="lazy" decoding="async" />
+    <img src="/diagrams/vertex/en-architecture.svg" alt="Vertex architecture showing public routing, Fleet reconciliation, Garage object storage and Longhorn volumes on four RKE2 nodes." width="552" height="924" loading="lazy" decoding="async" />
   </div>
-  <figcaption>Public traffic, application delivery and replicated storage on Vertex. <a href="/diagrams/vertex/en-architecture.svg">Open full-size diagram</a>. Scroll sideways on smaller screens.</figcaption>
+  <figcaption>Public traffic, application delivery and storage on Vertex. <a href="/diagrams/vertex/en-architecture.svg">Open full-size diagram</a>. Scroll sideways on smaller screens.</figcaption>
 </figure>
 
-### A three-node platform
+### Kubernetes and GitOps
 
-I provisioned the nodes with openSUSE Leap and RKE2, using the private network for cluster communication. All three servers participate in the control plane and embedded etcd. Rancher provides the management interface, and Fleet pulls the desired state from a private repository.
+Three RKE2 servers form the control plane with embedded etcd; a fourth node adds capacity for workloads. Rancher provides the management interface. Fleet reconciles platform components and application configurations from a private Git repository, with separate bundles for each service.
 
-Each application has its own namespace, services, persistent volume claims and deployment configuration. Credentials are provisioned separately from Git. Website releases are built and checked in GitHub Actions, published as immutable images and promoted into the Fleet repository. Kubernetes then pulls the pinned images and reconciles the workloads.
+Applications run in their own namespaces with Kubernetes Services, health checks and resource settings. Credentials are provisioned separately from Git. GitHub Actions builds and scans application images before publishing them to GHCR; verified image digests are promoted into the Fleet configuration and deployed by Kubernetes.
 
-### Storage that can move with a workload
+### Persistent volumes and object storage
 
-The original applications used volumes local to one host. On Vertex, Longhorn provides persistent volumes with three replicas across the nodes. That gives a workload a path to restart on another node with its data when a node becomes unavailable.
+Longhorn provides replicated persistent volumes for application files and databases. I tested moving a disposable workload between nodes and reading back the data after its volume was attached. The platform uses three replicas for these volumes, while applications can retain a single active database or service instance where their data model requires it.
 
-I exercised this with a disposable volume: data written on one node was read after the workload was moved to another. Replication is not an offsite backup, and a single application or database replica still needs time to restart and attach its volume. At the initial cutover, offsite backup and restore automation remained work to complete.
+For S3-compatible object storage, I added Garage to the cluster and migrated application files into separate private buckets with scoped credentials. Fortuna stores documents there, Kontor2 uses signed uploads and downloads, and Remise separates its application records from media access. Rendant uses its own bucket. This brings object storage into the same platform while keeping each application's access separate.
 
-### HTTPS and service routing
+### Public routing and certificates
 
-Traefik exposes a Kubernetes Gateway and HTTPRoutes instead of a separate proxy container for every application. cert-manager obtains the wildcard certificate through Route 53 DNS validation, while ExternalDNS manages selected application records. Three Route 53 health checks control the public edge addresses.
+Traefik serves a Kubernetes Gateway with HTTPRoutes. cert-manager obtains certificates using DNS validation, and ExternalDNS manages selected Route 53 records. Health-checked DNS directs public traffic to the ingress nodes. Existing website domains continue through CloudFront with origin verification at the gateway.
 
-Existing website domains continue through CloudFront, with origin verification at the gateway. The DNS health checks establish that the ingress is reachable; they do not prove that every application behind it is healthy. DNS caching also affects how quickly clients move away from an unavailable node.
+### Moving real workloads
 
-### Moving the applications
+I migrated Paperless, Vaultwarden, Umami and three CMS sites from the original host, then moved applications and databases from Railway. Each migration followed the needs of its data and public interfaces: stop the old writer, transfer and restore the data, update the route, and verify the result.
 
-I moved Paperless, Vaultwarden, Umami and the three CMS sites individually. For each, the old writer was stopped before the final database and file transfer. The existing public addresses were then pointed at Vertex, and the old data was retained as a stopped recovery copy.
+The checks were specific to each service. Paperless originals were compared by checksum, restored databases were checked against their source, and object migrations used checksums and application-level reads. Existing public hostnames and media paths were preserved where needed. The old application volumes on the original host were later removed after the migrations.
 
-The checks matched the application to the type of data: Paperless's 285 originals were compared by checksum, Vaultwarden's restored database retained its vault entries, and Umami retained its seven website definitions. The website homepages and the REDAXO login page were checked after the move. A recovery back to the old host would require synchronising any changes made on Vertex first.
+### Operating the platform
 
-### What remains
+Running the applications together also means treating their health checks and delivery as part of the product. I separated liveness from dependency-aware readiness for Kontor2, so a slow database does not automatically imply that its application process needs a restart. Paperless document processing uses an in-cluster AI adapter alongside its normal document workflow.
 
-The cluster has three control-plane members and replicated volumes, but that is not a claim of uninterrupted service. Most applications and databases initially run as single replicas. The RKE2 registration endpoint still depends on one node, and offsite backups, encryption for the new application volumes and restore testing remain priorities.
-
-Vertex gives me a practical platform for learning and operating a more conventional Kubernetes stack, while keeping the limitations of a small three-node environment visible. The infrastructure configuration is private; the [website application build sources](https://github.com/Paul1404/web-services) are public.
+Vertex combines infrastructure engineering with the practical work of moving and operating real applications. The infrastructure configuration is private; the [website application build sources](https://github.com/Paul1404/web-services) are public.
