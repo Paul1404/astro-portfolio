@@ -157,6 +157,8 @@ main [id] { scroll-margin-top: 6rem; }
 .mail-diagram figcaption { margin-top: .75rem; font-size: .875rem; line-height: 1.6; }
 .mail-diagram img[src$="-migration.svg"] { min-width: 880px; }
 .vertex-diagram .mail-diagram-scroll img { min-width: 0; max-width: 100%; margin-inline: auto; }
+.vertex-diagram .mail-diagram-scroll img[src$="-backup.svg"] { max-width: 360px; }
+.vertex-diagram .mail-diagram-scroll img[src$="-recovery.svg"] { max-width: 320px; }
 .vertex-diagram picture img { max-width: 552px; }
 @media (max-width: 600px) { .vertex-diagram picture img { max-width: 240px; } }
 @media (min-width: 1200px) {

@@ -1,0 +1,22 @@
+---
+config:
+  markdownAutoWrap: false
+  flowchart:
+    minNodeWidth: 250
+    wrappingWidth: 280
+---
+flowchart TB
+  accTitle: Externe Vertex-Backups
+  accDescr: Datenbankexporte liegen vor dem täglichen Namespace-Backup auf eigenen Volumes. Velero erfasst Anwendungs- und Export-Volumes per Longhorn-CSI-Snapshot. Node Agents übertragen die Inhalte aus Vertex nach Backblaze B2. Garage hat zusätzlich einen Metadaten-Snapshot-Hook.
+  subgraph cluster["Vertex"]
+    Exports["Datenbankexporte<br/>PostgreSQL-Dumps + Rollen<br/>MariaDB-SQL"]:::step
+    Velero["Tägliche Namespace-Backups<br/>13 Apps + Garage<br/>Garage-Metadaten-Hook"]:::step
+    CSI["Longhorn-CSI-Snapshots<br/>Anwendungs- + Export-Volumes"]:::storage
+    Move["Velero Node Agents<br/>Snapshot-Inhalte übertragen"]:::step
+    Exports --> Velero --> CSI --> Move
+  end
+  B2[("Backblaze B2<br/>Externer Speicher<br/>30 Tage Aufbewahrung")]:::offsite
+  Move --> B2
+  classDef step fill:#ffffff,stroke:#94a3b8,color:#0f172a,stroke-width:1.5px
+  classDef storage fill:#dcfce7,stroke:#86b99e,color:#14532d,stroke-width:1.5px
+  classDef offsite fill:#eef2ff,stroke:#a5b4fc,color:#3730a3,stroke-width:1.5px

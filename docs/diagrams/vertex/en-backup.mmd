@@ -1,0 +1,22 @@
+---
+config:
+  markdownAutoWrap: false
+  flowchart:
+    minNodeWidth: 250
+    wrappingWidth: 280
+---
+flowchart TB
+  accTitle: Vertex offsite backups
+  accDescr: Database exports are saved to dedicated volumes before daily namespace backups. Velero captures application and export volumes using Longhorn CSI snapshots. Node agents move their contents out of Vertex to Backblaze B2. Garage also has a metadata snapshot hook.
+  subgraph cluster["Vertex"]
+    Exports["Database exports<br/>PostgreSQL dumps + roles<br/>MariaDB SQL"]:::step
+    Velero["Daily per-namespace backups<br/>13 apps + Garage<br/>Garage metadata pre-hook"]:::step
+    CSI["Longhorn CSI snapshots<br/>Application + export volumes"]:::storage
+    Move["Velero node agents<br/>Move snapshot contents"]:::step
+    Exports --> Velero --> CSI --> Move
+  end
+  B2[("Backblaze B2<br/>Offsite storage<br/>30-day retention")]:::offsite
+  Move --> B2
+  classDef step fill:#ffffff,stroke:#94a3b8,color:#0f172a,stroke-width:1.5px
+  classDef storage fill:#dcfce7,stroke:#86b99e,color:#14532d,stroke-width:1.5px
+  classDef offsite fill:#eef2ff,stroke:#a5b4fc,color:#3730a3,stroke-width:1.5px
