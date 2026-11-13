@@ -1,0 +1,20 @@
+---
+config:
+  markdownAutoWrap: false
+  flowchart:
+    minNodeWidth: 250
+    wrappingWidth: 280
+---
+flowchart TB
+  accTitle: Isolated application recovery
+  accDescr: Begin with read-only B2 access and recovery credentials from outside the cluster. Restore to fresh volumes in a default-deny namespace, import database exports, and verify data and application behavior before directing production traffic to the recovered application.
+  B2[("B2 backup + recovery keys<br/>Read-only backup access")]:::offsite
+  Isolate["Isolated recovery namespace<br/>Default-deny networking"]:::step
+  Restore["Restore fresh PVCs + secrets<br/>Keep production routes + jobs out"]:::storage
+  DB["Import database exports<br/>Compatible database version"]:::step
+  Test["Read files + objects<br/>Check data + application requests"]:::step
+  Cutover["Production cutover<br/>After application validation"]:::step
+  B2 --> Isolate --> Restore --> DB --> Test --> Cutover
+  classDef step fill:#ffffff,stroke:#94a3b8,color:#0f172a,stroke-width:1.5px
+  classDef storage fill:#dcfce7,stroke:#86b99e,color:#14532d,stroke-width:1.5px
+  classDef offsite fill:#eef2ff,stroke:#a5b4fc,color:#3730a3,stroke-width:1.5px

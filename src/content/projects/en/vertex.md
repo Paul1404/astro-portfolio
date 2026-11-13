@@ -1,13 +1,15 @@
 ---
 title: "Vertex Kubernetes Platform"
 publishDate: 2026-11-08 00:00:00
-description: "A four-node RKE2 platform running websites and applications with Fleet, replicated storage, S3-compatible object storage, and automated HTTPS and DNS."
+description: "A four-node RKE2 platform running websites and applications with Fleet, replicated storage, S3-compatible object storage, offsite backups, and automated HTTPS and DNS."
 stack:
   - RKE2
   - Kubernetes
   - Rancher Fleet
   - Longhorn
   - Garage S3
+  - Velero
+  - Backblaze B2
   - Traefik
   - cert-manager
   - Amazon Route 53
@@ -76,6 +78,34 @@ Longhorn now supplies replicated volumes for application files and databases. I 
   <figcaption>Application data, object storage and replicated volumes. <a href="/diagrams/vertex/en-storage.svg">Open full-size diagram</a>.</figcaption>
 </figure>
 
+### Backups and recovery
+
+Longhorn replicates volumes across nodes. Deleted files and bad database writes reach those replicas too. I added [Velero](https://velero.io/docs/v1.18/) with offsite storage in [Backblaze B2](https://www.backblaze.com/docs/cloud-storage-s3-compatible-api). Fleet manages daily backups of 13 application namespaces and Garage, with 30-day retention.
+
+Database export jobs run ahead of the namespace backups. PostgreSQL exports include the database dump and global roles; MariaDB produces SQL dumps. Those files live on separate export volumes that are backed up alongside application data. Velero takes Longhorn CSI snapshots, then its node agents move the contents to B2 using [CSI snapshot data movement](https://velero.io/docs/v1.18/csi-snapshot-data-movement/).
+
+<figure class="mail-diagram vertex-diagram">
+  <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Vertex offsite backup flow.">
+    <img src="/diagrams/vertex/en-backup.svg" alt="Database exports feed daily Velero backups. Longhorn CSI snapshots are read by node agents and copied out of Vertex to Backblaze B2 for 30 days." width="346" height="604" loading="lazy" decoding="async" />
+  </div>
+  <figcaption>From database exports and volume snapshots to an offsite copy. <a href="/diagrams/vertex/en-backup.svg">Open full-size diagram</a>.</figcaption>
+</figure>
+
+Garage needs its metadata and object data to agree. A pre-backup hook creates an online metadata snapshot before Velero captures its two volumes. I tested recovery while a synthetic object was being overwritten: the restored instance returned the unchanged reference object and a complete version of the overwritten object, with matching hashes. The monitor checks the metadata hook and limits the snapshot handoff window to nine minutes, below Garage's ten-minute delay before deleting unreferenced blocks.
+
+For restores, I start with a read-only B2 connection and an isolated namespace with default-deny networking. I restore volumes and secrets first, then import the database export into a compatible database and test the application. Production routes and scheduled jobs stay out of the test. The B2 credentials and Velero repository password have independent recovery copies outside the cluster. Fleet supplies deployment definitions; RKE2's local etcd snapshots cover control-plane recovery separately.
+
+<figure class="mail-diagram vertex-diagram">
+  <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Isolated application recovery sequence.">
+    <img src="/diagrams/vertex/en-recovery.svg" alt="Recovery reads B2 backups into fresh volumes in an isolated namespace, restores database roles and data, then checks files, objects and application requests before a production cutover." width="298" height="621" loading="lazy" decoding="async" />
+  </div>
+  <figcaption>The recovery sequence starts away from production traffic. <a href="/diagrams/vertex/en-recovery.svg">Open full-size diagram</a>.</figcaption>
+</figure>
+
+A DiaTrack restore into a separate local cluster recovered its volumes from B2 and all eight PostgreSQL tables in the `public` schema. I also restored Fortuna and Monica PostgreSQL exports and Wengertsberg's MariaDB export in isolated tests. Paperless AI's encrypted volume and key were recovered on Vertex; that encrypted restore still needs a full test on a new cluster.
+
+The backup health job checks recent exports, successful backups and a completed upload for every current volume. It flags partial failures, paused schedules and stale backups. An external AWS observer reads the health job's last successful run through Systems Manager and reports it to CloudWatch, so a stopped cluster check can raise an alarm too.
+
 ### From migration to daily use
 
 Vertex is where I now run both personal tools and software used by real organisations. That changed how I approached the final details: existing hostnames and media paths had to keep working, releases needed a repeatable path from source to cluster, and health checks had to reflect whether an application was actually ready.
@@ -93,6 +123,7 @@ Live products: [Kontor2](https://kontor2.com), [Rendant](https://rendant.sv-unte
 
 ### Source and references
 
-- Application source: [Kontor2](https://github.com/Paul1404/kontor2), [Rendant](https://github.com/Paul1404/rendant), [Kataster](https://github.com/Paul1404/kataster), [Fortuna](https://github.com/Paul1404/fortuna) and [website builds](https://github.com/Paul1404/web-services).
+- Application source: [Kontor2](https://github.com/Paul1404/kontor2), [Rendant](https://github.com/Paul1404/rendant), [Kataster](https://github.com/Paul1404/kataster), [Fortuna](https://github.com/Paul1404/fortuna) and [container builds](https://github.com/Paul1404/vertex-images).
 - Platform documentation: [RKE2](https://docs.rke2.io/), [Rancher Fleet](https://fleet.rancher.io/), [Longhorn](https://longhorn.io/docs/) and [Garage](https://garagehq.deuxfleurs.fr/).
 - Routing and automation: [Kubernetes Gateway API](https://gateway-api.sigs.k8s.io/), [cert-manager](https://cert-manager.io/docs/) and [ExternalDNS](https://kubernetes-sigs.github.io/external-dns/).
+- Backup and recovery: [Velero restore reference](https://velero.io/docs/v1.18/restore-reference/), [Garage recovery](https://garagehq.deuxfleurs.fr/documentation/operations/recovering/#corrupted_meta), [Backblaze B2](https://www.backblaze.com/docs/cloud-storage-s3-compatible-api) and [RKE2 etcd snapshots](https://docs.rke2.io/datastore/backup_restore).

@@ -1,0 +1,20 @@
+---
+config:
+  markdownAutoWrap: false
+  flowchart:
+    minNodeWidth: 250
+    wrappingWidth: 280
+---
+flowchart TB
+  accTitle: Isolierte Anwendungswiederherstellung
+  accDescr: Beginn mit lesendem B2-Zugriff und Wiederherstellungsschlüsseln von außerhalb des Clusters. Restore auf neue Volumes in einem Default-Deny-Namespace, Datenbankexport importieren und Daten sowie Anwendung vor der produktiven Umschaltung prüfen.
+  B2[("B2-Backup + Schlüsselkopien<br/>Lesender Backup-Zugriff")]:::offsite
+  Isolate["Isolierter Restore-Namespace<br/>Default-Deny-Netzwerkregeln"]:::step
+  Restore["Neue PVCs + Secrets herstellen<br/>Ohne produktive Routen + Jobs"]:::storage
+  DB["Datenbankexporte importieren<br/>Kompatible Datenbankversion"]:::step
+  Test["Dateien + Objekte lesen<br/>Daten + Anwendungszugriffe prüfen"]:::step
+  Cutover["Produktive Umschaltung<br/>Nach der Anwendungsprüfung"]:::step
+  B2 --> Isolate --> Restore --> DB --> Test --> Cutover
+  classDef step fill:#ffffff,stroke:#94a3b8,color:#0f172a,stroke-width:1.5px
+  classDef storage fill:#dcfce7,stroke:#86b99e,color:#14532d,stroke-width:1.5px
+  classDef offsite fill:#eef2ff,stroke:#a5b4fc,color:#3730a3,stroke-width:1.5px
