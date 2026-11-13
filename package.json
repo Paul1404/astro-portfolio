@@ -18,7 +18,7 @@
     "@iconify-json/lucide": "^1.2.151",
     "@jop-software/astro-cookieconsent": "^3.0.1",
     "@tailwindcss/typography": "^0.5.20",
-    "@tailwindcss/vite": "^4.3.3",
+    "@tailwindcss/vite": "^4.3.5",
     "astro": "^7.3.2",
     "astro-icon": "^1.2.0",
     "astro-robots-txt": "^1.0.0",
