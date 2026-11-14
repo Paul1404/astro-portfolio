@@ -1,12 +1,15 @@
 ---
 title: "PDCD Mail"
 publishDate: 2026-10-29 00:00:00
-description: "A production mail platform on Stalwart: 38 mailboxes across eight domains, migrated from Mailcow with existing credentials, routing, and mail clients preserved."
+description: "A Stalwart mail platform migrated from Mailcow to Kubernetes, preserving credentials and client names with three mail frontends, shared PostgreSQL storage and guarded collectors."
 stack:
   - Stalwart
   - Rust
   - Python
-  - Rocky Linux
+  - Kubernetes
+  - PostgreSQL
+  - Redis Sentinel
+  - HAProxy
   - Amazon SES
   - AWS CloudWatch
   - restic
@@ -25,32 +28,30 @@ screenshot:
   caption: "Official Stalwart brand image. Stalwart Labs."
 ---
 
-PDCD Mail is the mail infrastructure I operate for family, associations, and small organisations. I migrated 38 active mailboxes across eight domains from Mailcow to Stalwart on Rocky Linux, including shared mailboxes, aliases, forwarding rules, and six external mailbox collectors.
+PDCD Mail is the mail infrastructure I operate for family, associations, and small organisations. I first moved it from Mailcow to Stalwart, preserving saved passwords, shared mailbox access, aliases and external mailbox collection. I then moved the Stalwart backend from a single Linux host to [Vertex](/projects/vertex/), my four-node Kubernetes platform.
 
-The difficult part was continuity. Users already had working mail clients, saved credentials, and workflows built around the old server. Replacing the backend needed to preserve those relationships, including additional passwords used to give different people access to shared mailboxes.
+The second migration changed the storage and network architecture while keeping the client names `mail.pdcd.net` and `mx.pdcd.net`. Two Stalwart replicas now share PostgreSQL storage and Redis Sentinel; three separate nodes provide the public mail frontends.
 
 <figure class="mail-diagram">
   <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Production architecture. Scroll sideways on smaller screens.">
-    <img src="/diagrams/pdcd-mail/en-architecture.svg" alt="Production architecture: SMTP, client access, collectors, outbound delivery, and operations." width="753" height="634" loading="lazy" decoding="async" />
+    <img src="/diagrams/pdcd-mail/en-architecture.svg" alt="Mail architecture on Vertex: three HAProxy frontends, two Stalwart replicas, PostgreSQL, Redis and B2 backups." width="740" height="822" loading="lazy" decoding="async" />
   </div>
-  <figcaption>SMTP, client access, collectors, outbound delivery, and operations. <a href="/diagrams/pdcd-mail/en-architecture.svg">Open full-size diagram</a>. Scroll sideways on smaller screens.</figcaption>
+  <figcaption>Three node frontends, shared mail stores and offsite backups. <a href="/diagrams/pdcd-mail/en-architecture.svg">Open full-size diagram</a>. Scroll sideways on smaller screens.</figcaption>
 </figure>
 
-### Moving the service without resetting every client
+### Moving mail and its service identity
 
-I started with a pilot mailbox, verified real client use, and expanded the migration in batches. Mailbox data, authentication, outbound delivery, inbound filtering, and external collectors moved in separate steps so each change could be checked against the existing behaviour.
+The original Mailcow migration began with a pilot mailbox and continued in batches. Routing, sender permissions, forwarding and additional passwords moved with the mail. Stalwart took over IMAP, SMTP submission and Sieve natively; the temporary authentication gateways were removed.
 
-The finished platform serves IMAP, SMTP submission, and Sieve directly from Stalwart. Existing client hostnames remain usable alongside the new service name. Aliases, catch-all addresses, sender permissions, forwarding, and business-specific relay exceptions were carried over. Client discovery and Apple configuration profiles simplify new installations, with German language and Berlin time-zone defaults applied during provisioning.
+For the move to Vertex, I froze the old writer before the final native export and import. All 17 non-blob export files matched byte for byte, and 89,836 blobs passed the import checks. I rebuilt the full-text search index separately, then checked existing credentials, mailbox access and search on the new backend. The old writer remains fenced against restart so it cannot create a second, divergent mailbox store.
 
-The temporary migration proxies and credential gateways were subsequently removed. Mail flow was tested with the old Mailcow host shut down.
-
-On the Linux host, I configured encrypted mail storage and resolved an IPv6 routing fault at the provider's virtual gateway while keeping IPv4 delivery available. This work sits alongside the application migration: the replacement also needs working networking, certificate renewal, and unattended maintenance.
+Each of the three public frontends runs HAProxy on its own node with dedicated host ports. PROXY v2 carries the real client address and original destination port to Stalwart. I retained the original listener identities because mail-routing expressions depend on them. Mail HTTPS uses exact-SNI passthrough through Traefik. The existing DANE key association is preserved, while cert-manager renews the default certificate.
 
 <figure class="mail-diagram">
-  <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Staged handover. Scroll sideways on smaller screens.">
-    <img src="/diagrams/pdcd-mail/en-migration.svg" alt="Staged handover: From a pilot mailbox to native operation without permanent migration bridges." width="936" height="163" loading="lazy" decoding="async" />
+  <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Migration handover">
+    <img src="/diagrams/pdcd-mail/en-migration.svg" alt="From Mailcow to native Stalwart and shared storage on Vertex." width="936" height="128" loading="lazy" decoding="async" />
   </div>
-  <figcaption>From a pilot mailbox to native operation without permanent migration bridges. <a href="/diagrams/pdcd-mail/en-migration.svg">Open full-size diagram</a>. Scroll sideways on smaller screens.</figcaption>
+  <figcaption>From Mailcow to native Stalwart and shared storage on Vertex. <a href="/diagrams/pdcd-mail/en-migration.svg">Open full-size diagram</a>.</figcaption>
 </figure>
 
 ### Preserving passwords in native authentication
@@ -69,7 +70,7 @@ External mailbox collection required extra work. IMAP imports bypass the SMTP fi
 
 A constrained Codex CLI adapter runs a lightweight language model on bounded subject and body text and contributes a category and confidence to the existing spam score. It distinguishes phishing and scams from ordinary commercial newsletters. Confident harmful verdicts carry a strong penalty; ordinary marketing receives no AI penalty. The classifier cannot browse links or run tools, and the usage ledger stores token counts and timing rather than message content.
 
-Two parallel workers, a bounded queue, shared in-flight results, and a circuit breaker handle overlapping arrivals. A live three-message burst completed all classifications within 10.8 seconds. AI remains an additional signal: provider failures or sustained overload can leave SMTP filtering to the conventional rules, while collectors defer and retry.
+Two parallel workers, a bounded queue, shared in-flight results, and a circuit breaker handle overlapping arrivals. AI remains an additional signal: provider failures or sustained overload can leave SMTP filtering to the conventional rules, while collectors defer and retry.
 
 <figure class="mail-diagram">
   <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Filtering and failure paths. Scroll sideways on smaller screens.">
@@ -78,18 +79,22 @@ Two parallel workers, a bounded queue, shared in-flight results, and a circuit b
   <figcaption>Simplified flow. SMTP and collectors use separate implementations with shared protection principles. <a href="/diagrams/pdcd-mail/en-filtering.svg">Open full-size diagram</a>. Scroll sideways on smaller screens.</figcaption>
 </figure>
 
-### Delivery, trust, and recovery
+### Shared storage and delivery
 
-Ordinary outbound mail uses Amazon SES. Forwarded mail and specific relay exceptions retain separate delivery rules so they do not inherit inappropriate sender restrictions. SPF, DKIM, DMARC, DNSSEC, DANE, and certificate renewal form part of the delivery design.
+The pinned Stalwart image retains my legacy-password patch and includes PostgreSQL and Redis support. Three PostgreSQL instances on separate nodes hold structured data, message blobs and search data. CloudNativePG manages the primary and synchronous replication to a standby. Three Redis members with Sentinel provide shared transient state. Each member uses an encrypted, node-local Longhorn volume; replication belongs to PostgreSQL and Redis rather than a second layer of volume replicas.
 
-A stale DANE record exposed an important monitoring gap: a valid TLS certificate does not prove that a remote mail server will accept its key. I corrected the record and added a check against the certificate actually presented on SMTP port 25. Monitoring also covers submission, IMAP, storage, antivirus, collector freshness, and delivery backlog. An hourly external delivery probe verifies arrival in a real mailbox rather than stopping at a successful TCP connection.
+I tested the database and Redis failover paths with scoped network faults. Those tests verified promotion and retained test writes, but do not establish end-to-end mail availability during every failure.
 
-The CloudWatch setup reuses a shared dashboard and state-based alerts, with a small host-side publisher instead of frequent remote management commands. Automated patching includes scheduled Sunday reboots and a matching monitoring maintenance window.
+Amazon SES still carries most outbound mail. The remaining direct delivery now leaves through Vertex IPv4, using a common EHLO identity and matching SPF records. DNSSEC, DANE and automatic certificate renewal remain part of the design.
 
-Daily mailbox exports and recovery configuration are encrypted, compressed, and deduplicated with restic before upload to Backblaze B2. The initial backup was checked with an actual restore and content-hash comparison.
+### Collectors and recovery
+
+ClamAV, the constrained AI adapter and the external collectors now run on Vertex. The collectors have one active scheduler, with their checkpoints carried across from the old host. If a required classification is missing, collection defers and the original stays upstream. Moving the scheduler did not relax that guard.
+
+The new logical PostgreSQL backup is encrypted and deduplicated with restic in Backblaze B2. I read back the full baseline archive and compared its byte count and SHA-256 hash; daily backups are enabled. A complete SQL restore of that new archive has not yet been exercised. Archive integrity and database recovery are separate checks.
 
 ### Result
 
-The websites and applications now run on the separate [Vertex Kubernetes platform](/projects/vertex/); mail remains on its own host.
+Mail now shares the Vertex platform with my applications, while clients retain their established server names and credentials. The implementation replaces a single local mail store with shared database services and separates public connections from the mail replicas.
 
-The old Mailcow host can remain off. Stalwart handles the mailboxes, native authentication, routing, filtering, and client connections; the external collectors, monitoring, patching, and backups run independently of the retired platform. The project combines migration engineering, a targeted upstream-code modification, and the operational checks needed to keep a small production mail service dependable.
+The old host remains for its outgoing queue, cached client connections and remaining certificate and backup dependencies. External SMTP reachability is still under independent verification, and mail IPv6 is not published pending reachability checks. The completed backend and DNS migration therefore does not amount to a fully validated end-to-end availability claim.

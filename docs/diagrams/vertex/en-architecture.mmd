@@ -1,6 +1,6 @@
 flowchart TB
   accTitle: Vertex traffic and platform architecture
-  accDescr: Visitors reach the Traefik gateway either directly using Route 53 DNS or through CloudFront for existing websites. HTTPRoutes forward to isolated application services. Rancher Fleet reconciles the desired state; cert-manager and ExternalDNS manage selected certificates and records. Longhorn provides replicated persistent storage and Garage provides S3-compatible buckets.
+  accDescr: Visitors reach the Traefik gateway either directly using Route 53 DNS or through CloudFront for existing websites. HTTPRoutes forward to isolated application services. Rancher Fleet reconciles the desired state; cert-manager and ExternalDNS manage selected certificates and records. Longhorn provides replicated persistent storage and Garage provides S3-compatible buckets. Mail has three HAProxy frontends, two Stalwart replicas and natively replicated PostgreSQL and Redis stores.
   Visitor([Visitors]):::person
   subgraph edge["PUBLIC EDGE"]
     DNS["Route 53<br/>health-checked DNS"]:::cloud
@@ -8,6 +8,9 @@ flowchart TB
   end
   subgraph cluster["VERTEX / FOUR RKE2 NODES"]
     GW["Traefik Gateway<br/>TLS + HTTPRoutes"]:::gateway
+    MailEdge["Three mail frontends<br/>HAProxy + PROXY v2"]:::gateway
+    Mail["Two Stalwart replicas"]:::workload
+    MailDB["PostgreSQL + Redis Sentinel<br/>Native replication / encrypted volumes"]:::storage
     Apps["Application namespaces<br/>services + workloads"]:::workload
     Store["Longhorn<br/>replicated volumes"]:::storage
     Garage["Garage<br/>private object buckets"]:::storage
@@ -20,6 +23,8 @@ flowchart TB
   DNS --> GW --> Apps
   Git --> Fleet -.-> Apps
   Cert -.-> GW
+  DNS --> MailEdge --> Mail --> MailDB
+  Fleet -.-> Mail
   Apps --> Store
   Apps --> Garage --> Store
   classDef person fill:#e0e7ff,stroke:#818cf8,color:#312e81,stroke-width:1.5px

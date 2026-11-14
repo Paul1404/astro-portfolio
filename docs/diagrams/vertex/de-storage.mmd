@@ -1,7 +1,7 @@
 flowchart TB
-  accTitle: Persistente Daten auf Vertex
-  accDescr: Anwendungen nutzen Datenbanken und Dateien auf Longhorn<br/>Volumes, einige zusätzlich S3-kompatible Garage-Buckets. Auch Garage-Daten liegen auf Longhorn. Longhorn hält drei Volume-Replikate auf Cluster-Knoten.
-  Apps["Anwendungen"]:::workload
+  accTitle: Webanwendungsdaten auf Vertex
+  accDescr: Webanwendungen nutzen Datenbanken und Dateien auf Longhorn<br/>Volumes, einige zusätzlich S3-kompatible Garage-Buckets. Auch Garage-Daten liegen auf Longhorn. Longhorn hält drei Volume-Replikate auf Cluster-Knoten.
+  Apps["Webanwendungen"]:::workload
   DB["Datenbanken + Dateien"]:::workload
   Obj["Garage-Buckets<br/>getrennte Zugangsdaten je Anwendung"]:::storage
   Vol["Longhorn<br/>Volumes"]:::storage

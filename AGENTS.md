@@ -112,3 +112,8 @@ Vertex diagrams use bilingual Mermaid sources in `docs/diagrams/vertex` and
 committed SVGs in `public/diagrams/vertex`. Regenerate with
 `npm run diagrams:vertex`; keep the case study current and preserve the
 distinction between replicated storage and verified offsite backups.
+
+Mail now runs on Vertex. Keep web volume replication and Velero coverage separate
+from mail's native PostgreSQL/Redis replication and logical restic backups.
+Backend failover tests and archive hash readback do not establish end-to-end mail
+availability or a completed production SQL restore.

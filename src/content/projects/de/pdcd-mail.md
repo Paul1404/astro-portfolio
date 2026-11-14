@@ -1,12 +1,15 @@
 ---
 title: "PDCD Mail"
 publishDate: 2026-10-29 00:00:00
-description: "Eine produktive Mailplattform auf Stalwart: 38 Postfächer in acht Domains, von Mailcow migriert und mit bestehenden Zugangsdaten, Zustellregeln und Mailclients weiterbetrieben."
+description: "Eine Stalwart-Mailplattform, von Mailcow nach Kubernetes migriert: bestehende Zugangsdaten und Clientnamen, drei Mail-Frontends, gemeinsamer PostgreSQL-Speicher und abgesicherte Abholjobs."
 stack:
   - Stalwart
   - Rust
   - Python
-  - Rocky Linux
+  - Kubernetes
+  - PostgreSQL
+  - Redis Sentinel
+  - HAProxy
   - Amazon SES
   - AWS CloudWatch
   - restic
@@ -25,32 +28,30 @@ screenshot:
   caption: "Offizielles Stalwart-Markenmotiv. Stalwart Labs."
 ---
 
-PDCD Mail ist die Mailinfrastruktur, die ich für Familie, Vereine und kleinere Organisationen betreibe. Ich habe 38 aktive Postfächer in acht Domains von Mailcow auf Stalwart unter Rocky Linux migriert. Dazu gehörten gemeinsam genutzte Postfächer, Aliase, Weiterleitungen und sechs Abholjobs für externe Mailkonten.
+PDCD Mail ist die Mailinfrastruktur, die ich für Familie, Vereine und kleine Organisationen betreibe. Zuerst habe ich sie von Mailcow auf Stalwart umgestellt und dabei gespeicherte Passwörter, gemeinsame Postfachzugriffe, Aliase und externe Abholjobs erhalten. Danach habe ich das Stalwart-Backend von einem einzelnen Linux-Host auf [Vertex](/de/projects/vertex/), meine Kubernetes-Plattform mit vier Knoten, migriert.
 
-Die eigentliche Herausforderung war der Weiterbetrieb. Die Nutzer hatten eingerichtete Mailclients, gespeicherte Zugangsdaten und Arbeitsabläufe auf dem bisherigen Server. Der Wechsel musste diese Verbindungen erhalten, einschließlich zusätzlicher Passwörter, über die verschiedene Personen auf gemeinsame Postfächer zugreifen.
+Bei der zweiten Migration änderten sich Speicher- und Netzarchitektur. Die Clientnamen `mail.pdcd.net` und `mx.pdcd.net` blieben erhalten. Zwei Stalwart-Replikate nutzen heute gemeinsamen PostgreSQL-Speicher und Redis Sentinel; drei getrennte Knoten stellen die öffentlichen Mail-Frontends bereit.
 
 <figure class="mail-diagram">
   <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Produktionsarchitektur. Auf kleinen Bildschirmen seitlich scrollen.">
-    <img src="/diagrams/pdcd-mail/de-architecture.svg" alt="Produktionsarchitektur: SMTP, Clientzugriffe, Abholjobs, Versand und Betrieb." width="785" height="652" loading="lazy" decoding="async" />
+    <img src="/diagrams/pdcd-mail/de-architecture.svg" alt="Mailarchitektur auf Vertex: drei HAProxy-Frontends, zwei Stalwart-Replikate, PostgreSQL, Redis und B2-Backups." width="740" height="945" loading="lazy" decoding="async" />
   </div>
-  <figcaption>SMTP, Clientzugriffe, Abholjobs, Versand und Betrieb. <a href="/diagrams/pdcd-mail/de-architecture.svg">Diagramm vergrößern</a>. Auf kleinen Bildschirmen seitlich scrollen.</figcaption>
+  <figcaption>Drei Knoten-Frontends, gemeinsame Mailspeicher und externe Backups. <a href="/diagrams/pdcd-mail/de-architecture.svg">Diagramm vergrößern</a>. Auf kleinen Bildschirmen seitlich scrollen.</figcaption>
 </figure>
 
-### Migration mit bestehenden Clients
+### Postfächer und Dienstidentität umziehen
 
-Nach einem Pilotpostfach und der Prüfung mit tatsächlich genutzten Mailclients folgten weitere Postfächer in Gruppen. Postfachdaten, Anmeldung, ausgehender Versand, eingehende Filterung und externe Abholjobs wurden schrittweise umgestellt. Dadurch ließ sich jede Änderung am bisherigen Verhalten überprüfen.
+Die ursprüngliche Mailcow-Migration begann mit einem Pilotpostfach und wurde in Gruppen fortgesetzt. Routing, Absenderberechtigungen, Weiterleitungen und zusätzliche Passwörter zogen mit den Nachrichten um. Stalwart übernahm IMAP, SMTP-Submission und Sieve nativ; die vorübergehenden Anmelde-Gateways wurden entfernt.
 
-Auf der fertigen Plattform stellt Stalwart IMAP, SMTP-Submission und Sieve direkt bereit. Bestehende Servernamen funktionieren neben dem neuen Dienstnamen weiter. Aliase, Catch-all-Adressen, Absenderberechtigungen, Weiterleitungen und besondere Relay-Regeln wurden übernommen. Automatische Client-Erkennung und Apple-Konfigurationsprofile erleichtern die Neueinrichtung. Neue Konten erhalten beim Anlegen deutsche Spracheinstellungen und die Zeitzone Berlin.
+Für den Umzug auf Vertex habe ich die alte schreibende Instanz vor dem abschließenden nativen Export und Import eingefroren. Alle 17 Exportdateien außerhalb der Blob-Daten stimmten bytegenau überein, 89.836 Blobs bestanden die Importprüfung. Den Volltextindex habe ich separat neu aufgebaut und anschließend bestehende Zugangsdaten, Postfachzugriff und Suche auf dem neuen Backend geprüft. Die alte Instanz ist gegen einen Neustart gesperrt, damit kein zweiter, auseinanderlaufender Postfachbestand entsteht.
 
-Die vorübergehenden Migrationsproxies und Anmelde-Gateways wurden anschließend entfernt. Der Mailfluss wurde bei abgeschaltetem Mailcow-Server geprüft.
-
-Auf dem Linux-Host habe ich verschlüsselten Mailspeicher eingerichtet und einen IPv6-Routingfehler am virtuellen Gateway des Providers behoben, während die IPv4-Zustellung verfügbar blieb. Neben der Anwendungsmigration gehören damit auch Netzbetrieb, Zertifikatserneuerung und unbeaufsichtigte Wartung zum Projekt.
+Jedes der drei öffentlichen Frontends betreibt HAProxy auf einem eigenen Knoten mit dedizierten Host-Ports. PROXY v2 übergibt die tatsächliche Clientadresse und den ursprünglichen Zielport an Stalwart. Die bisherigen Listener-Identitäten habe ich erhalten, weil Mailrouting-Ausdrücke davon abhängen. Mail-HTTPS läuft mit exakter SNI-Zuordnung als Passthrough durch Traefik. Die bestehende DANE-Schlüsselzuordnung bleibt erhalten, cert-manager erneuert das Standardzertifikat.
 
 <figure class="mail-diagram">
-  <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Schrittweise Übergabe. Auf kleinen Bildschirmen seitlich scrollen.">
-    <img src="/diagrams/pdcd-mail/de-migration.svg" alt="Schrittweise Übergabe: Vom Pilotpostfach zur nativen Plattform ohne dauerhafte Migrationsbrücken." width="936" height="146" loading="lazy" decoding="async" />
+  <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Migrationsablauf">
+    <img src="/diagrams/pdcd-mail/de-migration.svg" alt="Von Mailcow zu nativem Stalwart und gemeinsamem Speicher auf Vertex." width="936" height="145" loading="lazy" decoding="async" />
   </div>
-  <figcaption>Vom Pilotpostfach zur nativen Plattform ohne dauerhafte Migrationsbrücken. <a href="/diagrams/pdcd-mail/de-migration.svg">Diagramm vergrößern</a>. Auf kleinen Bildschirmen seitlich scrollen.</figcaption>
+  <figcaption>Von Mailcow zu nativem Stalwart und gemeinsamem Speicher auf Vertex. <a href="/diagrams/pdcd-mail/de-migration.svg">Diagramm vergrößern</a>.</figcaption>
 </figure>
 
 ### Bestehende Passwörter in der nativen Anmeldung
@@ -69,7 +70,7 @@ Die externen Abholjobs brauchten einen eigenen Ansatz, weil IMAP-Importe die SMT
 
 Ein eingeschränkter Codex-CLI-Adapter übergibt begrenzte Betreff- und Nachrichtentexte an ein leichtgewichtiges Sprachmodell. Dessen Kategorie und Konfidenz ergänzen den bestehenden Spamscore. Das Modell unterscheidet Phishing und Betrugsversuche von gewöhnlichen kommerziellen Newslettern. Mit hoher Sicherheit als schädlich erkannte Nachrichten erhalten einen deutlichen Aufschlag, normale Werbung keinen KI-Aufschlag. Der Klassifikator kann weder Links aufrufen noch Werkzeuge ausführen. Die Nutzungsaufzeichnung enthält Tokenzahlen und Laufzeiten, keine Nachrichteninhalte.
 
-Zwei parallele Worker, eine begrenzte Warteschlange, gemeinsam genutzte Ergebnisse für gleichzeitige identische Anfragen und ein Circuit Breaker fangen Lastspitzen ab. Ein Live-Test mit drei gleichzeitigen Nachrichten war innerhalb von 10,8 Sekunden abgeschlossen. Die KI bleibt ein zusätzliches Signal: Bei Anbieterausfällen oder anhaltender Überlastung kann die SMTP-Filterung ohne KI-Urteil fortfahren; Abholjobs stellen die Verarbeitung zurück und versuchen es erneut.
+Zwei parallele Worker, eine begrenzte Warteschlange, gemeinsam genutzte Ergebnisse für gleichzeitige identische Anfragen und ein Circuit Breaker fangen Lastspitzen ab. Die KI bleibt ein zusätzliches Signal: Bei Anbieterausfällen oder anhaltender Überlastung kann die SMTP-Filterung ohne KI-Urteil fortfahren; Abholjobs stellen die Verarbeitung zurück und versuchen es erneut.
 
 <figure class="mail-diagram">
   <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Filterung und Fehlerpfade. Auf kleinen Bildschirmen seitlich scrollen.">
@@ -78,18 +79,22 @@ Zwei parallele Worker, eine begrenzte Warteschlange, gemeinsam genutzte Ergebnis
   <figcaption>Vereinfachter Ablauf. SMTP und Abholjobs nutzen getrennte Implementierungen mit gemeinsamen Schutzprinzipien. <a href="/diagrams/pdcd-mail/de-filtering.svg">Diagramm vergrößern</a>. Auf kleinen Bildschirmen seitlich scrollen.</figcaption>
 </figure>
 
-### Zustellung, Vertrauenskette und Wiederherstellung
+### Gemeinsamer Speicher und Versand
 
-Reguläre ausgehende Nachrichten werden über Amazon SES versendet. Weitergeleitete Nachrichten und besondere Relay-Fälle behalten eigene Zustellregeln, damit keine ungeeigneten Absenderbeschränkungen greifen. SPF, DKIM, DMARC, DNSSEC, DANE und automatische Zertifikatserneuerung gehören zum Zustellkonzept.
+Das fest gepinnte Stalwart-Image enthält meinen Patch für bestehende Passwörter sowie PostgreSQL- und Redis-Unterstützung. Drei PostgreSQL-Instanzen auf getrennten Knoten speichern strukturierte Daten, Nachrichten-Blobs und Suchdaten. CloudNativePG verwaltet die primäre Instanz und die synchrone Replikation zu einer Standby-Instanz. Drei Redis-Instanzen mit Sentinel stellen gemeinsame flüchtige Zustände bereit. Jede Instanz nutzt ein verschlüsseltes, knotenlokales Longhorn-Volume. PostgreSQL und Redis übernehmen die Replikation selbst.
 
-Ein veralteter DANE-Eintrag zeigte eine konkrete Überwachungslücke: Ein gültiges TLS-Zertifikat beweist noch nicht, dass ein fremder Mailserver dessen Schlüssel akzeptiert. Ich habe den Eintrag korrigiert und eine Prüfung gegen das tatsächlich auf SMTP-Port 25 ausgelieferte Zertifikat ergänzt. Weitere Checks erfassen Submission, IMAP, Speicherplatz, Virenschutz, Aktualität der Abholjobs und Zustellrückstände. Eine stündliche externe Testnachricht prüft die Ankunft in einem echten Postfach statt nur den erfolgreichen Verbindungsaufbau.
+Die Failover-Pfade von Datenbank und Redis habe ich mit gezielten Netzwerkfehlern getestet. Dabei wurden eine neue primäre Instanz gewählt und Testschreibvorgänge erhalten. Das belegt noch keine durchgängige Mailverfügbarkeit bei jedem Fehlerfall.
 
-Das CloudWatch-Monitoring nutzt ein gemeinsames Dashboard und zustandsbasierte Benachrichtigungen. Ein kleiner Dienst auf dem Host liefert die lokalen Prüfergebnisse, ohne ständig kostenpflichtige Fernverwaltungsbefehle auszulösen. Automatisches Patchen umfasst geplante Sonntagsneustarts und ein dazu passendes Wartungsfenster im Monitoring.
+Amazon SES übernimmt weiterhin den größten Teil des Versands. Die übrige direkte Zustellung läuft nun über Vertex-IPv4 mit gemeinsamer EHLO-Identität und passenden SPF-Einträgen. DNSSEC, DANE und automatische Zertifikatserneuerung bleiben Teil des Konzepts.
 
-Tägliche Postfachexporte und die für eine Wiederherstellung nötige Konfiguration werden mit restic verschlüsselt, komprimiert und dedupliziert bei Backblaze B2 gesichert. Die erste Sicherung wurde durch eine tatsächliche Wiederherstellung mit anschließendem Hashvergleich überprüft.
+### Abholjobs und Wiederherstellung
+
+ClamAV, der eingeschränkte KI-Adapter und die externen Abholjobs laufen jetzt auf Vertex. Die Abholjobs haben genau einen aktiven Scheduler; ihre Prüfstände wurden vom alten Host übernommen. Fehlt ein erforderliches Klassifikationsurteil, wird die Verarbeitung zurückgestellt und das Original bleibt beim Quellanbieter. Diese Schutzregel blieb beim Umzug erhalten.
+
+Das neue logische PostgreSQL-Backup wird mit restic verschlüsselt und dedupliziert bei Backblaze B2 gesichert. Das vollständige Basisarchiv habe ich zurückgelesen und Bytezahl sowie SHA-256-Hash verglichen. Tägliche Backups sind aktiviert. Ein vollständiger SQL-Restore dieses neuen Archivs wurde noch nicht durchgeführt. Archivintegrität und Datenbankwiederherstellung sind getrennte Prüfungen.
 
 ### Ergebnis
 
-Die Websites und Anwendungen laufen inzwischen auf der separaten [Kubernetes-Plattform Vertex](/de/projects/vertex/); der Maildienst bleibt auf seinem eigenen Host.
+Mail nutzt jetzt dieselbe Vertex-Plattform wie meine Anwendungen. Bestehende Servernamen und Zugangsdaten bleiben für die Clients erhalten. Gemeinsame Datenbankdienste ersetzen den einzelnen lokalen Mailspeicher; öffentliche Verbindungen und Mail-Replikate sind voneinander getrennt.
 
-Der alte Mailcow-Host kann abgeschaltet bleiben. Stalwart übernimmt Postfächer, native Anmeldung, Routing, Filterung und Clientverbindungen. Abholjobs, Monitoring, Patchmanagement und Backups laufen unabhängig von der abgelösten Plattform. Das Projekt verbindet Migration im laufenden Betrieb, eine gezielte Anpassung am Upstream-Code und die betrieblichen Prüfungen für einen verlässlichen kleinen Maildienst.
+Der alte Host bleibt für seine Versandwarteschlange, zwischengespeicherte Clientverbindungen sowie verbleibende Zertifikats- und Backup-Abhängigkeiten erhalten. Die externe SMTP-Erreichbarkeit wird noch unabhängig geprüft. Mail-IPv6 wird erst nach erfolgreichen Erreichbarkeitsprüfungen veröffentlicht. Die abgeschlossene Backend- und DNS-Migration belegt deshalb noch keine vollständig geprüfte Ende-zu-Ende-Verfügbarkeit.

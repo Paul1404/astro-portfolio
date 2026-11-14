@@ -1,11 +1,15 @@
 ---
 title: "Vertex Kubernetes Platform"
 publishDate: 2026-11-08 00:00:00
-description: "A four-node RKE2 platform running websites and applications with Fleet, replicated storage, S3-compatible object storage, offsite backups, and automated HTTPS and DNS."
+description: "A four-node RKE2 platform running websites, applications and Stalwart mail with Fleet, replicated storage, S3-compatible object storage, offsite backups, and automated HTTPS and DNS."
 stack:
   - RKE2
   - Kubernetes
   - Rancher Fleet
+  - PostgreSQL
+  - Redis Sentinel
+  - Stalwart
+  - HAProxy
   - Longhorn
   - Garage S3
   - Velero
@@ -30,11 +34,11 @@ screenshot:
 
 My websites and applications had outgrown their original home: a single server carrying everything from a document archive to club administration. I built Vertex to bring those services onto a platform I could operate and extend myself, then moved the applications and their data without asking users to learn new addresses or workflows.
 
-Today Vertex runs across four RKE2 nodes on openSUSE Leap. It hosts my own applications, including [Kontor2](/projects/kontor2/), [Rendant](/projects/rendant/), [Kataster](/projects/kataster/), [Fortuna](/projects/fortuna/) and [Remise](/projects/remise/), alongside Paperless, Vaultwarden and several websites. My mail service remains on its own host.
+Today Vertex runs across four RKE2 nodes on openSUSE Leap. It hosts my own applications, including [Kontor2](/projects/kontor2/), [Rendant](/projects/rendant/), [Kataster](/projects/kataster/), [Fortuna](/projects/fortuna/) and [Remise](/projects/remise/), alongside Paperless, Vaultwarden and several websites. [PDCD Mail](/projects/pdcd-mail/) now runs here too, with separate public mail frontends and shared database services.
 
 <figure class="mail-diagram vertex-diagram">
   <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Vertex platform architecture.">
-    <img src="/diagrams/vertex/en-architecture.svg" alt="Vertex architecture showing public routing, Fleet reconciliation, Garage object storage and Longhorn volumes on four RKE2 nodes." width="615" height="1036" loading="lazy" decoding="async" />
+    <img src="/diagrams/vertex/en-architecture.svg" alt="Vertex architecture showing separate web and mail routing, Fleet reconciliation, shared mail databases, Garage and Longhorn on four RKE2 nodes." width="643" height="1126" loading="lazy" decoding="async" />
   </div>
   <figcaption>How traffic, deployments and storage come together on Vertex. <a href="/diagrams/vertex/en-architecture.svg">Open full-size diagram</a>.</figcaption>
 </figure>
@@ -58,7 +62,7 @@ Three nodes run the control plane and embedded etcd; a fourth adds capacity for 
   <figcaption>Fleet's view of the platform and application bundles. Production snapshot, November 2026.</figcaption>
 </figure>
 
-For public traffic, Traefik routes requests through Kubernetes Gateway API. cert-manager handles certificate issuance, while ExternalDNS and Route 53 manage selected DNS records. Existing sites keep their CloudFront distributions and protected origins.
+For public web traffic, Traefik routes requests through Kubernetes Gateway API. cert-manager handles certificate issuance, while ExternalDNS and Route 53 manage selected DNS records. Existing sites keep their CloudFront distributions and protected origins.
 
 <figure class="vertex-screenshot">
   <a href="/images/vertex/nodes.webp"><img src="/images/vertex/nodes.webp" alt="Rancher node list showing three control-plane nodes and one worker in the Vertex cluster." width="1600" height="753" loading="lazy" decoding="async" /></a>
@@ -69,24 +73,34 @@ For public traffic, Traefik routes requests through Kubernetes Gateway API. cert
 
 The move was more than replacing containers. Paperless documents, password vaults, CMS databases and application files all needed to arrive intact. I stopped each old writer for the final transfer, restored the data on Vertex and checked the result against its source. For Paperless, that included comparing the original files by checksum; for object storage, it included checksum verification and application-level reads.
 
-Longhorn now supplies replicated volumes for application files and databases. I tested a volume by moving a disposable workload between nodes and reading back what it had written. For applications that need object storage, I added Garage and migrated their files into private S3-compatible buckets with separate credentials. Kontor2 uses signed uploads and downloads, while Remise keeps its records and media access separate.
+For the web applications, Longhorn supplies replicated volumes for files and databases. I tested a volume by moving a disposable workload between nodes and reading back what it had written. For applications that need object storage, I added Garage and migrated their files into private S3-compatible buckets with separate credentials. Kontor2 uses signed uploads and downloads, while Remise keeps its records and media access separate.
 
 <figure class="mail-diagram vertex-diagram">
-  <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Persistent data architecture.">
-    <img src="/diagrams/vertex/en-storage.svg" alt="Applications use Longhorn for database and file volumes and Garage object storage, with three Longhorn volume replicas." width="596" height="489" loading="lazy" decoding="async" />
+  <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Web application data architecture.">
+    <img src="/diagrams/vertex/en-storage.svg" alt="Web applications use Longhorn for database and file volumes and Garage object storage, with three Longhorn volume replicas." width="596" height="507" loading="lazy" decoding="async" />
   </div>
-  <figcaption>Application data, object storage and replicated volumes. <a href="/diagrams/vertex/en-storage.svg">Open full-size diagram</a>.</figcaption>
+  <figcaption>Web application data, object storage and replicated volumes. Mail uses native database replication. <a href="/diagrams/vertex/en-storage.svg">Open full-size diagram</a>.</figcaption>
 </figure>
+
+### Bringing Stalwart onto the platform
+
+Mail needed a different ingress and storage design from the web applications. Three separate nodes run HAProxy mail frontends, forwarding the real client IP and original destination port with PROXY v2. Two Stalwart replicas keep the existing listener identities and client hostnames. Mail HTTPS passes through Traefik by exact SNI; the original DANE key association is retained alongside cert-manager's automated default certificate.
+
+The pinned Stalwart build includes my native legacy-password compatibility patch. CloudNativePG manages three PostgreSQL instances with synchronous replication to a standby; they hold mail metadata, blobs and search data. Redis Sentinel manages three Redis members for transient shared state. Their encrypted Longhorn volumes each have one local copy, with PostgreSQL and Redis providing replication across nodes. This differs from the three-copy volumes used by the web applications.
+
+I froze the source writer before the final native export and import, checked the imported data and rebuilt search on Vertex. The collectors and their checkpoints moved under a single active scheduler, with ClamAV and the AI adapter also running in the cluster. Missing required classifications still defer imports and leave the originals upstream.
+
+Mail has a separate daily logical PostgreSQL backup through restic to B2. The complete baseline archive passed hash readback; a full SQL restore drill remains outstanding. The old host still supports queue drainage and transition dependencies. Public DNS now points at the Vertex frontends, but independent external SMTP verification remains open and mail IPv6 is not yet published. The [mail case study](/projects/pdcd-mail/) covers those boundaries in more detail.
 
 ### Backups and recovery
 
-Longhorn replicates volumes across nodes. Deleted files and bad database writes reach those replicas too. I added [Velero](https://velero.io/docs/v1.18/) with offsite storage in [Backblaze B2](https://www.backblaze.com/docs/cloud-storage-s3-compatible-api). Fleet manages daily backups of 13 application namespaces and Garage, with 30-day retention.
+For the web applications, Longhorn replicates volumes across nodes. Deleted files and bad database writes reach those replicas too. I added [Velero](https://velero.io/docs/v1.18/) with offsite storage in [Backblaze B2](https://www.backblaze.com/docs/cloud-storage-s3-compatible-api). Fleet manages daily backups of 13 application namespaces and Garage, with 30-day retention.
 
 Database export jobs run ahead of the namespace backups. PostgreSQL exports include the database dump and global roles; MariaDB produces SQL dumps. Those files live on separate export volumes that are backed up alongside application data. Velero takes Longhorn CSI snapshots, then its node agents move the contents to B2 using [CSI snapshot data movement](https://velero.io/docs/v1.18/csi-snapshot-data-movement/).
 
 <figure class="mail-diagram vertex-diagram">
   <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Vertex offsite backup flow.">
-    <img src="/diagrams/vertex/en-backup.svg" alt="Database exports feed daily Velero backups. Longhorn CSI snapshots are read by node agents and copied out of Vertex to Backblaze B2 for 30 days." width="346" height="604" loading="lazy" decoding="async" />
+    <img src="/diagrams/vertex/en-backup.svg" alt="Database exports feed daily Velero backups. Longhorn CSI snapshots are read by node agents and copied out of Vertex to Backblaze B2 for 30 days." width="346" height="605" loading="lazy" decoding="async" />
   </div>
   <figcaption>From database exports and volume snapshots to an offsite copy. <a href="/diagrams/vertex/en-backup.svg">Open full-size diagram</a>.</figcaption>
 </figure>
@@ -104,7 +118,7 @@ For restores, I start with a read-only B2 connection and an isolated namespace w
 
 A DiaTrack restore into a separate local cluster recovered its volumes from B2 and all eight PostgreSQL tables in the `public` schema. I also restored Fortuna and Monica PostgreSQL exports and Wengertsberg's MariaDB export in isolated tests. Paperless AI's encrypted volume and key were recovered on Vertex; that encrypted restore still needs a full test on a new cluster.
 
-The backup health job checks recent exports, successful backups and a completed upload for every current volume. It flags partial failures, paused schedules and stale backups. An external AWS observer reads the health job's last successful run through Systems Manager and reports it to CloudWatch, so a stopped cluster check can raise an alarm too.
+The backup health job checks recent exports, successful backups and a completed upload for every volume in its Velero backup scope. It flags partial failures, paused schedules and stale backups. An external AWS observer reads the health job's last successful run through Systems Manager and reports it to CloudWatch, so a stopped cluster check can raise an alarm too.
 
 ### From migration to daily use
 

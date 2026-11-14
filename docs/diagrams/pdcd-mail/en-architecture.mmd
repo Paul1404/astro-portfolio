@@ -1,15 +1,15 @@
 flowchart TB
-  accTitle: Production mail architecture
-  accDescr: Stalwart serves existing mail clients, receives SMTP and filtered collector imports, and routes outbound mail through SES or direct delivery. Encrypted storage is backed up to B2; host checks report to CloudWatch.
-  Incoming["Internet SMTP"] -->|SMTP / TLS| Core
-  Clients["Existing mail clients"] <-->|IMAP / Submission / Sieve| Core
-  Collectors["Six external collectors<br/>Malware + spam prefilter"] -->|IMAP import| Core
-  Core["Stalwart<br/>Native auth, aliases, routing, filtering"]:::core
-  Core -->|Ordinary outbound| SES["Amazon SES"]
-  Core -->|Relay exceptions + forwarding| Direct["Direct MX delivery"]
-  Core --> Store[("Encrypted mail storage")]:::store
-  Store --> Backup["restic → Backblaze B2<br/>Encrypted recovery copies"]:::store
-  Core -. Delivery + host checks .-> Monitor["AWS CloudWatch<br/>Protocols, DANE, collectors, delivery probe"]
+  accTitle: Mail architecture on Vertex
+  accDescr: Three HAProxy node frontends preserve client addresses and destination ports for two Stalwart replicas. PostgreSQL holds mail data; Redis Sentinel holds transient state. Collectors and helpers run on Vertex. Logical backups go to B2. Public SMTP reachability remains under independent verification.
+  Clients["SMTP + existing mail clients"] --> Edge["Three node frontends<br/>HAProxy / host ports"]
+  Edge -->|PROXY v2| Core["Two Stalwart replicas<br/>Native auth + original listeners"]:::core
+  Web["Mail HTTPS"] --> Traefik["Traefik<br/>Exact-SNI passthrough"] --> Core
+  Collect["Single-owner collectors<br/>ClamAV + constrained AI"] --> Core
+  Core --> DB[("Three PostgreSQL instances<br/>Mail data + blobs + search")]:::store
+  Core --> Redis["Three Redis members<br/>Sentinel"]:::store
+  DB --> Backup["Daily logical backup<br/>restic → B2 / hash readback"]:::store
+  Core --> SES["Amazon SES<br/>Most outbound mail"]
+  Core --> Direct["Vertex IPv4<br/>Direct delivery remainder"]
 
   classDef core fill:#d92650,color:#ffffff,stroke:#b91c45,stroke-width:2px
   classDef store fill:#eff6ff,color:#1e3a5f,stroke:#93b4d5
