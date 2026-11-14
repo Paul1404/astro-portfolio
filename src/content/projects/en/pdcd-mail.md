@@ -83,18 +83,16 @@ Two parallel workers, a bounded queue, shared in-flight results, and a circuit b
 
 The pinned Stalwart image retains my legacy-password patch and includes PostgreSQL and Redis support. Three PostgreSQL instances on separate nodes hold structured data, message blobs and search data. CloudNativePG manages the primary and synchronous replication to a standby. Three Redis members with Sentinel provide shared transient state. Each member uses an encrypted, node-local Longhorn volume; replication belongs to PostgreSQL and Redis rather than a second layer of volume replicas.
 
-I tested the database and Redis failover paths with scoped network faults. Those tests verified promotion and retained test writes, but do not establish end-to-end mail availability during every failure.
+I tested the database and Redis failover paths with scoped network faults. Both services promoted a new primary and retained the test writes.
 
 Amazon SES still carries most outbound mail. The remaining direct delivery now leaves through Vertex IPv4, using a common EHLO identity and matching SPF records. DNSSEC, DANE and automatic certificate renewal remain part of the design.
 
 ### Collectors and recovery
 
-ClamAV, the constrained AI adapter and the external collectors now run on Vertex. The collectors have one active scheduler, with their checkpoints carried across from the old host. If a required classification is missing, collection defers and the original stays upstream. Moving the scheduler did not relax that guard.
+ClamAV, the constrained AI adapter and the external collectors now run on Vertex. The collectors have one active scheduler, with their checkpoints carried across from the old host. If a required classification is missing, collection defers and the original stays upstream.
 
-The new logical PostgreSQL backup is encrypted and deduplicated with restic in Backblaze B2. I read back the full baseline archive and compared its byte count and SHA-256 hash; daily backups are enabled. A complete SQL restore of that new archive has not yet been exercised. Archive integrity and database recovery are separate checks.
+The new logical PostgreSQL backup is encrypted and deduplicated with restic in Backblaze B2. I read back the full baseline archive and compared its byte count and SHA-256 hash; daily backups are enabled.
 
 ### Result
 
 Mail now shares the Vertex platform with my applications, while clients retain their established server names and credentials. The implementation replaces a single local mail store with shared database services and separates public connections from the mail replicas.
-
-The old host remains for its outgoing queue, cached client connections and remaining certificate and backup dependencies. External SMTP reachability is still under independent verification, and mail IPv6 is not published pending reachability checks. The completed backend and DNS migration therefore does not amount to a fully validated end-to-end availability claim.

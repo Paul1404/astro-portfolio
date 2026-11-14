@@ -90,7 +90,7 @@ Der fest gepinnte Stalwart-Build enthält meinen Kompatibilitätspatch für best
 
 Vor dem abschließenden nativen Export und Import habe ich die alte schreibende Instanz eingefroren, danach die importierten Daten geprüft und die Suche auf Vertex neu aufgebaut. Die Abholjobs samt Prüfständen sind unter einen einzigen aktiven Scheduler umgezogen. Auch ClamAV und der KI-Adapter laufen im Cluster. Fehlt ein erforderliches Klassifikationsurteil, wird der Import weiterhin zurückgestellt und das Original bleibt beim Quellanbieter.
 
-Mail hat ein separates tägliches logisches PostgreSQL-Backup mit restic nach B2. Das vollständige Basisarchiv bestand den Hashvergleich nach dem Zurücklesen; ein vollständiger SQL-Restore-Test steht noch aus. Der alte Host bleibt für den Abbau seiner Versandwarteschlange und Übergangsabhängigkeiten erhalten. Öffentliches DNS verweist jetzt auf die Vertex-Frontends. Die unabhängige externe SMTP-Prüfung bleibt offen, Mail-IPv6 ist noch nicht veröffentlicht. Die [Mail-Fallstudie](/de/projects/pdcd-mail/) beschreibt diese Grenzen genauer.
+Mail hat ein separates tägliches logisches PostgreSQL-Backup mit restic nach B2. Das vollständige Basisarchiv habe ich zurückgelesen und seinen Hash geprüft. Die [Mail-Fallstudie](/de/projects/pdcd-mail/) beschreibt die Migration, die native Anmeldung und die Filterpipeline.
 
 ### Backups und Wiederherstellung
 
@@ -116,7 +116,7 @@ Für Restores beginne ich mit einem lesenden B2-Zugriff und einem isolierten Nam
   <figcaption>Die Wiederherstellung beginnt getrennt vom produktiven Datenverkehr. <a href="/diagrams/vertex/de-recovery.svg">Diagramm vergrößern</a>.</figcaption>
 </figure>
 
-Bei einem DiaTrack-Restore in einen separaten lokalen Cluster habe ich die Volumes aus B2 und alle acht PostgreSQL-Tabellen im Schema `public` wiederhergestellt. Auch die PostgreSQL-Exporte von Fortuna und Monica sowie Wengertsbergs MariaDB-Export wurden in isolierten Tests zurückgespielt. Das verschlüsselte Paperless-AI-Volume und sein Schlüssel ließen sich auf Vertex wiederherstellen. Der vollständige verschlüsselte Restore auf einem neuen Cluster steht noch aus.
+Bei einem DiaTrack-Restore in einen separaten lokalen Cluster habe ich die Volumes aus B2 und alle acht PostgreSQL-Tabellen im Schema `public` wiederhergestellt. Auch die PostgreSQL-Exporte von Fortuna und Monica sowie Wengertsbergs MariaDB-Export wurden in isolierten Tests zurückgespielt. Das verschlüsselte Paperless-AI-Volume und sein Schlüssel ließen sich auf Vertex wiederherstellen.
 
 Der Backup-Health-Job prüft aktuelle Exporte, erfolgreiche Backups und einen abgeschlossenen Upload für jedes Volume im Velero-Sicherungsumfang. Er meldet Teilfehler, pausierte Zeitpläne und überalterte Backups. Ein externer AWS-Beobachter liest den letzten erfolgreichen Lauf des Health-Jobs über Systems Manager und meldet ihn an CloudWatch. So kann auch ein ausgefallener Cluster-Check einen Alarm auslösen.
 

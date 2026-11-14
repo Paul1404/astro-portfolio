@@ -117,3 +117,7 @@ Mail now runs on Vertex. Keep web volume replication and Velero coverage separat
 from mail's native PostgreSQL/Redis replication and logical restic backups.
 Backend failover tests and archive hash readback do not establish end-to-end mail
 availability or a completed production SQL restore.
+
+Case studies describe implemented work and demonstrated results. Omit untested
+capabilities and pending verification work instead of adding operational status
+notes or defensive disclaimers to public portfolio copy.

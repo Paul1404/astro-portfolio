@@ -1,6 +1,6 @@
 flowchart TB
   accTitle: Mail architecture on Vertex
-  accDescr: Three HAProxy node frontends preserve client addresses and destination ports for two Stalwart replicas. PostgreSQL holds mail data; Redis Sentinel holds transient state. Collectors and helpers run on Vertex. Logical backups go to B2. Public SMTP reachability remains under independent verification.
+  accDescr: Three HAProxy node frontends preserve client addresses and destination ports for two Stalwart replicas. PostgreSQL holds mail data; Redis Sentinel holds transient state. Collectors and helpers run on Vertex. Logical backups go to B2.
   Clients["SMTP + existing mail clients"] --> Edge["Three node frontends<br/>HAProxy / host ports"]
   Edge -->|PROXY v2| Core["Two Stalwart replicas<br/>Native auth + original listeners"]:::core
   Web["Mail HTTPS"] --> Traefik["Traefik<br/>Exact-SNI passthrough"] --> Core

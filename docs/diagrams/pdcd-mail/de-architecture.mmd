@@ -1,6 +1,6 @@
 flowchart TB
   accTitle: Mailarchitektur auf Vertex
-  accDescr: Drei HAProxy-Knoten-Frontends erhalten Clientadressen und Zielports für zwei Stalwart-Replikate. PostgreSQL hält Maildaten, Redis Sentinel flüchtige Zustände. Abholjobs und Hilfsdienste laufen auf Vertex. Logische Backups gehen nach B2. Die öffentliche SMTP-Erreichbarkeit wird noch unabhängig geprüft.
+  accDescr: Drei HAProxy-Knoten-Frontends erhalten Clientadressen und Zielports für zwei Stalwart-Replikate. PostgreSQL hält Maildaten, Redis Sentinel flüchtige Zustände. Abholjobs und Hilfsdienste laufen auf Vertex. Logische Backups gehen nach B2.
   Clients["SMTP + bestehende Mailclients"] --> Edge["Drei Knoten-Frontends<br/>HAProxy / Host-Ports"]
   Edge -->|PROXY v2| Core["Zwei Stalwart-Replikate<br/>Native Anmeldung + bisherige Listener"]:::core
   Web["Mail-HTTPS"] --> Traefik["Traefik<br/>Exaktes SNI-Passthrough"] --> Core

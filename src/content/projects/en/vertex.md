@@ -90,7 +90,7 @@ The pinned Stalwart build includes my native legacy-password compatibility patch
 
 I froze the source writer before the final native export and import, checked the imported data and rebuilt search on Vertex. The collectors and their checkpoints moved under a single active scheduler, with ClamAV and the AI adapter also running in the cluster. Missing required classifications still defer imports and leave the originals upstream.
 
-Mail has a separate daily logical PostgreSQL backup through restic to B2. The complete baseline archive passed hash readback; a full SQL restore drill remains outstanding. The old host still supports queue drainage and transition dependencies. Public DNS now points at the Vertex frontends, but independent external SMTP verification remains open and mail IPv6 is not yet published. The [mail case study](/projects/pdcd-mail/) covers those boundaries in more detail.
+Mail has a separate daily logical PostgreSQL backup through restic to B2. I read back the complete baseline archive and verified its hash. The [mail case study](/projects/pdcd-mail/) describes the migration, native authentication and filtering pipeline.
 
 ### Backups and recovery
 
@@ -116,7 +116,7 @@ For restores, I start with a read-only B2 connection and an isolated namespace w
   <figcaption>The recovery sequence starts away from production traffic. <a href="/diagrams/vertex/en-recovery.svg">Open full-size diagram</a>.</figcaption>
 </figure>
 
-A DiaTrack restore into a separate local cluster recovered its volumes from B2 and all eight PostgreSQL tables in the `public` schema. I also restored Fortuna and Monica PostgreSQL exports and Wengertsberg's MariaDB export in isolated tests. Paperless AI's encrypted volume and key were recovered on Vertex; that encrypted restore still needs a full test on a new cluster.
+A DiaTrack restore into a separate local cluster recovered its volumes from B2 and all eight PostgreSQL tables in the `public` schema. I also restored Fortuna and Monica PostgreSQL exports and Wengertsberg's MariaDB export in isolated tests. Paperless AI's encrypted volume and key were recovered on Vertex.
 
 The backup health job checks recent exports, successful backups and a completed upload for every volume in its Velero backup scope. It flags partial failures, paused schedules and stale backups. An external AWS observer reads the health job's last successful run through Systems Manager and reports it to CloudWatch, so a stopped cluster check can raise an alarm too.
 

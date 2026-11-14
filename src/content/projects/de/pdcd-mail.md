@@ -83,18 +83,16 @@ Zwei parallele Worker, eine begrenzte Warteschlange, gemeinsam genutzte Ergebnis
 
 Das fest gepinnte Stalwart-Image enthält meinen Patch für bestehende Passwörter sowie PostgreSQL- und Redis-Unterstützung. Drei PostgreSQL-Instanzen auf getrennten Knoten speichern strukturierte Daten, Nachrichten-Blobs und Suchdaten. CloudNativePG verwaltet die primäre Instanz und die synchrone Replikation zu einer Standby-Instanz. Drei Redis-Instanzen mit Sentinel stellen gemeinsame flüchtige Zustände bereit. Jede Instanz nutzt ein verschlüsseltes, knotenlokales Longhorn-Volume. PostgreSQL und Redis übernehmen die Replikation selbst.
 
-Die Failover-Pfade von Datenbank und Redis habe ich mit gezielten Netzwerkfehlern getestet. Dabei wurden eine neue primäre Instanz gewählt und Testschreibvorgänge erhalten. Das belegt noch keine durchgängige Mailverfügbarkeit bei jedem Fehlerfall.
+Die Failover-Pfade von Datenbank und Redis habe ich mit gezielten Netzwerkfehlern getestet. Beide Dienste wählten eine neue primäre Instanz und behielten die Testschreibvorgänge bei.
 
 Amazon SES übernimmt weiterhin den größten Teil des Versands. Die übrige direkte Zustellung läuft nun über Vertex-IPv4 mit gemeinsamer EHLO-Identität und passenden SPF-Einträgen. DNSSEC, DANE und automatische Zertifikatserneuerung bleiben Teil des Konzepts.
 
 ### Abholjobs und Wiederherstellung
 
-ClamAV, der eingeschränkte KI-Adapter und die externen Abholjobs laufen jetzt auf Vertex. Die Abholjobs haben genau einen aktiven Scheduler; ihre Prüfstände wurden vom alten Host übernommen. Fehlt ein erforderliches Klassifikationsurteil, wird die Verarbeitung zurückgestellt und das Original bleibt beim Quellanbieter. Diese Schutzregel blieb beim Umzug erhalten.
+ClamAV, der eingeschränkte KI-Adapter und die externen Abholjobs laufen jetzt auf Vertex. Die Abholjobs haben genau einen aktiven Scheduler; ihre Prüfstände wurden vom alten Host übernommen. Fehlt ein erforderliches Klassifikationsurteil, wird die Verarbeitung zurückgestellt und das Original bleibt beim Quellanbieter.
 
-Das neue logische PostgreSQL-Backup wird mit restic verschlüsselt und dedupliziert bei Backblaze B2 gesichert. Das vollständige Basisarchiv habe ich zurückgelesen und Bytezahl sowie SHA-256-Hash verglichen. Tägliche Backups sind aktiviert. Ein vollständiger SQL-Restore dieses neuen Archivs wurde noch nicht durchgeführt. Archivintegrität und Datenbankwiederherstellung sind getrennte Prüfungen.
+Das neue logische PostgreSQL-Backup wird mit restic verschlüsselt und dedupliziert bei Backblaze B2 gesichert. Das vollständige Basisarchiv habe ich zurückgelesen und Bytezahl sowie SHA-256-Hash verglichen. Tägliche Backups sind aktiviert.
 
 ### Ergebnis
 
 Mail nutzt jetzt dieselbe Vertex-Plattform wie meine Anwendungen. Bestehende Servernamen und Zugangsdaten bleiben für die Clients erhalten. Gemeinsame Datenbankdienste ersetzen den einzelnen lokalen Mailspeicher; öffentliche Verbindungen und Mail-Replikate sind voneinander getrennt.
-
-Der alte Host bleibt für seine Versandwarteschlange, zwischengespeicherte Clientverbindungen sowie verbleibende Zertifikats- und Backup-Abhängigkeiten erhalten. Die externe SMTP-Erreichbarkeit wird noch unabhängig geprüft. Mail-IPv6 wird erst nach erfolgreichen Erreichbarkeitsprüfungen veröffentlicht. Die abgeschlossene Backend- und DNS-Migration belegt deshalb noch keine vollständig geprüfte Ende-zu-Ende-Verfügbarkeit.
