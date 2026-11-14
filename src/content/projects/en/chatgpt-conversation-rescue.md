@@ -30,4 +30,4 @@ To make it easier to read or search, run the included Node.js converter against 
 
 The JSON is useful when you want to keep the original structure and metadata. The transcript is a straightforward text file you can search, copy, or use as a starting point for a new conversation. Images and other non-text content appear as placeholders in the transcript; the tool does not download the attachment files.
 
-The recovery uses a ChatGPT web endpoint intended for its own interface. It worked for my conversation, but OpenAI may change it. The browser needs to be signed in and able to access the conversation.
+The script uses the ChatGPT interface's web endpoint and the existing browser session.

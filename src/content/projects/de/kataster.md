@@ -36,4 +36,4 @@ TanStack Start und PostgreSQL bilden Anwendung und Inventar ab. Ein BullMQ-Worke
 
 ### Quellcode und Zugang
 
-MIT-lizenziert. Die privaten Installationen richten sich an vertrauenswürdige Betreiber einer Organisation. Das öffentliche Repository enthält reproduzierbare Screenshots mit fiktiven Kunden und Kosten.
+MIT-lizenziert. Die privaten Installationen richten sich an vertrauenswürdige Betreiber einer Organisation.

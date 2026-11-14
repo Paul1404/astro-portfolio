@@ -18,7 +18,7 @@ export const content = {
 			{
 				icon: 'lucide:cloud',
 				title: 'Cloud infrastructure',
-				body: 'I run production workloads on Railway and Hetzner: deployments, databases, and the networking glue that keeps them online.',
+				body: 'I run applications on Kubernetes and cloud infrastructure, managing deployments, databases and networking.',
 			},
 			{
 				icon: 'lucide:box',
@@ -33,7 +33,7 @@ export const content = {
 			{
 				icon: 'lucide:network',
 				title: 'Networking',
-				body: 'Comfortable from DNS and mail security up to datacenter switching, with a focus on reliable, well-understood setups.',
+				body: 'I configure DNS, mail security and networks through to datacenter switching.',
 			},
 		],
 	},
@@ -43,7 +43,7 @@ export const content = {
 			{
 				icon: 'lucide:cloud',
 				title: 'Cloud-Infrastruktur',
-				body: 'Ich betreibe produktive Workloads auf Railway und Hetzner: Deployments, Datenbanken und das Netzwerk-Klebeband, das alles online hält.',
+				body: 'Ich betreibe Anwendungen auf Kubernetes und Cloud-Infrastruktur und kümmere mich um Deployments, Datenbanken und Netzwerke.',
 			},
 			{
 				icon: 'lucide:box',
@@ -58,7 +58,7 @@ export const content = {
 			{
 				icon: 'lucide:network',
 				title: 'Netzwerke',
-				body: 'Zu Hause von DNS und Mail-Security bis hin zu Datacenter-Switching, mit Fokus auf zuverlässige, gut verstandene Setups.',
+				body: 'Ich konfiguriere DNS, Mail-Security und Netzwerke bis zum Datacenter-Switching.',
 			},
 		],
 	},
@@ -109,7 +109,7 @@ export const ui = {
 		'projects.hero.eyebrow': 'Projects',
 		'projects.hero.title': 'A selection of my work',
 		'projects.hero.tagline':
-			"Applications, infrastructure tools, and automation built around real workflows. Explore the problem, the implementation, and the source where it is public.",
+			"Applications, infrastructure tools, and automation built around real workflows. Each project describes the problem and its technical implementation.",
 
 		// Project card / detail
 		'project.code': 'Code',
@@ -148,7 +148,7 @@ export const ui = {
 		'notfound.meta.desc': '404. This page was not found.',
 		'notfound.eyebrow': 'Error 404',
 		'notfound.title': 'This page does not exist',
-		'notfound.body': 'The link is broken or the page has moved. Let us get you back on track.',
+		'notfound.body': 'The link is broken or the page has moved.',
 		'notfound.back': 'Back to home',
 
 		// Terminal
@@ -211,7 +211,7 @@ export const ui = {
 		'projects.hero.eyebrow': 'Projekte',
 		'projects.hero.title': 'Eine Auswahl meiner Arbeit',
 		'projects.hero.tagline':
-			"Anwendungen, Infrastruktur-Tools und Automatisierung für konkrete Arbeitsabläufe. Hier stehen das Problem, die Umsetzung und, soweit öffentlich, der Quellcode.",
+			"Anwendungen, Infrastruktur-Tools und Automatisierung für konkrete Arbeitsabläufe. Zu jedem Projekt beschreibe ich die Aufgabe und die technische Umsetzung.",
 
 		// Project card / detail
 		'project.code': 'Code',
@@ -251,7 +251,7 @@ export const ui = {
 		'notfound.eyebrow': 'Fehler 404',
 		'notfound.title': 'Diese Seite existiert nicht',
 		'notfound.body':
-			'Der Link ist defekt oder die Seite wurde verschoben. Wir bringen Sie zurück auf den richtigen Weg.',
+			'Der Link ist defekt oder die Seite wurde verschoben.',
 		'notfound.back': 'Zurück zur Startseite',
 
 		// Terminal

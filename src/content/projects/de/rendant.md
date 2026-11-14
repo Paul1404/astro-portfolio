@@ -36,4 +36,4 @@ Die TanStack-Start-Anwendung nutzt PostgreSQL-Transaktionen für Belegnummern un
 
 ### Quellcode und Zugang
 
-Öffentlich einsehbarer Quellcode unter proprietärer Lizenz. Die Nutzung erfordert eine gesonderte schriftliche Vereinbarung. Repository-Screenshots zeigen synthetische Kassenprotokolle und Beträge.
+Öffentlich einsehbarer Quellcode unter proprietärer Lizenz. Die Nutzung erfordert eine gesonderte schriftliche Vereinbarung.

@@ -71,7 +71,7 @@ For public web traffic, Traefik routes requests through Kubernetes Gateway API. 
 
 ### Bringing the data with me
 
-The move was more than replacing containers. Paperless documents, password vaults, CMS databases and application files all needed to arrive intact. I stopped each old writer for the final transfer, restored the data on Vertex and checked the result against its source. For Paperless, that included comparing the original files by checksum; for object storage, it included checksum verification and application-level reads.
+I transferred Paperless documents, password vaults, CMS databases and application files alongside the applications. I stopped each old writer for the final transfer, restored the data on Vertex and checked the result against its source. For Paperless, that included comparing the original files by checksum; for object storage, it included checksum verification and application-level reads.
 
 For the web applications, Longhorn supplies replicated volumes for files and databases. I tested a volume by moving a disposable workload between nodes and reading back what it had written. For applications that need object storage, I added Garage and migrated their files into private S3-compatible buckets with separate credentials. Kontor2 uses signed uploads and downloads, while Remise keeps its records and media access separate.
 
@@ -122,7 +122,7 @@ The backup health job checks recent exports, successful backups and a completed 
 
 ### From migration to daily use
 
-Vertex is where I now run both personal tools and software used by real organisations. That changed how I approached the final details: existing hostnames and media paths had to keep working, releases needed a repeatable path from source to cluster, and health checks had to reflect whether an application was actually ready.
+The applications keep their existing hostnames and media paths. Releases follow the shared build and deployment process; health checks verify whether each application is ready.
 
 One example is Kontor2: I separated the process liveness check from dependency-aware readiness, so a slow database does not automatically cause the application to be restarted. Paperless also runs its document AI adapter inside the cluster.
 
@@ -131,7 +131,7 @@ One example is Kontor2: I separated the process liveness check from dependency-a
   <figcaption>The cluster dashboard during day-to-day operation. Production snapshot, November 2026.</figcaption>
 </figure>
 
-The result is a platform I use to build, deploy and operate my own services, with the application and infrastructure work treated as one project. The infrastructure repository is private. The application source and platform documentation provide a closer look at the components behind it.
+The infrastructure repository is private. Public application sources and documentation for the platform components are linked below.
 
 Live products: [Kontor2](https://kontor2.com), [Rendant](https://rendant.sv-untereuerheim.de) and [Remise](https://app.remise.pdcd.net).
 

@@ -20,14 +20,10 @@ screenshot:
   caption: "Luftbild aus der Projektwebsite."
 ---
 
-Untereuerheim ist der Ort, aus dem ich komme. Die Seite verbindet seine Geschichte, Luftbilder, Baudenkmäler und örtlichen Institutionen zu einem redaktionellen Erlebnis, das sich wie eine gedruckte Chronik liest.
+Untereuerheim ist der Ort, aus dem ich komme. Für die Website habe ich seine Geschichte, Luftbilder, Baudenkmäler und örtlichen Institutionen zusammengeführt.
 
-### Was es macht
+### Inhalte und Umsetzung
 
-- Erzählt die Ortsgeschichte in einer quellenbasierten Chronik mit Archivmaterial und heutigen Luftbildern.
-- Dokumentiert Baudenkmäler und Institutionen in strukturierten, langfristig pflegbaren Inhalten.
-- Liefert vorgerendertes HTML über einen gehärteten Bun-Server aus, mit responsiven Bildern und fast keinem JavaScript im Browser.
+Die Chronik verbindet historische Quellen und Archivmaterial mit heutigen Luftbildern. Baudenkmäler und Institutionen sind als strukturierte Inhalte angelegt, die sich einzeln pflegen und ergänzen lassen.
 
-### Warum es wichtig ist
-
-Die Seite macht Ortsgeschichte dauerhaft, durchsuchbar und zugänglich, ohne den Ort in ein austauschbares Tourismusprodukt zu verwandeln.
+Astro erzeugt die Seiten als HTML, das ein gehärteter Bun-Server ausliefert. Responsive Bilder passen sich der Bildschirmgröße an; im Browser läuft nur wenig JavaScript.

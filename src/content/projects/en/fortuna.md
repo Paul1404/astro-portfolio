@@ -35,4 +35,4 @@ A TanStack Start application with typed oRPC procedures, PostgreSQL, and Drizzle
 
 ### Source and access
 
-The source is public and all rights are reserved. This is a private application, not a public financial service. The repository screenshots use fictional demonstration data.
+Fortuna is my private application. The source is public and all rights are reserved.

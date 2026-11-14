@@ -60,7 +60,7 @@ Die größte Kompatibilitätsfrage betraf zusätzliche Passwörter. Stalwart erw
 
 Ich habe dafür einen gezielten Rust-Patch und einen einmaligen Importer umgesetzt. Die bestehenden Passwortprüfwerte wurden in Stalwarts nativen Zugangsdatenbestand übernommen. Hauptpasswörter und 81 aktive zusätzliche Passwörter blieben erhalten, ohne ihre Klartextwerte zu benötigen. Vor der breiten Umstellung standen lokale Regressionstests und ein produktiver Pilot.
 
-Anmeldung und Passwortverwaltung liegen damit bei Stalwart. Der verbleibende Aufwand ist klar: Bei künftigen Stalwart-Updates muss der Patch erhalten und getestet werden, solange eine entsprechende Kompatibilität im Upstream fehlt.
+Anmeldung und Passwortverwaltung liegen damit bei Stalwart. Der Kompatibilitätspatch ist Bestandteil des eigenen Stalwart-Builds.
 
 ### Filterung auch für abgeholte Nachrichten
 

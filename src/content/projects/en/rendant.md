@@ -36,4 +36,4 @@ The TanStack Start application uses PostgreSQL transactions for numbering and fi
 
 ### Source and access
 
-Public source under a proprietary license. Use requires a separate written agreement. Repository screenshots use synthetic cash records and amounts.
+Public source under a proprietary license. Use requires a separate written agreement.

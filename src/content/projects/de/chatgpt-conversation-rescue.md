@@ -30,4 +30,4 @@ Für eine leichter lesbare und durchsuchbare Version kannst du anschließend den
 
 Das JSON eignet sich, wenn du die ursprüngliche Struktur und Metadaten behalten möchtest. Das Transkript ist eine einfache Textdatei, die du durchsuchen, kopieren oder als Ausgangspunkt für einen neuen Chat verwenden kannst. Bilder und andere nichttextuelle Inhalte erscheinen im Transkript als Platzhalter; die Anhänge selbst lädt das Werkzeug nicht herunter.
 
-Die Rettung nutzt einen Web-Endpunkt, den ChatGPT für seine eigene Oberfläche verwendet. Bei meinem Chat hat das funktioniert, OpenAI kann ihn aber ändern. Der Browser muss angemeldet sein und auf den Chat zugreifen können.
+Das Skript nutzt den Web-Endpunkt der ChatGPT-Oberfläche und die bestehende Browser-Anmeldung.

@@ -20,14 +20,10 @@ screenshot:
   caption: "Aerial photograph used by the project website."
 ---
 
-Untereuerheim is the place I am from. The site gathers its history, aerial views, listed monuments, and local institutions into an editorial experience designed to read like a printed chronicle.
+Untereuerheim is the place I am from. For the website, I brought together its history, aerial photographs, listed monuments and local institutions.
 
-### What it does
+### Content and implementation
 
-- Tells the village history through a sourced chronology, archival material, and contemporary aerial photography.
-- Documents monuments and institutions with structured content that remains easy to maintain.
-- Serves pre-rendered HTML through a hardened Bun server, with responsive images and almost no client-side JavaScript.
+The chronology combines historical sources and archival material with contemporary aerial photographs. Monuments and institutions use structured content that can be maintained and expanded individually.
 
-### Why it matters
-
-It makes local history durable, searchable, and approachable without turning the village into a generic tourism product.
+Astro generates HTML pages served by a hardened Bun server. Responsive images adapt to the screen size, with little JavaScript running in the browser.

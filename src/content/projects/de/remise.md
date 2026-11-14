@@ -32,7 +32,3 @@ Mit Remise verwalte ich meine eigenen eBay-Verkäufe. In einer Artikelakte stehe
 ### Technische Umsetzung
 
 Bun, TypeScript, React, TanStack Start, Router und Query verbinden die Oberfläche mit PostgreSQL und Objektspeicher. Über eine gehostete MCP-Schnittstelle greifen Assistenten per OAuth auf dieselben Artikelakten und Freigabegrenzen zu, ohne Marktplatz-Zugangsdaten in den Chat zu übernehmen.
-
-### Zugang
-
-Remise ist meine private Verkaufsverwaltung. Die Anmeldeseite ist öffentlich erreichbar; Artikelakten, Dokumente und Marktplatzzugriff benötigen eine Berechtigung. Die Vorschau zeigt die aktuelle Oberfläche mit fiktiven Artikeln und ohne aktive eBay-Verbindung.

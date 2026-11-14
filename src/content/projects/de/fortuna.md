@@ -35,4 +35,4 @@ Eine TanStack-Start-Anwendung mit typisierten oRPC-Prozeduren, PostgreSQL und Dr
 
 ### Quellcode und Zugang
 
-Der Quellcode ist öffentlich einsehbar; alle Rechte bleiben vorbehalten. Fortuna ist eine private Anwendung und kein öffentlicher Finanzdienst. Die Screenshots im Repository verwenden fiktive Beispieldaten.
+Fortuna ist meine private Anwendung. Der Quellcode ist öffentlich einsehbar; alle Rechte bleiben vorbehalten.

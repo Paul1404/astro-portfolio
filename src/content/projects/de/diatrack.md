@@ -34,4 +34,4 @@ Eine TypeScript-Anwendung auf Bun und TanStack Start mit typisierten oRPC-Prozed
 
 ### Quellcode und Zugang
 
-Der Quellcode ist öffentlich einsehbar, aber eine Softwarelizenz ist nicht angegeben. Die öffentliche Sichtbarkeit gewährt keine Nutzungsrechte. Repository-Screenshots zeigen fiktive Geräte und keine persönliche Gesundheitshistorie.
+Der Quellcode ist öffentlich einsehbar; eine Softwarelizenz ist nicht angegeben.

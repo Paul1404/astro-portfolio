@@ -32,7 +32,3 @@ I use Remise to manage my own eBay selling work. An item record brings together 
 ### Engineering
 
 Bun, TypeScript, React, TanStack Start, Router, and Query connect the interface to PostgreSQL and object storage. A hosted MCP interface gives assistants access to the same item records and approval boundaries through OAuth, without putting marketplace credentials into the chat.
-
-### Access
-
-Remise is my private selling application. The sign-in page is public; item records, documents, and marketplace access require authorization. The preview shows the current interface with fictional records, without a live eBay connection.

@@ -34,4 +34,4 @@ One TypeScript application on Bun and TanStack Start, with typed oRPC procedures
 
 ### Source and access
 
-The source is public, but no software license is specified. Public visibility does not grant reuse rights. Repository screenshots use fictional device records and contain no personal health history.
+The source is publicly available; no software license is specified.

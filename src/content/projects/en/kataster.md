@@ -36,4 +36,4 @@ TanStack Start and PostgreSQL hold the application and inventory; a BullMQ worke
 
 ### Source and access
 
-MIT licensed. Deployments are private and intended for trusted operators in one organization. The public repository includes reproducible screenshots with fictional customers and costs.
+MIT licensed. Deployments are private and intended for trusted operators in one organization.

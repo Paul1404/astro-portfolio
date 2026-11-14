@@ -20,14 +20,14 @@ screenshot:
   caption: "Club crest used by the tournament application."
 ---
 
-Running a table tennis tournament on paper means redrawing brackets by hand, copying results between sheets, and a crowd squinting at one printout to find out who plays at table 3 next. This turns the participant list into everything the day needs, driven from a single admin dashboard.
+I built this tournament manager for a table tennis club. Organizers enter participants and results in the browser; players and spectators follow the schedule, standings and knockout brackets in a public live view.
 
-### What it does
+### Tournament flow
 
 - Generates the draw and supports several formats per division: groups with knockout, round robin, round robin with finals, pure knockout, or a Swiss system.
 - Validates results set by set against the rules, distributes matches across parallel tables, and numbers every game.
-- Gives spectators a mobile public view that refreshes on its own and updates live over server-sent events, reachable by scanning a QR code.
+- Updates the mobile spectator view through server-sent events. A QR code links directly to the tournament.
 
-### Why it matters
+### Engineering
 
-The organizer stops being the bottleneck. Results are entered once and everyone, players and spectators alike, sees the same up-to-date standings and bracket. The tournament logic sits in a separate, dependency-free engine, and any club can fork it with their own name and logo.
+The tournament logic lives in a separate, dependency-free engine. Results are entered once and then appear in the public standings and brackets. Other clubs can adapt the project with their own name and logo.

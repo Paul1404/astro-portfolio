@@ -71,7 +71,7 @@ Für den öffentlichen Webzugriff leitet Traefik Anfragen über die Kubernetes G
 
 ### Die Daten mitnehmen
 
-Der Umzug bestand nicht nur darin, Container auszutauschen. Paperless-Dokumente, Passworttresore, CMS-Datenbanken und Anwendungsdateien mussten vollständig ankommen. Für die letzte Übertragung habe ich jeweils die alte schreibende Instanz gestoppt, die Daten auf Vertex wiederhergestellt und mit der Quelle verglichen. Bei Paperless gehörte dazu ein Prüfsummenvergleich der Originaldateien, beim Objektspeicher die Prüfung der Dateien und Anwendungszugriffe.
+Mit den Anwendungen habe ich Paperless-Dokumente, Passworttresore, CMS-Datenbanken und Anwendungsdateien übertragen. Für die letzte Übertragung habe ich jeweils die alte schreibende Instanz gestoppt, die Daten auf Vertex wiederhergestellt und mit der Quelle verglichen. Bei Paperless gehörte dazu ein Prüfsummenvergleich der Originaldateien, beim Objektspeicher die Prüfung der Dateien und Anwendungszugriffe.
 
 Für die Webanwendungen stellt Longhorn replizierte Volumes für Dateien und Datenbanken bereit. Mit einem Testvolume habe ich eine Anwendung zwischen Knoten verschoben und ihre Daten anschließend zurückgelesen. Für Anwendungen mit Objektspeicher habe ich Garage integriert und die Dateien in private S3-kompatible Buckets mit getrennten Zugangsdaten migriert. Kontor2 nutzt signierte Uploads und Downloads, Remise trennt den Zugriff auf Anwendungsdaten und Medien.
 
@@ -122,7 +122,7 @@ Der Backup-Health-Job prüft aktuelle Exporte, erfolgreiche Backups und einen ab
 
 ### Vom Umzug zum täglichen Betrieb
 
-Auf Vertex laufen inzwischen persönliche Werkzeuge und Software, die von realen Organisationen genutzt wird. Das hat auch die letzten Schritte geprägt: Bestehende Hostnamen und Medienpfade mussten erhalten bleiben, Releases einen nachvollziehbaren Weg vom Quellcode in den Cluster bekommen und Health Checks tatsächlich die Bereitschaft eines Dienstes abbilden.
+Die Anwendungen behalten ihre bestehenden Hostnamen und Medienpfade. Releases laufen über den gemeinsamen Build- und Deployment-Prozess; Health Checks prüfen die Bereitschaft der jeweiligen Anwendung.
 
 Ein Beispiel ist Kontor2: Die Liveness-Prüfung ist von der Bereitschaftsprüfung für abhängige Dienste getrennt. Eine langsame Datenbank führt dadurch nicht automatisch zum Neustart des Anwendungsprozesses. Paperless betreibt seinen KI-Adapter für Dokumente ebenfalls innerhalb des Clusters.
 
@@ -131,7 +131,7 @@ Ein Beispiel ist Kontor2: Die Liveness-Prüfung ist von der Bereitschaftsprüfun
   <figcaption>Das Cluster-Dashboard im laufenden Betrieb. Aufnahme aus dem Betrieb, November 2026.</figcaption>
 </figure>
 
-Das Ergebnis ist eine Plattform, auf der ich meine Dienste entwickle, bereitstelle und betreibe. Anwendung und Infrastruktur gehören dabei zum selben Projekt. Das Infrastruktur-Repository ist privat. Die Anwendungsquellen und Plattformdokumentation zeigen die Bausteine dahinter.
+Das Infrastruktur-Repository ist privat. Die öffentlichen Anwendungsquellen und die Dokumentation der eingesetzten Plattformkomponenten sind unten verlinkt.
 
 Live-Anwendungen: [Kontor2](https://kontor2.com), [Rendant](https://rendant.sv-untereuerheim.de) und [Remise](https://app.remise.pdcd.net).
 

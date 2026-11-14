@@ -1,7 +1,7 @@
 ---
 title: "Ortsporträt Hofstetten"
 publishDate: 2026-07-31 00:00:00
-description: "Ein quellenbasiertes, barrierearmes Porträt über Hofstetten in Unterfranken, das Landschaft, Ortsgeschichte, St. Anna und Dorfleben ruhig zusammenführt."
+description: "Eine Website über Hofstetten in Unterfranken mit Ortsgeschichte, Landschaft, der Kapelle St. Anna und Dorfleben, mit Quellen und Bildnachweisen."
 stack:
   - Astro
   - Tailwind CSS
@@ -20,16 +20,10 @@ screenshot:
   caption: "Foto: Tilman2007, CC BY-SA 4.0. Für die Projektwebsite zugeschnitten."
 ---
 
-Kleine Orte bekommen selten das sorgfältige digitale Porträt, das bei größeren Städten selbstverständlich wirkt. Diese Seite nimmt Hofstetten genau in den Blick – mit zurückhaltender Gestaltung, starken Bildern und Aussagen, die auf ihre Quellen zurückgeführt werden.
+Für Hofstetten in Unterfranken habe ich eine Website über die Landschaft, Ortsgeschichte, die Kapelle St. Anna und das heutige Dorfleben gebaut. Historische Angaben sind mit Quellen belegt, Bildnachweise stehen direkt bei den Inhalten.
 
-### Was es macht
+### Gestaltung und Umsetzung
 
-- Verbindet die Geschichte des Ortes mit seiner Landschaft, der Kapelle St. Anna und dem heutigen Dorfleben.
-- Dokumentiert Quellen und Bildlizenzen direkt, statt ihre Herkunft nur in einem Rechercheordner festzuhalten.
-- Liefert eine schnelle mehrseitige Website mit responsiven Bildern, zugänglicher Struktur und fast keinem JavaScript im Browser.
-
-### Warum es wichtig ist
-
-Ortsgeschichte wird wertvoller, wenn sie konkret, überprüfbar und angenehm zu entdecken ist. Das Ergebnis wirkt weniger wie eine Tourismusvorlage und mehr wie ein kleines, dauerhaftes Buch über einen einzigen Ort.
+Die mehrseitige Astro-Website verbindet Texte mit großformatigen Fotografien. Responsive Bildgrößen, eine zugängliche Seitenstruktur und wenig JavaScript halten die Darstellung auch auf Mobilgeräten übersichtlich.
 
 Fotografie: [Tilman2007, St. Anna in Hofstetten](https://commons.wikimedia.org/wiki/File:Hofstetten_27_K%C3%B6nigsberg_in_Bayern_20201129_001.jpg), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). Das Website-Vorschaubild ist zugeschnitten und komprimiert.

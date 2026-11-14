@@ -18,14 +18,8 @@ screenshot:
   caption: "Markenbild des Portfolios."
 ---
 
-Eine persönliche Seite muss schnell laden, leicht zu pflegen sein und nicht selbst zum Wartungsprojekt werden. Diese hier ist ein statischer Astro-Build, bei dem ein neues Projekt eine Markdown-Datei bedeutet und nicht das Anfassen von Komponenten.
+Dieses Portfolio habe ich mit Astro, TypeScript und Tailwind CSS gebaut. Die Projekttexte liegen als Markdown-Dateien in einer Content Collection, jeweils auf Deutsch und Englisch. Neue Projekte lassen sich dadurch ergänzen, ohne die Seitenkomponenten zu ändern.
 
-### Was es macht
+Astro erzeugt daraus statische Seiten. Ein Push auf den Hauptbranch startet den Build und die Veröffentlichung auf GitHub Pages. Das integrierte i18n-Routing verbindet die Sprachfassungen.
 
-- Erzeugt jedes Projekt aus Markdown in einer Content Collection, sodass neue Einträge je eine Datei sind.
-- Liefert Englisch und Deutsch aus derselben Quelle über integriertes i18n-Routing.
-- Bringt ein kleines interaktives Terminal unter `/terminal` mit sowie ein vollständiges Favicon-Set, das aus einer einzigen SVG generiert wird.
-
-### Warum es wichtig ist
-
-Inhalt und Code bleiben getrennt, sodass das Schreiben über ein neues Projekt nie ein Bearbeiten der Seite selbst bedeutet. Sie baut zu reinen statischen Dateien und wird auf GitHub Pages deployt.
+Das Web-Terminal unter `/terminal` bietet einen zweiten Zugang zu den Projekten. Die Favicons werden aus einer gemeinsamen SVG-Datei erzeugt.

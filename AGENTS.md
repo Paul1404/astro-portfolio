@@ -121,3 +121,5 @@ availability or a completed production SQL restore.
 Case studies describe implemented work and demonstrated results. Omit untested
 capabilities and pending verification work instead of adding operational status
 notes or defensive disclaimers to public portfolio copy.
+Write about concrete users, decisions and behavior. Cut generic benefit paragraphs
+and repeated screenshot explanations; retain license terms and image credits.

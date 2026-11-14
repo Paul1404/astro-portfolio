@@ -60,7 +60,7 @@ The biggest compatibility problem was additional passwords. Stalwart expects its
 
 I implemented a focused Rust compatibility patch and a one-off importer to move the existing password verifiers into Stalwart's native credential store. Primary passwords and 81 active additional passwords were retained without needing their plaintext values. Local regression tests and a production pilot preceded the wider rollout.
 
-Authentication and credential management now belong to Stalwart. The trade-off is explicit: future Stalwart upgrades must retain and test the patch until equivalent compatibility is available upstream.
+Authentication and credential management now belong to Stalwart. The compatibility patch is included in my custom Stalwart build.
 
 ### Filtering both SMTP mail and imported mail
 

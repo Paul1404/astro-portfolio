@@ -18,14 +18,8 @@ screenshot:
   caption: "Portfolio brand mark."
 ---
 
-A personal site has to load fast, stay easy to update, and not turn into a maintenance project of its own. This one is a static Astro build where adding a project means writing a Markdown file, not touching components.
+I built this portfolio with Astro, TypeScript and Tailwind CSS. Project texts live in a Markdown content collection, with an English and a German file for each project. Adding a project does not require changing the page components.
 
-### What it does
+Astro generates static pages. A push to the main branch starts the build and publication on GitHub Pages. Built-in i18n routing connects the language versions.
 
-- Renders every project from Markdown in a content collection, so new entries are one file each.
-- Serves English and German from the same source through built-in i18n routing.
-- Ships a small interactive terminal at `/terminal` and a full favicon set generated from a single SVG.
-
-### Why it matters
-
-The content and the code stay separate, so writing about a new project never means editing the site itself. It builds to plain static files and deploys to GitHub Pages.
+The web terminal at `/terminal` provides another way to browse the projects. The favicons are generated from a shared SVG file.
