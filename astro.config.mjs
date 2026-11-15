@@ -19,7 +19,7 @@ export default defineConfig({
   },
   integrations: [
     icon(),
-    sitemap({ filter: (page) => !new URL(page).pathname.startsWith('/work/') }),
+    sitemap({ filter: (page) => !/^\/(?:de\/)?(?:work\/|projects\/pdcd-mail\/)/.test(new URL(page).pathname) }),
     robotsTxt(),
     cookieconsent({
       guiOptions: {

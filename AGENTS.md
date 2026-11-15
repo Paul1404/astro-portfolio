@@ -99,8 +99,8 @@ privacy page and open the panel there; never relax the loader's route gate.
 The response includes the source revision. The Pages deployment verifies that
 exact revision independently over HTTPS before reporting success.
 
-PDCD Mail diagrams use bilingual Mermaid sources in `docs/diagrams/pdcd-mail`
-and committed SVGs in `public/diagrams/pdcd-mail`. Regenerate with
+Stalwart diagrams use bilingual Mermaid sources in `docs/diagrams/stalwart`
+and committed SVGs in `public/diagrams/stalwart`. Regenerate with
 `npm run diagrams:mail`; see that directory's README for browser requirements.
 Keep the static rendering, accessible descriptions, and contained mobile scroll.
 The Web GitOps case study uses the same pipeline under `docs/diagrams/web-gitops`
@@ -113,10 +113,12 @@ committed SVGs in `public/diagrams/vertex`. Regenerate with
 `npm run diagrams:vertex`; keep the case study current and preserve the
 distinction between replicated storage and verified offsite backups.
 
-Mail now runs on Vertex. Keep web volume replication and Velero coverage separate
-from mail's native PostgreSQL/Redis replication and logical restic backups.
-Backend failover tests and archive hash readback do not establish end-to-end mail
-availability or a completed production SQL restore.
+Mail runs on Vertex with native PostgreSQL/Redis replication. Its Velero/B2
+recovery path includes logical PostgreSQL exports, helper state and TLS material.
+Helper checkpoints must precede the SQL export. Full isolated SQL and helper
+restoration has been verified. The Stalwart case study lives at `/projects/stalwart/`
+and `/de/projects/stalwart/`; retain static redirects for both old `pdcd-mail`
+detail and work URLs. Keep internal links and both locales aligned.
 
 Case studies describe implemented work and demonstrated results. Omit untested
 capabilities and pending verification work instead of adding operational status

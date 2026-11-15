@@ -40,7 +40,7 @@ Usage statements for Kontor2 (around 500 club members), Rendant (annual turnover
 in the low six figures in euros), Fortuna, and Kataster were supplied by Paul on
 2026-10-25. These describe actual use; screenshot figures remain fictional.
 
-PDCD Mail uses the official, unaltered Stalwart brand composition at Paul's
+The Stalwart case study uses the official, unaltered Stalwart brand composition at Paul's
 request, exported to WebP at quality88 with its1200x675 dimensions preserved.
 Both locales provide an explicit caption attributing Stalwart Labs, overriding
 the fictional-data screenshot caption. The image identifies the underlying

@@ -1,7 +1,7 @@
 ---
 title: "Vertex Kubernetes Platform"
 publishDate: 2026-11-08 00:00:00
-description: "A four-node RKE2 platform running websites, applications and Stalwart mail with Fleet, replicated storage, S3-compatible object storage, offsite backups, and automated HTTPS and DNS."
+description: "A five-node RKE2 platform running websites, applications and Stalwart mail with Fleet, replicated storage, S3-compatible object storage, offsite backups, and automated HTTPS and DNS."
 stack:
   - RKE2
   - Kubernetes
@@ -34,18 +34,18 @@ screenshot:
 
 My websites and applications had outgrown their original home: a single server carrying everything from a document archive to club administration. I built Vertex to bring those services onto a platform I could operate and extend myself, then moved the applications and their data without asking users to learn new addresses or workflows.
 
-Today Vertex runs across four RKE2 nodes on openSUSE Leap. It hosts my own applications, including [Kontor2](/projects/kontor2/), [Rendant](/projects/rendant/), [Kataster](/projects/kataster/), [Fortuna](/projects/fortuna/) and [Remise](/projects/remise/), alongside Paperless, Vaultwarden and several websites. [PDCD Mail](/projects/pdcd-mail/) now runs here too, with separate public mail frontends and shared database services.
+Today Vertex runs across five RKE2 nodes on openSUSE Leap. It hosts my own applications, including [Kontor2](/projects/kontor2/), [Rendant](/projects/rendant/), [Kataster](/projects/kataster/), [Fortuna](/projects/fortuna/) and [Remise](/projects/remise/), alongside Paperless, Vaultwarden and several websites. [Stalwart](/projects/stalwart/) now runs here too, with separate public mail frontends and shared database services.
 
 <figure class="mail-diagram vertex-diagram">
   <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Vertex platform architecture.">
-    <img src="/diagrams/vertex/en-architecture.svg" alt="Vertex architecture showing separate web and mail routing, Fleet reconciliation, shared mail databases, Garage and Longhorn on four RKE2 nodes." width="643" height="1126" loading="lazy" decoding="async" />
+    <img src="/diagrams/vertex/en-architecture.svg" alt="Vertex architecture showing separate web and mail routing, Fleet reconciliation, shared mail databases, Garage and Longhorn on five RKE2 nodes." width="643" height="1126" loading="lazy" decoding="async" />
   </div>
   <figcaption>How traffic, deployments and storage come together on Vertex. <a href="/diagrams/vertex/en-architecture.svg">Open full-size diagram</a>.</figcaption>
 </figure>
 
 ### Building a platform I can operate
 
-Three nodes run the control plane and embedded etcd; a fourth adds capacity for applications. I use Rancher to manage the cluster and Fleet to reconcile each service from a private Git repository. GitHub Actions builds and scans application images, and verified digests are promoted into the deployment configuration.
+Three nodes run the control plane and embedded etcd; two workers provide additional application capacity. I use Rancher to manage the cluster and Fleet to reconcile each service from a private Git repository. GitHub Actions builds and scans application images, and verified digests are promoted into the deployment configuration.
 
 <figure class="mail-diagram vertex-diagram">
   <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Application delivery flow.">
@@ -84,13 +84,13 @@ For the web applications, Longhorn supplies replicated volumes for files and dat
 
 ### Bringing Stalwart onto the platform
 
-Mail needed a different ingress and storage design from the web applications. Three separate nodes run HAProxy mail frontends, forwarding the real client IP and original destination port with PROXY v2. Two Stalwart replicas keep the existing listener identities and client hostnames. Mail HTTPS passes through Traefik by exact SNI; the original DANE key association is retained alongside cert-manager's automated default certificate.
+Mail needed a different ingress and storage design from the web applications. Three separate nodes run HAProxy mail frontends, forwarding the real client IP and original destination port with PROXY v2. Three Stalwart replicas keep the existing listener identities and client hostnames. Mail HTTPS passes through Traefik by exact SNI; the original DANE key association is retained alongside cert-manager's automated default certificate.
 
 The pinned Stalwart build includes my native legacy-password compatibility patch. CloudNativePG manages three PostgreSQL instances with synchronous replication to a standby; they hold mail metadata, blobs and search data. Redis Sentinel manages three Redis members for transient shared state. Their encrypted Longhorn volumes each have one local copy, with PostgreSQL and Redis providing replication across nodes. This differs from the three-copy volumes used by the web applications.
 
 I froze the source writer before the final native export and import, checked the imported data and rebuilt search on Vertex. The collectors and their checkpoints moved under a single active scheduler, with ClamAV and the AI adapter also running in the cluster. Missing required classifications still defer imports and leave the originals upstream.
 
-Mail has a separate daily logical PostgreSQL backup through restic to B2. I read back the complete baseline archive and verified its hash. The [mail case study](/projects/pdcd-mail/) describes the migration, native authentication and filtering pipeline.
+Mail has a native Velero/B2 backup path for logical PostgreSQL exports, helper state and TLS recovery material. I restored the full database and helper state in isolation. The [mail case study](/projects/stalwart/) describes the migration, native authentication and filtering pipeline.
 
 ### Backups and recovery
 

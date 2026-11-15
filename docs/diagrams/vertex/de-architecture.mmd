@@ -1,15 +1,15 @@
 flowchart TB
   accTitle: Datenverkehr und Plattformarchitektur von Vertex
-  accDescr: Besucher erreichen das Traefik-Gateway direkt über Route 53 oder bei bestehenden Websites über CloudFront. HTTPRoutes leiten zu isolierten Anwendungsdiensten. Rancher Fleet gleicht den Sollzustand ab; cert-manager und ExternalDNS verwalten ausgewählte Zertifikate und DNS-Einträge. Longhorn stellt replizierten Speicher bereit, Garage S3-kompatible Buckets. Mail nutzt drei HAProxy-Frontends, zwei Stalwart-Replikate und nativ replizierte PostgreSQL- und Redis-Speicher.
+  accDescr: Besucher erreichen das Traefik-Gateway direkt über Route 53 oder bei bestehenden Websites über CloudFront. HTTPRoutes leiten zu isolierten Anwendungsdiensten. Rancher Fleet gleicht den Sollzustand ab; cert-manager und ExternalDNS verwalten ausgewählte Zertifikate und DNS-Einträge. Longhorn stellt replizierten Speicher bereit, Garage S3-kompatible Buckets. Mail nutzt drei HAProxy-Frontends, drei Stalwart-Replikate und nativ replizierte PostgreSQL- und Redis-Speicher.
   Visitor([Besucher]):::person
   subgraph edge["ÖFFENTLICHER ZUGRIFF"]
     DNS["Route 53<br/>DNS mit Health Checks"]:::cloud
     CDN["CloudFront<br/>bestehende Websites"]:::cloud
   end
-  subgraph cluster["VERTEX / VIER RKE2-KNOTEN"]
+  subgraph cluster["VERTEX / FÜNF RKE2-KNOTEN"]
     GW["Traefik Gateway<br/>TLS + HTTPRoutes"]:::gateway
     MailEdge["Drei Mail-Frontends<br/>HAProxy + PROXY v2"]:::gateway
-    Mail["Stalwart<br/>zwei Replikate"]:::workload
+    Mail["Stalwart<br/>drei Replikate"]:::workload
     MailDB["PostgreSQL + Redis Sentinel<br/>Native Replikation / verschlüsselte Volumes"]:::storage
     Apps["Anwendungen<br/>Services + Workloads"]:::workload
     Store["Longhorn<br/>replizierte Volumes"]:::storage

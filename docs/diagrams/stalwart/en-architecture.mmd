@@ -1,0 +1,25 @@
+flowchart TB
+  accTitle: Stalwart on Vertex
+  accDescr: Three edges and three mail replicas share PostgreSQL durable state and Redis coordination.
+  Internet["SMTP peers and mail clients"]
+  Edge["3 HAProxy edges, IPv4 + IPv6<br/>PROXY v2: peer address + destination port"]:::edge
+  subgraph App["Stalwart 0.16.27, three distinct Kubernetes nodes"]
+    direction LR
+    A["Mail replica 1"]
+    B["Mail replica 2"]
+    C["Mail replica 3"]
+    A ~~~ B ~~~ C
+  end
+  SQL["PostgreSQL, 3 instances<br/>Accounts, configuration, mailboxes<br/>Blobs, search, durable delivery queue"]:::durable
+  Disk["Encrypted node-local volumes<br/>Synchronous replica acknowledgement"]:::durable
+  Redis["Redis + Sentinel, 3 members<br/>Counters, locks, coordinator pub/sub<br/>Asynchronous replication"]:::transient
+  Internet --> Edge
+  Edge --> App
+  App --> Shared["Shared access"]
+  Shared -->|"durable data, TLS"| SQL
+  Shared <-.->|"coordination"| Redis
+  SQL --> Disk
+
+  classDef edge fill:#fff1f2,stroke:#e84d60,color:#172033
+  classDef durable fill:#e0f2fe,stroke:#0284c7,color:#172033
+  classDef transient fill:#fef3c7,stroke:#b45309,color:#172033

@@ -1,0 +1,17 @@
+flowchart TB
+  accTitle: Mail paths
+  accDescr: Filtering, mailbox access and outbound delivery.
+  SMTP["Incoming SMTP"] --> Filter["Stalwart rules + ClamAV<br/>Bounded AI classification signal"]
+  Source["External IMAP mailboxes"] --> Collect["6 incremental collectors<br/>Scan + classify before import"]
+  Collect -->|"verdict missing: defer"| Source
+  Filter -->|"accepted / Junk"| Mail["Shared PostgreSQL mailbox store"]:::durable
+  Collect -->|"UID checkpoints + delivery receipts"| Mail
+  Clients["IMAP / JMAP via Stalwart"] <--> Mail
+  Submit["Authenticated submission<br/>Sender permissions + policy"] --> Queue["Shared persistent queue"]:::durable
+  Mail -.->|"forwarding / server-generated mail"| Queue
+  Queue --> SES["Amazon SES<br/>About 95% of outgoing mail"]:::edge
+  Queue --> Direct["Direct MX over IPv4<br/>Best effort"]:::edge
+
+  classDef edge fill:#fff1f2,stroke:#e84d60,color:#172033
+  classDef durable fill:#e0f2fe,stroke:#0284c7,color:#172033
+  classDef transient fill:#fef3c7,stroke:#b45309,color:#172033

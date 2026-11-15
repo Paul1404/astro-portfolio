@@ -1,0 +1,17 @@
+flowchart TB
+  accTitle: Mailpfade
+  accDescr: Filterung, Postfachzugriff und ausgehende Zustellung.
+  SMTP["Eingehendes SMTP"] --> Filter["Stalwart-Regeln + ClamAV<br/>Begrenztes KI-Klassifizierungssignal"]
+  Source["Externe IMAP-Postfächer"] --> Collect["6 inkrementelle Kollektoren<br/>Prüfung vor dem Import"]
+  Collect -->|"Urteil fehlt: warten"| Source
+  Filter -->|"angenommen / Junk"| Mail["Gemeinsamer PostgreSQL-Postfachbestand"]:::durable
+  Collect -->|"UID-Checkpoints + Zustellbelege"| Mail
+  Clients["IMAP / JMAP über Stalwart"] <--> Mail
+  Submit["Authentifizierte Submission<br/>Absenderberechtigungen + Policy"] --> Queue["Gemeinsame persistente Queue"]:::durable
+  Mail -.->|"Weiterleitung / serverseitige Mail"| Queue
+  Queue --> SES["Amazon SES<br/>Etwa 95% der ausgehenden Mail"]:::edge
+  Queue --> Direct["Direktes MX über IPv4<br/>Best Effort"]:::edge
+
+  classDef edge fill:#fff1f2,stroke:#e84d60,color:#172033
+  classDef durable fill:#e0f2fe,stroke:#0284c7,color:#172033
+  classDef transient fill:#fef3c7,stroke:#b45309,color:#172033

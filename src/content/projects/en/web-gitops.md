@@ -24,7 +24,7 @@ icon: git-pull-request
 
 This case study describes the original single-host deployment. Its websites and applications were later moved to [Vertex](/projects/vertex/), where Fleet reconciles their Kubernetes configuration.
 
-I built PDCD Web GitOps to run websites and supporting services on the same Rocky Linux host as my [mail platform](/projects/pdcd-mail/), while keeping deployment permissions separate. It manages WordPress and REDAXO sites alongside digest-pinned Umami and Vaultwarden deployments.
+I built PDCD Web GitOps to run websites and supporting services on the same Rocky Linux host as my [mail platform](/projects/stalwart/), while keeping deployment permissions separate. It manages WordPress and REDAXO sites alongside digest-pinned Umami and Vaultwarden deployments.
 
 The design centres on a simple boundary: GitHub publishes desired state and verified artifacts; an unprivileged account on the host decides what it can apply. CI has no administrative SSH access to the server. Each site has its own account, container network, persistent data, and systemd units.
 

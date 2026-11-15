@@ -4,8 +4,8 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 
 // Generated SVGs are committed. The normal static build needs no browser or Mermaid runtime.
-const project = process.argv[2] ?? 'pdcd-mail';
-if (!['pdcd-mail', 'web-gitops', 'vertex'].includes(project)) throw new Error('Unknown diagram collection');
+const project = process.argv[2] ?? 'stalwart';
+if (!['stalwart', 'web-gitops', 'vertex'].includes(project)) throw new Error('Unknown diagram collection');
 const source = `docs/diagrams/${project}`;
 const temporary = mkdtempSync(path.join(tmpdir(), 'pdcd-mermaid-'));
 try {
@@ -19,7 +19,7 @@ try {
       '--input', path.join(source, file), '--output', `public/diagrams/${project}/${file.replace('.mmd', '.svg')}`,
       '--configFile', path.join(source, 'config.json'), '--puppeteerConfigFile', browserConfig,
       '--backgroundColor', '#f8fafc', '--size', '1600', '--no-font-embed',
-      '--svgId', `${project === 'pdcd-mail' ? 'mail' : project}-${file.replace('.mmd', '')}`], { stdio: 'inherit' });
+      '--svgId', `${project === 'stalwart' ? 'mail' : project}-${file.replace('.mmd', '')}`], { stdio: 'inherit' });
     const output = `public/diagrams/${project}/${file.replace('.mmd', '.svg')}`;
     // Preserve inter-word spacing across adjacent SVG tspans in image renderers.
     writeFileSync(output, readFileSync(output, 'utf8').replace('<svg ', '<svg xml:space="preserve" '));

@@ -171,3 +171,10 @@ main [id] { scroll-margin-top: 6rem; }
 .vertex-screenshot img { display: block; width: 100%; height: auto; margin: 0; border: 0; border-radius: 0; }
 .vertex-screenshot figcaption { margin-top: .75rem; font-size: .875rem; line-height: 1.6; }
 @media (min-width: 1200px) { .vertex-screenshot { width: calc(100% + 16rem); margin-inline: -8rem; } }
+
+/* The Stalwart overview has a compact source; recovery is a linear flow. */
+.stalwart-diagram .mail-diagram-scroll img[src$="-recovery.svg"] { min-width: 0; max-width: 460px; margin-inline: auto; }
+@media (max-width: 600px) {
+  .stalwart-diagram .mail-diagram-scroll picture img { min-width: 0; max-width: 100%; }
+  .stalwart-diagram .mail-diagram-scroll { padding: .5rem; }
+}

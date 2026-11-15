@@ -1,0 +1,13 @@
+flowchart TB
+  accTitle: Mailwiederherstellung
+  accDescr: Geordnetes Backup und isolierte Wiederherstellung.
+  Helpers["Zuerst Helper-Zustand sichern<br/>Kollektor-Ledger, KI, ClamAV"]
+  Export["Danach PostgreSQL exportieren<br/>Konsistentes logisches Archiv"]:::durable
+  Backup["Velero + verschlüsseltes restic → B2<br/>Export, Helper-Volumes, Konfiguration<br/>Laufzeit-Secrets, TLS- / ACME-Recovery"]:::edge
+  Restore["Isolierte Wiederherstellung<br/>Helper-Checkpoint ≤ SQL-Exportstart"]
+  Verify["Vollständige Datenbank, 27 Tabellen<br/>pg_restore + pg_amcheck<br/>Anmeldung, Ledger, Helper-Zustand"]:::durable
+  Helpers --> Export --> Backup --> Restore --> Verify
+
+  classDef edge fill:#fff1f2,stroke:#e84d60,color:#172033
+  classDef durable fill:#e0f2fe,stroke:#0284c7,color:#172033
+  classDef transient fill:#fef3c7,stroke:#b45309,color:#172033

@@ -1,7 +1,7 @@
 ---
 title: "Vertex Kubernetes Platform"
 publishDate: 2026-11-08 00:00:00
-description: "Eine RKE2-Plattform mit vier Knoten für Websites, Anwendungen und Stalwart-Mail, mit Fleet, repliziertem Speicher, S3-kompatiblem Objektspeicher, externen Backups sowie automatisiertem HTTPS und DNS."
+description: "Eine RKE2-Plattform mit fünf Knoten für Websites, Anwendungen und Stalwart-Mail, mit Fleet, repliziertem Speicher, S3-kompatiblem Objektspeicher, externen Backups sowie automatisiertem HTTPS und DNS."
 stack:
   - RKE2
   - Kubernetes
@@ -34,18 +34,18 @@ screenshot:
 
 Meine Websites und Anwendungen waren ihrem ursprünglichen Zuhause entwachsen: einem einzelnen Server, auf dem vom Dokumentenarchiv bis zur Vereinsverwaltung alles zusammenlief. Mit Vertex habe ich eine Plattform aufgebaut, die ich selbst betreiben und erweitern kann. Anschließend habe ich die Anwendungen samt Daten umgezogen, ohne dass Nutzer neue Adressen oder Abläufe lernen mussten.
 
-Heute läuft Vertex auf vier RKE2-Knoten mit openSUSE Leap. Dort betreibe ich eigene Anwendungen wie [Kontor2](/de/projects/kontor2/), [Rendant](/de/projects/rendant/), [Kataster](/de/projects/kataster/), [Fortuna](/de/projects/fortuna/) und [Remise](/de/projects/remise/), daneben Paperless, Vaultwarden und mehrere Websites. [PDCD Mail](/de/projects/pdcd-mail/) läuft jetzt ebenfalls hier, mit eigenen öffentlichen Mail-Frontends und gemeinsamen Datenbankdiensten.
+Heute läuft Vertex auf fünf RKE2-Knoten mit openSUSE Leap. Dort betreibe ich eigene Anwendungen wie [Kontor2](/de/projects/kontor2/), [Rendant](/de/projects/rendant/), [Kataster](/de/projects/kataster/), [Fortuna](/de/projects/fortuna/) und [Remise](/de/projects/remise/), daneben Paperless, Vaultwarden und mehrere Websites. [Stalwart](/de/projects/stalwart/) läuft jetzt ebenfalls hier, mit eigenen öffentlichen Mail-Frontends und gemeinsamen Datenbankdiensten.
 
 <figure class="mail-diagram vertex-diagram">
   <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Architektur der Vertex-Plattform.">
-    <img src="/diagrams/vertex/de-architecture.svg" alt="Vertex-Architektur mit getrenntem Web- und Mailrouting, Fleet-Abgleich, gemeinsamen Maildatenbanken, Garage und Longhorn auf vier RKE2-Knoten." width="643" height="1171" loading="lazy" decoding="async" />
+    <img src="/diagrams/vertex/de-architecture.svg" alt="Vertex-Architektur mit getrenntem Web- und Mailrouting, Fleet-Abgleich, gemeinsamen Maildatenbanken, Garage und Longhorn auf fünf RKE2-Knoten." width="643" height="1171" loading="lazy" decoding="async" />
   </div>
   <figcaption>So greifen Zugriff, Deployments und Speicher auf Vertex ineinander. <a href="/diagrams/vertex/de-architecture.svg">Diagramm vergrößern</a>.</figcaption>
 </figure>
 
 ### Eine Plattform für den eigenen Betrieb
 
-Drei Knoten betreiben die Control Plane und das eingebettete etcd; ein vierter ergänzt Kapazität für Anwendungen. Ich verwalte den Cluster mit Rancher. Fleet gleicht die Dienste mit einem privaten Git-Repository ab. GitHub Actions baut und prüft die Anwendungsimages. Geprüfte Digests werden anschließend in die Deployment-Konfiguration übernommen.
+Drei Knoten betreiben die Control Plane und das eingebettete etcd; zwei Worker ergänzen Kapazität für Anwendungen. Ich verwalte den Cluster mit Rancher. Fleet gleicht die Dienste mit einem privaten Git-Repository ab. GitHub Actions baut und prüft die Anwendungsimages. Geprüfte Digests werden anschließend in die Deployment-Konfiguration übernommen.
 
 <figure class="mail-diagram vertex-diagram">
   <div class="mail-diagram-scroll" tabindex="0" role="region" aria-label="Ablauf der Anwendungsbereitstellung.">
@@ -84,13 +84,13 @@ Für die Webanwendungen stellt Longhorn replizierte Volumes für Dateien und Dat
 
 ### Stalwart auf die Plattform bringen
 
-Mail brauchte einen anderen Zugriffs- und Speicheraufbau als die Webanwendungen. Drei getrennte Knoten betreiben HAProxy-Mail-Frontends. PROXY v2 übergibt die tatsächliche Client-IP und den ursprünglichen Zielport. Zwei Stalwart-Replikate behalten die bisherigen Listener-Identitäten und Clientnamen bei. Mail-HTTPS wird über exakte SNI-Zuordnung durch Traefik durchgereicht. Die ursprüngliche DANE-Schlüsselzuordnung bleibt neben dem von cert-manager automatisch erneuerten Standardzertifikat erhalten.
+Mail brauchte einen anderen Zugriffs- und Speicheraufbau als die Webanwendungen. Drei getrennte Knoten betreiben HAProxy-Mail-Frontends. PROXY v2 übergibt die tatsächliche Client-IP und den ursprünglichen Zielport. Drei Stalwart-Replikate behalten die bisherigen Listener-Identitäten und Clientnamen bei. Mail-HTTPS wird über exakte SNI-Zuordnung durch Traefik durchgereicht. Die ursprüngliche DANE-Schlüsselzuordnung bleibt neben dem von cert-manager automatisch erneuerten Standardzertifikat erhalten.
 
 Der fest gepinnte Stalwart-Build enthält meinen Kompatibilitätspatch für bestehende Passwörter. CloudNativePG verwaltet drei PostgreSQL-Instanzen mit synchroner Replikation zu einer Standby-Instanz. Sie speichern Mailmetadaten, Blobs und Suchdaten. Redis Sentinel verwaltet drei Redis-Instanzen für gemeinsame flüchtige Zustände. Ihre verschlüsselten Longhorn-Volumes haben jeweils eine lokale Kopie; PostgreSQL und Redis übernehmen die Replikation über Knotengrenzen hinweg. Das unterscheidet sich von den Volumes mit drei Kopien für die Webanwendungen.
 
 Vor dem abschließenden nativen Export und Import habe ich die alte schreibende Instanz eingefroren, danach die importierten Daten geprüft und die Suche auf Vertex neu aufgebaut. Die Abholjobs samt Prüfständen sind unter einen einzigen aktiven Scheduler umgezogen. Auch ClamAV und der KI-Adapter laufen im Cluster. Fehlt ein erforderliches Klassifikationsurteil, wird der Import weiterhin zurückgestellt und das Original bleibt beim Quellanbieter.
 
-Mail hat ein separates tägliches logisches PostgreSQL-Backup mit restic nach B2. Das vollständige Basisarchiv habe ich zurückgelesen und seinen Hash geprüft. Die [Mail-Fallstudie](/de/projects/pdcd-mail/) beschreibt die Migration, die native Anmeldung und die Filterpipeline.
+Mail hat einen nativen Velero/B2-Backuppfad für logische PostgreSQL-Exporte, Helper-Zustand und TLS-Recovery-Material. Die vollständige Datenbank und den Helper-Zustand habe ich isoliert wiederhergestellt. Die [Mail-Fallstudie](/de/projects/stalwart/) beschreibt die Migration, die native Anmeldung und die Filterpipeline.
 
 ### Backups und Wiederherstellung
 

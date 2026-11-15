@@ -7,6 +7,6 @@ URLs must not appear in these assets.
 
 Regenerate the committed SVGs with `npm run diagrams:gitops`. The shared renderer,
 pinned Mermaid CLI and local browser requirements are documented in
-`../pdcd-mail/README.md`. The normal site build serves static SVGs without
+`../stalwart/README.md`. The normal site build serves static SVGs without
 executing Mermaid in the visitor's browser. Keep titles, descriptions, both
 language versions and page image dimensions aligned after regeneration.

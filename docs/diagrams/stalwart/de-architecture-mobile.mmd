@@ -1,0 +1,14 @@
+flowchart TB
+  accTitle: Stalwart auf Vertex
+  accDescr: Drei Edges und drei Mailreplikate nutzen PostgreSQL für dauerhafte Daten und Redis zur Koordination.
+  Internet["SMTP, Submission<br/>IMAP, JMAP"]
+  Edge["3 HAProxy-Edges<br/>IPv4 + IPv6, PROXY v2"]:::edge
+  App["3 Stalwart-Replikate<br/>auf getrennten Knoten"]
+  SQL["PostgreSQL, 3 Instanzen<br/>Konten, Mail, Blobs<br/>Suche, Versandqueue<br/>Synchron repliziert"]:::durable
+  Redis["Redis + Sentinel, 3<br/>Zähler, Sperren<br/>Koordinator-Pub/Sub<br/>Asynchron repliziert"]:::transient
+  Internet --> Edge --> App
+  App -->|"TLS"| SQL
+  App <-.->|"Koordination"| Redis
+  classDef edge fill:#fff1f2,stroke:#e84d60,color:#172033
+  classDef durable fill:#e0f2fe,stroke:#0284c7,color:#172033
+  classDef transient fill:#fef3c7,stroke:#b45309,color:#172033

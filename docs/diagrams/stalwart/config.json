@@ -19,6 +19,8 @@
     "curve": "basis",
     "padding": 18,
     "nodeSpacing": 30,
-    "rankSpacing": 44
-  }
+    "rankSpacing": 44,
+    "wrappingWidth": 340
+  },
+  "markdownAutoWrap": false
 }
